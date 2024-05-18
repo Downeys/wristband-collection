@@ -47,12 +47,12 @@ export default function PlayListProvider({ children, props }: { children: React.
         console.log(trackInPlayer.trackId)
         debugger
         if (!currentHowl.play) {
-            const song = createHowl('sns-home.mp3');
+            const song = createHowl('https://wristbandaud.blob.core.windows.net/audio/sns-home.mp3');
             if (action === 'play') song.play();
             setCurrentHowl(song);
             setState({ ...state, currentHowlId: trackId })
         } else if (state.currentHowlId !== trackId) {
-            const song = createHowl('sns-home.mp3');
+            const song = createHowl('https://wristbandaud.blob.core.windows.net/audio/sns-home.mp3');
             currentHowl.stop();
             if (action === 'play') {
                 song.play();
