@@ -7,5 +7,4 @@ export const InitialPlayerState: PlayerContextState = {
     playList: [],
     back: () => {},
     next: () => {},
-    play: () => {},
 }

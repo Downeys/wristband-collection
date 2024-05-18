@@ -17,7 +17,7 @@ export const SmallPlayer: React.FC = () => {
     const { trackInPlayer, back, next } = useContext(PlayListContext);
 
     useEffect(() => {
-        console.log(`track in player: ${trackInPlayer}`)
+        console.log(`track in player: ${JSON.stringify(trackInPlayer)}`)
     })
     return (
         <div className="h-40 w-screen flex flex-col pt-2 px-6 bg-slate-800 shadow-footer">
