@@ -1,6 +1,5 @@
 'use client'
 
-import { TrackData } from "@/models/types";
 import BackButton from "../buttons/BackButton";
 import NextButton from "../buttons/NextButton";
 import PlayButton from "../buttons/PlayButton";
@@ -31,7 +30,7 @@ export const SmallPlayer: React.FC = () => {
             </div>
             <div className="flex flex-row justify-center items-center p-2">
                 <BackButton onClick={back}/>
-                <PlayButton trackId={trackInPlayer?.trackId} status={status} />
+                <PlayButton trackId={trackInPlayer?.id} status={status} />
                 <NextButton onClick={next}/>
             </div>
         </div>

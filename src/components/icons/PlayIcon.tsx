@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react";
-import { IconProps } from "../../models/types"
+import { IconProps } from "../types/types"
 
 export const PlayIcon: React.FC<IconProps> = (props) => {
     const [defaultColor, setDefaultColor] = useState("currentColor")

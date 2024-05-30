@@ -43,22 +43,21 @@ export default function PlayListProvider({ children, props }: { children: React.
         return currentTrack
     }, [state.history])
 
-    const handlePlayPause = useCallback(async (trackId: string, action: 'play' | 'pause') => {
-        console.log(trackInPlayer.trackId)
-        debugger
+    const handlePlayPause = useCallback(async (id: string, action: 'play' | 'pause') => {
+        console.log(trackInPlayer.id)
         if (!currentHowl.play) {
-            const song = createHowl('https://wristbandaud.blob.core.windows.net/audio/sns-home.mp3');
+            const song = createHowl(trackInPlayer.audioSrc);
             if (action === 'play') song.play();
             setCurrentHowl(song);
-            setState({ ...state, currentHowlId: trackId })
-        } else if (state.currentHowlId !== trackId) {
-            const song = createHowl('https://wristbandaud.blob.core.windows.net/audio/sns-home.mp3');
+            setState({ ...state, currentHowlId: id })
+        } else if (state.currentHowlId !== id) {
+            const song = createHowl(trackInPlayer.audioSrc);
             currentHowl.stop();
             if (action === 'play') {
                 song.play();
-                setState({ ...state, currentHowlId: trackId, status: PlayerStatus.playing })
+                setState({ ...state, currentHowlId: id, status: PlayerStatus.playing })
             } else {
-                setState({ ...state, currentHowlId: trackId, status: PlayerStatus.paused })
+                setState({ ...state, currentHowlId: id, status: PlayerStatus.paused })
             }
             setCurrentHowl(song);
         } else {
@@ -75,12 +74,12 @@ export default function PlayListProvider({ children, props }: { children: React.
 
     const getUpdatedPlayList = useCallback((action: 'next' | 'back', track: TrackData | null = null): TrackData[] => {
         if (action === 'next' && track) {
-            const updatedPlayList = state.playList.filter(t => t.trackId !== track.trackId);
+            const updatedPlayList = state.playList.filter(t => t.id !== track.id);
             return [...updatedPlayList, track];
         }
         if (action === 'back') {
             const lastTrack = state.history[state.history.length - 1];
-            const updatedPlayList = state.playList.filter(t => t.trackId !== lastTrack.trackId);
+            const updatedPlayList = state.playList.filter(t => t.id !== lastTrack.id);
             return [lastTrack, ...updatedPlayList];
         }
         return [];
@@ -91,26 +90,29 @@ export default function PlayListProvider({ children, props }: { children: React.
             const updatedPlayList = getUpdatedPlayList('back');
             const updatedHistory = state.history.slice(0, state.history.length - 1);
             const nextTrack = updatedHistory[updatedHistory.length -1];
-            const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.trackId);
+            const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.id);
             setState({ ...state, playList: updatedPlayList, history: updatedHistory });
             router.push(`?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
         }
-    }, [state, playerStatusParam, inFocusParam, router, ]);
+    }, [state, playerStatusParam, inFocusParam, router]);
     
     const next = useCallback(() => {
-        const nextTrack = state.playList[0];
-        const updatedPlayList = getUpdatedPlayList('next', nextTrack);
-        const updatedHistory = [...state.history, nextTrack];
-        const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.trackId);
-        setState({ ...state, history: updatedHistory, playList: updatedPlayList });
-        router.push(`?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
+        debugger
+        if (state.playList.length > 0) {
+            const nextTrack = state.playList[0];
+            const updatedPlayList = getUpdatedPlayList('next', nextTrack);
+            const updatedHistory = [...state.history, nextTrack];
+            const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.id);
+            setState({ ...state, history: updatedHistory, playList: updatedPlayList });
+            router.push(`?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
+        }
     }, [state, playerStatusParam, inFocusParam, router, getUpdatedPlayList]);
 
     const handlePlayerStatusUpdate = useCallback(() => {
         if (playerStatusParam && playerStatusParam !== 'undefined') {
             const [status, trackId] = decodePlayerStatusParam(playerStatusParam);
-            if (trackInPlayer.trackId !== trackId) {
-                const newTrack = state.playList.filter(track => track.trackId === trackId)?.[0];
+            if (trackInPlayer.id !== trackId) {
+                const newTrack = state.playList.filter(track => track.id === trackId)?.[0];
                 const updatedHistory = [...state.history, newTrack]
                 const updatedPlayList = getUpdatedPlayList('next', newTrack);
                 setState({ ...state, history: updatedHistory, playList: updatedPlayList })
@@ -122,7 +124,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [playerStatusParam, trackInPlayer,state, getUpdatedPlayList]);
 
     useEffect(() => {
-        debugger
         if (playerStatusParam === null || inFocusParam === null) {
             next();
         }
@@ -133,7 +134,7 @@ export default function PlayListProvider({ children, props }: { children: React.
     useEffect(() => {
         if (trackInPlayer) {
             var playerStatus = playerStatusParam ?? 'S';
-            handlePlayPause(trackInPlayer.trackId, getPlayerStatusAction(playerStatus.slice(0,1)));
+            handlePlayPause(trackInPlayer.id, getPlayerStatusAction(playerStatus.slice(0,1)));
         }
     }, [trackInPlayer])
 
