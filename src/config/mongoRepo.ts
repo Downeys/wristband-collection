@@ -10,7 +10,7 @@ const connection: ConnectionProps = { isConnected: false };
 export const connectToDb = async () => {
     try {
         if (connection.isConnected) {
-            console.log('Using existing db connection.')
+            // console.log('Using existing db connection.')
             return;
         }
         const db = await mongoose.connect(config.mongoDb.uri);

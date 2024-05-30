@@ -16,7 +16,6 @@ export const preloadTracks = (() => {
 export default async function HomePage({ inFocusParam, playerStatusParam }: HomeProps) {
     const tracks = await getAllTracks();
     const [status, trackId] = decodePlayerStatusParam(playerStatusParam);
-    console.log(`tracks: ${tracks}`)
     return (
         <main className="flex min-w-screen min-h-screen flex-col p-12 dark:bg-slate-800">
             <div>

@@ -97,7 +97,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, playerStatusParam, inFocusParam, router]);
     
     const next = useCallback(() => {
-        debugger
         if (state.playList.length > 0) {
             const nextTrack = state.playList[0];
             const updatedPlayList = getUpdatedPlayList('next', nextTrack);

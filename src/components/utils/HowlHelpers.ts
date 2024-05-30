@@ -5,12 +5,12 @@ export const createHowl = (src: string) => new Howl({
     format: ['webm', 'mp3'],
     html5: true,
     onplay: function() {
-        console.log("Howl Begun!")
+        // console.log("Howl Begun!")
     },
     onpause: function(){
-        console.log("Howl paused")
+        // console.log("Howl paused")
     },
     onend: function() {
-        console.log('Howl Finished!');
+        // console.log('Howl Finished!');
     }            
 });
