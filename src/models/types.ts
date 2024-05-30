@@ -1,12 +1,19 @@
-export interface IconProps {
-    styling?: string;
-    selected?: boolean;
-    onClick?: () => void;
+import { Document } from "mongoose";
+
+export interface TrackSchema extends Document {
+    id: string;
+    trackName: string,
+    bandName: string,
+    audioSrc: string,
+    picSrc: string,
+    buyLink: string,
 }
 
 export interface TrackData {
-    trackId: string;
-    imageHref: string;
-    bandName: string;
-    trackName: string;
+    id: string;
+    trackName: string,
+    bandName: string,
+    audioSrc: string,
+    picSrc: string,
+    buyLink: string,
 }

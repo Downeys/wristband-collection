@@ -1,6 +1,5 @@
 "use client"
-
-import { IconProps } from "../../models/types"
+import { IconProps } from "../types/types"
 
 export const NextIcon: React.FC<IconProps> = (props) =>
     <span onClick={() => props.onClick && props.onClick()}>

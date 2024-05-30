@@ -1,7 +1,5 @@
 "use client"
-
-import { IconProps } from "../../models/types"
-
+import { IconProps } from "../types/types"
 export const ShareIcon: React.FC<IconProps> = (props) =>
     <span onClick={() => props.onClick && props.onClick()}>
         <svg className={props.styling || "h-7 w-8"}  viewBox="0 0 33 30" fill="none" xmlns="http://www.w3.org/2000/svg">

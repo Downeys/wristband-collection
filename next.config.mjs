@@ -7,7 +7,8 @@ const nextConfig = {
                 hostname: 'picsum.photos'
             }
         ]
-    }
+    },
+    output: 'standalone',
 };
 
 export default nextConfig;
