@@ -44,7 +44,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state.history])
 
     const handlePlayPause = useCallback(async (id: string, action: 'play' | 'pause') => {
-        console.log(trackInPlayer.id)
         if (!currentHowl.play) {
             const song = createHowl(trackInPlayer.audioSrc);
             if (action === 'play') song.play();
