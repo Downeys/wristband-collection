@@ -27,7 +27,7 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
     const borderStyle = props.border ? ' border border-grey rounded' : ''
     const customStyles = props.additionalStyles ?? '';
     const height = props.height === 'sm' ? ' h-9' : ' h-12';
-    const baseStyle = 'flex flex-row items-center px-4 dark:bg-slate-800 dark:text-white w-full' + borderStyle + height + customStyles;
+    const baseStyle = 'flex flex-row items-center px-4 bg-slate-950 dark:text-white w-full' + borderStyle + height + customStyles;
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
@@ -59,7 +59,7 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
         <div className={props.iconPosition === 'left' ? baseStyle : baseStyle + ' justify-between'}>
             {iconPosition === 'left' && <Icon styling="h-6 w-6 mr-2" onClick={handleIconClick} />}
             <form onSubmit={handleSubmit} className="w-full">
-                <input className="font-primary w-full text-lg font-semibold leading-6 placeholder-black outline-none focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder-white"
+                <input className="font-primary w-full text-lg font-semibold leading-6 placeholder-black outline-none focus:outline-none bg-slate-950 dark:text-white dark:placeholder-white"
                     value={value}
                     placeholder={name}
                     onFocus={props.onFocus}

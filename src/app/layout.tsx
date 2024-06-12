@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { RocknRoll_One } from "next/font/google";
 import "./globals.css";
-
-const rocknRollOne = RocknRoll_One({ subsets: ["latin"], weight: "400" });
+import { Header } from "@/components/header/Header";
 
 export const metadata: Metadata = {
   title: "Wristband Collection",
@@ -16,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={rocknRollOne.className}>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
