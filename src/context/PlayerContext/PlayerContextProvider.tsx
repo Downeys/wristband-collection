@@ -71,7 +71,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, playerStatus, inFocusParam, router]);
     
     const next = useCallback(() => {
-        console.log("testing next")
         if (state.playList.length > 0) {
             const nextTrack = state.playList[0];
             const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.id);
@@ -80,8 +79,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, playerStatus, inFocusParam, router]);
 
     const handlePlayPause = useCallback((id: string, action: 'play' | 'pause') => {
-        console.log(`${action} track ${id}. currentTrackId=${state.currentTrackId}`)
-        debugger
         if (trackInPlayer) {
             if (!currentHowl.play) {
                 if (action === 'play') {

@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 
 export const createHowl = (src: string, onEnd: (soundId?: number) => void) => {
-    console.log("New howl created")
+    // console.log("New howl created")
     return new Howl({
         src: [src],
         format: ['webm', 'mp3'],
