@@ -18,7 +18,7 @@ export const getPlayerStatus = (actionCode: string ='') => {
         case 'S':
             return PlayerStatus.paused;
         default:
-            return PlayerStatus.paused;
+            return PlayerStatus.uninitiated;
     }
 }
 

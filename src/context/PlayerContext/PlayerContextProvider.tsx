@@ -22,54 +22,32 @@ export default function PlayListProvider({ children, props }: { children: React.
     const searchParams = useSearchParams();
 
     const [inFocusParam, playerStatusParam] = useMemo(() => {
-        return([searchParams.get('inFocus'), searchParams.get('playerStatus')])
+        const focus = searchParams.get('inFocus');
+        const stat = searchParams.get('playerStatus')
+        return [focus, stat]
     }, [searchParams]);
 
-    const [playerStatus, trackIdParam] = useMemo(() => decodePlayerStatusParam(playerStatusParam ?? 'none'), [playerStatusParam])
+    const [playerStatus, trackId] = useMemo(() => {
+        if (!playerStatusParam) return [PlayerStatus.uninitiated, null];
+        const returnVar = decodePlayerStatusParam(playerStatusParam)
+        return returnVar;
+    }, [playerStatusParam])
 
     const [state, setState] = useState({
-        history: props.history ?? InitialPlayerState.history,
-        playList: props.playList ?? InitialPlayerState.playList,
-        currentHowlId: '',
+        history: props.history ?? [],
+        playList: props.playList ?? [],
+        currentHowlId: 0,
+        seek: 0,
+        currentTrackId: '',
         status: PlayerStatus.paused,
     });
 
     const [currentHowl, setCurrentHowl] = useState({ stop: () => {} } as Howl)
 
-    const trackInPlayer: TrackData = useMemo(() => {
-        const currentTrack = state.history.length > 0
-            ? state.history[state.history.length - 1]
-            : state.playList[0];
-        return currentTrack
+    const trackInPlayer: TrackData | null = useMemo(() => {
+        if (state.history.length > 0) return state.history[state.history.length - 1]
+        return null;
     }, [state.history])
-
-    const handlePlayPause = useCallback(async (id: string, action: 'play' | 'pause') => {
-        if (!currentHowl.play) {
-            const song = createHowl(trackInPlayer.audioSrc);
-            if (action === 'play') song.play();
-            setCurrentHowl(song);
-            setState({ ...state, currentHowlId: id })
-        } else if (state.currentHowlId !== id) {
-            const song = createHowl(trackInPlayer.audioSrc);
-            currentHowl.stop();
-            if (action === 'play') {
-                song.play();
-                setState({ ...state, currentHowlId: id, status: PlayerStatus.playing })
-            } else {
-                setState({ ...state, currentHowlId: id, status: PlayerStatus.paused })
-            }
-            setCurrentHowl(song);
-        } else {
-            if (action === 'play') {
-                currentHowl.play();
-                setState({ ...state, status: PlayerStatus.playing });
-            }
-            else {
-                currentHowl.pause();
-                setState({ ...state, status: PlayerStatus.paused });
-            }
-        }
-    }, [currentHowl, trackInPlayer, state]);
 
     const getUpdatedPlayList = useCallback((action: 'next' | 'back', track: TrackData | null = null): TrackData[] => {
         if (action === 'next' && track) {
@@ -86,40 +64,78 @@ export default function PlayListProvider({ children, props }: { children: React.
 
     const back = useCallback(() => {
         if (state.history.length > 1) {
-            const updatedPlayList = getUpdatedPlayList('back');
-            const updatedHistory = state.history.slice(0, state.history.length - 1);
-            const nextTrack = updatedHistory[updatedHistory.length -1];
+            const nextTrack = state.history[state.history.length - 2];
             const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.id);
-            setState({ ...state, playList: updatedPlayList, history: updatedHistory });
             router.push(`?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
         }
-    }, [state, playerStatusParam, inFocusParam, router]);
+    }, [state, playerStatus, inFocusParam, router]);
     
     const next = useCallback(() => {
+        console.log("testing next")
         if (state.playList.length > 0) {
             const nextTrack = state.playList[0];
-            const updatedPlayList = getUpdatedPlayList('next', nextTrack);
-            const updatedHistory = [...state.history, nextTrack];
             const newPlayerStatus = constructPlayerStatusAction(playerStatus, nextTrack.id);
-            setState({ ...state, history: updatedHistory, playList: updatedPlayList });
             router.push(`?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
         }
-    }, [state, playerStatusParam, inFocusParam, router, getUpdatedPlayList]);
+    }, [state, playerStatus, inFocusParam, router]);
+
+    const handlePlayPause = useCallback((id: string, action: 'play' | 'pause') => {
+        console.log(`${action} track ${id}. currentTrackId=${state.currentTrackId}`)
+        debugger
+        if (trackInPlayer) {
+            if (!currentHowl.play) {
+                if (action === 'play') {
+                    const song = createHowl(trackInPlayer.audioSrc, next);
+                    const howlId = song.play();
+                    setState({ ...state, currentTrackId: id, currentHowlId: howlId, status: PlayerStatus.playing })
+                    setCurrentHowl(song);
+                } else {
+                    setState({ ...state, currentTrackId: id, status: PlayerStatus.paused })
+                }
+            } else if (state.currentTrackId !== id) {
+                const matchingTracks = state.playList.filter(track => track.id === id);
+                if (matchingTracks.length) {
+                    const song = createHowl(matchingTracks[0].audioSrc, next);
+                    currentHowl.stop();
+                    if (action === 'play') {
+                        const howlId = song.play();
+                        setState({ ...state, currentTrackId: id, status: PlayerStatus.playing, currentHowlId: howlId })
+                    } else {
+                        setState({ ...state, currentTrackId: id, status: PlayerStatus.paused })
+                    }
+                    setCurrentHowl(song);
+                }
+            } else {
+                if (action === 'play') {
+                    let song = currentHowl ?? createHowl(trackInPlayer.audioSrc, next);
+                    // song.seek(state.seek, state.currentHowlId);
+                    const howlId = state.currentHowlId ? song.play(state.currentHowlId) : song.play();
+                    setState({ ...state, status: PlayerStatus.playing, currentHowlId: howlId });
+                    if (!currentHowl) setCurrentHowl(song);
+                }
+                else {
+                    const pausedHowl = currentHowl.pause(state.currentHowlId);
+                    const pausedSeek = pausedHowl.seek();
+                    setState({ ...state, status: PlayerStatus.paused, seek: pausedSeek });
+                }
+            }
+        }
+    }, [currentHowl, trackInPlayer, state, next]);
 
     const handlePlayerStatusUpdate = useCallback(() => {
-        if (playerStatusParam && playerStatusParam !== 'undefined') {
-            const [status, trackId] = decodePlayerStatusParam(playerStatusParam);
-            if (trackInPlayer.id !== trackId) {
-                const newTrack = state.playList.filter(track => track.id === trackId)?.[0];
+        if (trackInPlayer?.id !== trackId) {
+            const matchingTracks = state.playList.filter(track => track.id === trackId);
+            if (matchingTracks.length > 0) {
+                const newTrack = matchingTracks[0];
                 const updatedHistory = [...state.history, newTrack]
                 const updatedPlayList = getUpdatedPlayList('next', newTrack);
                 setState({ ...state, history: updatedHistory, playList: updatedPlayList })
-            } else if (state.status !== status) {
-                var playerStatus = playerStatusParam ?? 'P';
-                handlePlayPause(trackId, getPlayerStatusAction(playerStatus.slice(0,1)));
             }
+        } else if (state.status !== playerStatus) {
+            var newPlayerStatus = playerStatusParam ?? 'S';
+            handlePlayPause(trackId, getPlayerStatusAction(newPlayerStatus.slice(0,1)));
         }
-    }, [playerStatusParam, trackInPlayer,state, getUpdatedPlayList]);
+    }, [state, playerStatus, playerStatusParam, trackId, trackInPlayer, getUpdatedPlayList, handlePlayPause]);
 
     useEffect(() => {
         if (playerStatusParam === null || inFocusParam === null) {
@@ -127,21 +143,21 @@ export default function PlayListProvider({ children, props }: { children: React.
         }
     }, [])
 
-    useEffect(handlePlayerStatusUpdate, [playerStatusParam])
+    useEffect(() => {
+        handlePlayerStatusUpdate()
+    }, [playerStatus, trackId])
 
     useEffect(() => {
-        if (trackInPlayer) {
-            var playerStatus = playerStatusParam ?? 'S';
-            handlePlayPause(trackInPlayer.id, getPlayerStatusAction(playerStatus.slice(0,1)));
-        }
+        var status = playerStatusParam ?? 'S';
+        if (trackInPlayer) handlePlayPause(trackInPlayer.id, getPlayerStatusAction(status.slice(0,1)));
     }, [trackInPlayer])
 
     const value: PlayerContextState = useMemo(() => ({
-        ...state,
         trackInPlayer,
+        playerStatus,
         back,
         next,
-    }), [state, trackInPlayer, back, next])
+    }), [trackInPlayer, playerStatus, back, next])
 
     return <PlayListContext.Provider value={value}>{children}</PlayListContext.Provider>
 }
