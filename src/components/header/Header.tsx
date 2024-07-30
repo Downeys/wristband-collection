@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                 </li>
                 <li className="menu-item-container">
                     <div className="header-link-container">
-                        <a id="header-music-button" className="header-link" type="button" href="https://thewristbandcollection.com">
+                        <a id="header-about-button" className="header-link" type="button" href="https://thewristbandcollection.com">
                             <Label text="About" semibold font="primary" color="black" />
                         </a>
                     </div>

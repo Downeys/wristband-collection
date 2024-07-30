@@ -6,9 +6,9 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Howl } from 'howler';
 import { InitialPlayerState } from './InitialPlayerState';
 import { PlayerContextState } from './PlayerContextState';
-import { constructPlayerStatusAction, decodePlayerStatusParam, getPlayerStatusAction } from '@/components/utils/SearchParamHelpers';
-import { PlayerStatus } from '@/components/constants/PlayerStatusEnum';
-import { createHowl } from '@/components/utils/HowlHelpers';
+import { constructPlayerStatusAction, decodePlayerStatusParam, getPlayerStatusAction } from '@/utils/helpers/SearchParamHelpers';
+import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { createHowl } from '@/utils/helpers/HowlHelpers';
 
 interface PlayListProviderProps {
     history: TrackData[]
@@ -105,7 +105,7 @@ export default function PlayListProvider({ children, props }: { children: React.
             } else {
                 if (action === 'play') {
                     let song = currentHowl ?? createHowl(trackInPlayer.audioSrc, next);
-                    // song.seek(state.seek, state.currentHowlId);
+                    song.seek(state.seek, state.currentHowlId);
                     const howlId = state.currentHowlId ? song.play(state.currentHowlId) : song.play();
                     setState({ ...state, status: PlayerStatus.playing, currentHowlId: howlId });
                     if (!currentHowl) setCurrentHowl(song);

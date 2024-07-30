@@ -1,8 +1,5 @@
 import React from "react";
-import { Lacquer, Life_Savers } from 'next/font/google';
-
-const lifeSafers = Life_Savers({ subsets: ["latin"], weight: ["400", "700", "800"] });
-const lacquer = Lacquer({ subsets: ["latin"], weight: "400" })
+import Font from '@/config/fonts'
 
 export interface LabelProps {
     text: string;
@@ -11,9 +8,15 @@ export interface LabelProps {
     semibold?: boolean;
     alignment?: 'center';
     font?: 'primary' | 'secondary';
-    color?: 'white' | 'black';
+    color?: 'white' | 'black' | 'red';
     additionalStyles?: string;
     inline?: boolean;
+}
+
+const textColorConfig = {
+    white: 'text-white',
+    black: 'text-black',
+    red: 'text-red-600'
 }
 
 export const Label: React.FC<LabelProps> = (props) => {
@@ -22,8 +25,8 @@ export const Label: React.FC<LabelProps> = (props) => {
     const size = props.size ? `text-${props.size} ` : '';
     const inline = props.inline ? 'inline ' : '';
     const alignment = props.alignment ? `text-${props.alignment} ` : '';
-    const font = props.font === 'primary' ? `${lacquer.className} ` : `${lifeSafers.className} `;
-    const color = props.color === 'black' ? 'text-black ' : 'text-white ';
+    const font = props.font === 'primary' ? `${Font.primary.className} ` : `${Font.secondary.className} `;
+    const color: string = props.color ? textColorConfig[props.color] : 'text-white ';
     const additionalStyles = props.additionalStyles ?? '';
     const styling = bold + semibold + size + inline + alignment + font + color + additionalStyles;
     return <p className={`${styling}`}>{props.text}</p>

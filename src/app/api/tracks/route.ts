@@ -1,11 +1,15 @@
 import { getAllTracks } from "@/server/actions/tracks";
+import { NextResponse } from "next/server";
 
 export const GET = async () => {
     try {
         const tracks = getAllTracks();
-        return Response.json({ tracks })
+        return NextResponse.json({ data: tracks })
     } catch (e: any) {
         console.log(e.message)
-        return new Response('Failed to retrieve tracks.', { status: 500 })
+        return NextResponse.json({
+          message: 'Failed to retrieve tracks.',
+          status: 500
+       })
     };
 }
