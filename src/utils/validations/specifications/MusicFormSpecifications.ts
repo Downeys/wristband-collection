@@ -1,10 +1,8 @@
 import { Specification } from "@/types/SpecificationTypes";
 import { SubmitForm } from "@/types/SubmitMusicFormTypes";
 
-const isStringNotEmpty= (text: string) => text.length > 0;
-
 export const isBandNameValid: Specification<SubmitForm>  = {
-    isSatisfiedBy: async (form: SubmitForm) => isStringNotEmpty(form.band)
+    isSatisfiedBy: async (form: SubmitForm) => form.band?.length > 0
 }
 
 export const isContactNameValid: Specification<SubmitForm> = {

@@ -19,6 +19,14 @@ export interface MusicSubmissionSchema extends Document {
     albums: AlbumDto[];
 }
 
+export interface UserFeedbackSchema extends Document {
+    id: ObjectId;
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+}
+
 export interface TrackData {
     id: string;
     trackName: string;

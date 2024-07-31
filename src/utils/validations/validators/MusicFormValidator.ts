@@ -11,7 +11,7 @@ const validatorConfig: ValidatorConfig<SubmitForm> ={
     {
         id: 2,
         specification: isContactNameValid,
-        validationMessage: 'Contact name is required'
+        validationMessage: 'Contact name is invalid'
     },
     {
         id: 3,

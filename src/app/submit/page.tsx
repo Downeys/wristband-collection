@@ -154,7 +154,7 @@ export default function Submit({ searchParams }: { searchParams: { [key: string]
     }, [state]);
 
     return (
-        <div className="flex min-w-screen min-h-screen flex-col items-center px-12 pt-4 bg-slate-950 relative top-20 z-0">
+        <div className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
             <div className="w-full max-w-screen-sm">
                 <Heading size="3xl" text="Submit music" additionalStyles="w-full text-center p-2"/>
                 <form onSubmit={handleSubmitEvent} className="my-4">
