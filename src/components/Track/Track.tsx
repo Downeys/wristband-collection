@@ -2,8 +2,8 @@ import Image from 'next/image';
 import PlayButton from "../buttons/PlayButton";
 import Label from "../text/Label";
 import Link from "next/link";
-import { PlayerStatus } from "../constants/PlayerStatusEnum";
-import { constructPlayerStatusAction } from "../utils/SearchParamHelpers";
+import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { constructPlayerStatusAction } from "@/utils/helpers/SearchParamHelpers";
 import { TrackData } from '@/models/types';
 
 export interface TrackProps extends TrackData {

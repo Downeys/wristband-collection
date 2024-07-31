@@ -1,6 +1,6 @@
 import SmallPlayer from "@/components/SmallPlayer/SmallPlayer";
 import Track from "@/components/Track/Track";
-import { decodePlayerStatusParam } from "@/components/utils/SearchParamHelpers";
+import { decodePlayerStatusParam } from '@/utils/helpers/SearchParamHelpers'
 import PlayListProvider from "@/context/PlayerContext/PlayerContextProvider";
 import { getAllTracks } from "@/server/actions/tracks";
 
@@ -24,7 +24,7 @@ export default async function HomePage({ inFocusParam, playerStatusParam }: Home
             </div>
             <div className="fixed bottom-0 left-0">
                 <PlayListProvider props={{ history: [], playList: tracks }}>
-                <SmallPlayer />
+                    <SmallPlayer />
                 </PlayListProvider>
             </div>
         </main>

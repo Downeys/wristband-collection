@@ -1,4 +1,4 @@
-import { PlayerStatus } from "../constants/PlayerStatusEnum";
+import { PlayerStatus } from '@/types/PlayerStatusEnum';
 
 export const getPlayerStatusAction = (actionCode: string) => {
     switch (actionCode){

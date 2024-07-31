@@ -4,8 +4,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "../icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '../icons/PauseIcon';
-import { constructPlayerStatusAction } from '../utils/SearchParamHelpers';
-import { PlayerStatus } from '../constants/PlayerStatusEnum';
+import { constructPlayerStatusAction } from '@/utils/helpers/SearchParamHelpers';
+import { PlayerStatus } from '@/types/PlayerStatusEnum';
 
 export interface PlayButtonProps {
     variant?: 'primary' | 'track';
