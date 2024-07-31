@@ -17,28 +17,28 @@ export const Header: React.FC = () => {
                 <li className="menu-item-container">
                     <div className="header-link-container">
                         <a id="header-music-button" className="header-link" type="button" href="https://wristbandradio.com">
-                            <Label text="Music" semibold font="primary" color="black" />
+                            <Label text="Music" semibold font="primary" color="white" />
                         </a>
                     </div>
                 </li>
                 <li className="menu-item-container">
                     <div className="header-link-container">
                         <a id="header-contact-button" className="header-link" type="button" href="https://wristbandradio.com/submit">
-                            <Label text="Submit" semibold font="primary" color="black" />
+                            <Label text="Submit" semibold font="primary" color="white" />
                         </a>
                     </div>
                 </li>
                 <li className="menu-item-container">
                     <div className="header-link-container">
                         <a id="header-about-button" className="header-link" type="button" href="https://thewristbandcollection.com">
-                            <Label text="About" semibold font="primary" color="black" />
+                            <Label text="About" semibold font="primary" color="white" />
                         </a>
                     </div>
                 </li>
                 <li className="menu-item-container">
                     <div className="header-link-container">
                         <a id="header-contact-button" className="header-link" type="button" href="https://wristbandradio.com/contact">
-                            <Label text="Contact" semibold font="primary" color="black" />
+                            <Label text="Contact" semibold font="primary" color="white" />
                         </a>
                     </div>
                 </li>

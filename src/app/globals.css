@@ -6,8 +6,8 @@
     display: flex;
     height: 40px;
     width: 112px;
-    background: #FFF;
-    color: #000;
+    background: rgba(255, 255, 255, 0);
+    color: #FFF;
     margin: 4px;
     border-radius: 20px;
     justify-content: center;
@@ -15,8 +15,8 @@
 }
 
 .header-link {
-    background: #FFF;
-    color: #000;
+    background: rgba(255, 255, 255, 0);
+    color: #FFF;
     font-size: 24px;
     font-family: "Lacquer";
     text-decoration: none;
@@ -54,7 +54,7 @@
 .menu-button::before,
 .menu-button::after {
     display: block;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     position: absolute;
     height: 4px;
     width: 30px;
