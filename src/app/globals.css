@@ -54,7 +54,7 @@
 .menu-button::before,
 .menu-button::after {
     display: block;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: #FFF;
     position: absolute;
     height: 4px;
     width: 30px;
