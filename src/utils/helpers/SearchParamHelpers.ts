@@ -22,17 +22,16 @@ export const getPlayerStatus = (actionCode: string ='') => {
     }
 }
 
-export const decodePlayerStatusParam = (playerStatusParam: string) : [PlayerStatus, string] => {
+export const decodePlayerStatusParam = (playerStatusParam: string) : { status: PlayerStatus, index: number } => {
     const status = getPlayerStatus(playerStatusParam.slice(0,1))
-    const trackId = playerStatusParam.slice(1);
-    return [status, trackId];
+    const index = Number.parseInt(playerStatusParam.slice(1));
+    return { status, index };
 }
 
-export const constructPlayerStatusAction = (action: PlayerStatus | null, trackId: string) => {
+export const constructPlayerStatusAction = (action: PlayerStatus | null, trackIndex: number) => {
     var actionCode;
     if (action === PlayerStatus.playing) actionCode = "P";
     else if (action === PlayerStatus.paused) actionCode = "S";
     else actionCode = "S";
-    return actionCode + trackId;
+    return `${actionCode}${trackIndex}`
 }
-

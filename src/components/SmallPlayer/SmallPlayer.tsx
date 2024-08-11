@@ -8,7 +8,7 @@ import { useContext, useMemo } from "react";
 import { PlayListContext } from "@/context/PlayerContext/PlayerContextProvider";
 
 export const SmallPlayer: React.FC = () => {
-    const { trackInPlayer, playerStatus, back, next } = useContext(PlayListContext);
+    const { trackInPlayer, playerStatus, index, back, next } = useContext(PlayListContext);
     const trackMessage = useMemo(() => trackInPlayer?.bandName ? `${trackInPlayer?.bandName} - ${trackInPlayer?.trackName}` : 'Welcome to Wristband Radio', [trackInPlayer]);
 
     return (
@@ -20,7 +20,7 @@ export const SmallPlayer: React.FC = () => {
             </div>
             <div className="flex flex-row justify-center items-center p-2">
                 <BackButton onClick={back}/>
-                <PlayButton trackId={trackInPlayer?.id ?? ''} status={playerStatus} />
+                <PlayButton trackIndex={index} status={playerStatus} />
                 <NextButton onClick={next}/>
             </div>
         </div>
