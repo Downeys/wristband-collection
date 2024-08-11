@@ -4,17 +4,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "../icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '../icons/PauseIcon';
-import { constructPlayerStatusAction } from '@/utils/helpers/SearchParamHelpers';
 import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { constructPlayerStatusAction } from '@/utils/helpers/SearchParamHelpers';
+import Spinner from '../Spinner/Spinner';
 
 export interface PlayButtonProps {
     variant?: 'primary' | 'track';
-    trackId: string;
+    trackIndex: number;
     status: PlayerStatus;
+    loading?: boolean;
     onClick?: (trackId: string, status: 'playing' | 'paused') => void;
 }
 
-export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status, onClick }) => {
+export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, status, loading, onClick }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
@@ -23,9 +25,9 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
-        const newPlayerStatus = constructPlayerStatusAction(newStatus, trackId);
-        router.push(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`)
-    }, [router, isPlaying, trackId]);
+        const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
+        router.replace(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`, { scroll: false })
+    }, [router, isPlaying, inFocusParam, trackIndex]);
 
     const variantStyle = {
         primary: 'h-20 w-20 mx-12 rounded-full shadow-blue pl-3 pt-3',
@@ -38,6 +40,8 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
     const styleVariant = variant ?? 'primary';
     const Icon = useMemo(() => isPlaying ? PauseIcon : PlayIcon, [isPlaying]);
     const isPink = styleVariant === 'primary';
+
+    if (loading) return <Spinner />
 
     return (
         <button className={`flex flex-col items-center justify-center ${variantStyle[styleVariant]}`} onClick={handleClick}>

@@ -15,15 +15,15 @@ export const preloadTracks = (() => {
 
 export default async function HomePage({ inFocusParam, playerStatusParam }: HomeProps) {
     const tracks = await getAllTracks();
-    const [status, trackId] = decodePlayerStatusParam(playerStatusParam);
+    const { status, index } = decodePlayerStatusParam(playerStatusParam);
     return (
         <main className="flex min-w-screen min-h-screen flex-col px-12 pt-4 bg-slate-950 relative top-20 z-0">
             <div>
-                {tracks.map((track, idx) => <Track { ...track } key={`${track.id}`} trackInFocus={inFocusParam} trackInPlayer={trackId} playerStatus={status} />)}
-                <div className="h-40" />
+                {tracks.map((track, idx) => <Track { ...track } key={`${track.id}`} trackInFocus={inFocusParam} trackIndex={idx} trackInPlayer={index} playerStatus={status} />)}
+                <div className="h-60" />
             </div>
             <div className="fixed bottom-0 left-0">
-                <PlayListProvider props={{ history: [], playList: tracks }}>
+                <PlayListProvider props={{ playList: tracks }}>
                     <SmallPlayer />
                 </PlayListProvider>
             </div>
