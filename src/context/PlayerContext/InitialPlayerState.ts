@@ -5,6 +5,7 @@ import { PlayerStatus } from '@/types/PlayerStatusEnum';
 export const InitialPlayerState: PlayerContextState = {
     trackInPlayer: {} as TrackData,
     playerStatus: PlayerStatus.uninitiated,
+    index: 0,
     back: () => {},
     next: () => {},
 }
