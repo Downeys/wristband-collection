@@ -31,7 +31,7 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
         }
     }, [ref, state, onChange])
     return (
-        <div className="h-12 border border-grey rounded flex flex-row justify-center items-center w-full self-end bg-slate-950 cusor-pointer" onClick={handleClick}>
+        <div className="h-12 border-2 border-grey rounded-lg flex flex-row justify-center items-center w-full self-end bg-slate-950 cusor-pointer" onClick={handleClick}>
             <input ref={ref} onChange={handleOnChange} type='file' accept={FileInputConfig[type]} hidden/>
             <Label bold font="primary" alignment="center" text={labelText} additionalStyles="w-full" />
         </div>

@@ -22,7 +22,7 @@ export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ child
     return (
         <div className={`flex flex-col border border-opacity-55 rounded-lg p-3 mb-4 ${shadowColor} ${borderColor}`}>
             <FormInput name={ALBUM} label="Album Name" onChange={handleNameChange}/>
-            <FileInput name="Album Photo" type="photo" onChange={handlePhotoChange} />
+            <FileInput name="Choose album photo file" type="photo" onChange={handlePhotoChange} />
             { children }
         </div>
     )
