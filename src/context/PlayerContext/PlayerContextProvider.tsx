@@ -43,7 +43,7 @@ export default function PlayListProvider({ children, props }: { children: React.
     });
 
     const back = useCallback(() => {
-        const newIndex = state.pIndex === 0 ? state.playList.length - 1 : state.pIndex -1;
+        const newIndex = state.pIndex === 0 ? state.playList.length - 1 : state.pIndex - 1;
         const newPlayerStatus = constructPlayerStatusAction(playerStatus, newIndex);
         router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${inFocus}`, { scroll: false })
     }, [state, playerStatus, inFocus, router]);
