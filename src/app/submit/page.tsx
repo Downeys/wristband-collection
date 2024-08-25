@@ -178,7 +178,7 @@ export default function Submit({ searchParams }: { searchParams: { [key: string]
                         {state.validationMessages.map(message => <Label key={uuidv4()} text={`- ${message}`} color="red" />)}
                     </div>
                     <div className="flex w-full justify-center items-center">
-                        <button type="submit" onClick={handleSubmitClick} className="border border-wbPink border-white rounded-2xl py-3 w-1/2 shadow-pink">
+                        <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">
                             <Label text="Submit" bold size="2xl"/>
                         </button>
                     </div>
