@@ -16,7 +16,6 @@ export interface TrackProps extends TrackData {
 export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName }) => {
     const isInPlayer = trackInPlayer === trackIndex;
     const isInFocus = trackInFocus === id;
-    const playButtonVisible = (isInPlayer && playerStatus === PlayerStatus.playing) || isInFocus;
     const playButtonStatus = isInPlayer ? playerStatus : PlayerStatus.paused;
     const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
     const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}`;
@@ -31,7 +30,7 @@ export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInF
                     <Label text={trackName} size="sm" />
                 </div>
             </div>
-            {playButtonVisible && <div className="flex justify-center content-center">
+            {isInFocus && <div className="flex justify-center content-center">
                 <PlayButton variant="track" trackIndex={trackIndex} status={playButtonStatus} />
             </div>}
         </Link>
