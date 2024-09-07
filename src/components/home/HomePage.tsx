@@ -17,7 +17,7 @@ export default async function HomePage({ inFocusParam, playerStatusParam }: Home
     const tracks = await getAllTracks();
     const { status, index } = decodePlayerStatusParam(playerStatusParam);
     return (
-        <main className="flex min-w-screen min-h-screen flex-col px-12 pt-4 bg-slate-950 relative top-20 z-0">
+        <main className="flex min-w-screen min-h-screen flex-col px-6 sm:px-12 pt-4 bg-slate-950 relative top-20 z-0">
             <div>
                 {tracks.map((track, idx) => <Track { ...track } key={`${track.id}`} trackInFocus={inFocusParam} trackIndex={idx} trackInPlayer={index} playerStatus={status} />)}
                 <div className="h-60" />

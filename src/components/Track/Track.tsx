@@ -20,14 +20,14 @@ export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInF
     const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
     const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}`;
     return (
-        <Link href={uri} replace={true} scroll={false} className="flex flex-row h-22 w-full justify-between content-center items-center p-2">
+        <Link href={uri} replace={true} scroll={false} className="flex flex-row h-32 w-full justify-between content-center items-center">
             <div className="flex">
-                <div className="h-14 w-14 justify-center content-center">
-                    <Image src={picSrc} alt="Album Art" height="48" width="48" />
+                <div className="min-h-24 min-w-24 justify-center content-center">
+                    <Image src={picSrc} alt="Album Art" height="96" width="96" />
                 </div>
                 <div className="flex-col ml-2">
-                    <Label text={bandName} semibold />
-                    <Label text={trackName} size="sm" />
+                    <Label text={bandName} semibold size='lg' />
+                    <Label text={trackName} />
                 </div>
             </div>
             {isInFocus && <div className="flex justify-center content-center">
