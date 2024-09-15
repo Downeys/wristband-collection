@@ -28,12 +28,6 @@ export default function PlayListProvider({ children, props }: { children: React.
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [inFocus, playerStatus, index] = useMemo(() => {
-        const focus = searchParams.get('inFocus');
-        const { status, index } = searchParams.get('playerStatus') ? decodePlayerStatusParam(searchParams.get('playerStatus')!) : { status: PlayerStatus.paused, index: 0 };
-        return [focus, status, index ]
-    }, [searchParams]);
-
     const [state, setState] = useState<InternalState>({
         playList: props.playList ?? [],
         status: PlayerStatus.paused,
@@ -41,6 +35,15 @@ export default function PlayListProvider({ children, props }: { children: React.
         trackInPlayer: props.playList ? props.playList[0] : null,
         currentHowl: { state: () => 'unloaded' } as Howl,
     });
+
+    const [inFocus, playerStatus, index] = useMemo(() => {
+        const focus = searchParams.get('inFocus');
+        const firstLoad = state.currentHowl.state() === 'unloaded';
+        var trackStatus: PlayerStatus = firstLoad ? PlayerStatus.paused : state.status;
+        var trackIndex: number = firstLoad ? 0 : state.pIndex;
+        const { status, index } = searchParams.get('playerStatus') ? decodePlayerStatusParam(searchParams.get('playerStatus')!) : { status: trackStatus, index: trackIndex };
+        return [focus, status, index ]
+    }, [searchParams, state]);
 
     const back = useCallback(() => {
         const newIndex = state.pIndex === 0 ? state.playList.length - 1 : state.pIndex - 1;
@@ -55,13 +58,15 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, playerStatus, inFocus, router]);
 
     const handlePlayerStatusUpdate = useCallback(() => {
-        if (playerStatus === PlayerStatus.paused && state.currentHowl.playing()) state.currentHowl.pause();
-        if (playerStatus === PlayerStatus.playing && !state.currentHowl.playing()) state.currentHowl.play();
-        setState({ ...state, status: playerStatus })
+        if (state.currentHowl.state() !== 'unloaded') {
+            if (playerStatus === PlayerStatus.paused && state.currentHowl.playing()) state.currentHowl.pause();
+            if (playerStatus === PlayerStatus.playing && !state.currentHowl.playing()) state.currentHowl.play();
+            setState({ ...state, status: playerStatus })
+        }
     }, [state, playerStatus, index, next]);
 
     const handlePIndexUpdate = useCallback(() => {
-        if (state.currentHowl.playing()) state.currentHowl.stop();
+        if (state.currentHowl.state() !== 'unloaded' && state.currentHowl.playing()) state.currentHowl.stop();
         let newHowl = createHowl(state.playList[index].audioSrc, next);
         if (playerStatus === PlayerStatus.playing) newHowl.play();
         setState({ ...state, pIndex: index, trackInPlayer: state.playList[index], currentHowl: newHowl, status: playerStatus })
@@ -77,6 +82,10 @@ export default function PlayListProvider({ children, props }: { children: React.
         if (state.pIndex !== index) handlePIndexUpdate()
         else if (state.status !== playerStatus) handlePlayerStatusUpdate()
     }, [playerStatus, index])
+
+    useEffect(() => {
+        setState({ ...state, playList: props.playList })
+    }, [props.playList])
 
     const value: PlayerContextState = useMemo(() => ({
         trackInPlayer: state.trackInPlayer,

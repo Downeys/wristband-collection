@@ -2,25 +2,16 @@ import Image from 'next/image';
 import PlayButton from "../buttons/PlayButton";
 import Label from "../text/Label";
 import Link from "next/link";
-import { PlayerStatus } from '@/types/PlayerStatusEnum';
-import { constructPlayerStatusAction } from "@/utils/helpers/SearchParamHelpers";
 import { TrackData } from '@/models/types';
 
 export interface TrackProps extends TrackData {
-    playerStatus: PlayerStatus;
     trackIndex: number;
-    trackInPlayer: number;
-    trackInFocus?: string;
 }
 
-export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName }) => {
-    const isInPlayer = trackInPlayer === trackIndex;
-    const isInFocus = trackInFocus === id;
-    const playButtonStatus = isInPlayer ? playerStatus : PlayerStatus.paused;
-    const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
-    const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}`;
+export const Track: React.FC<TrackProps> = ({ trackIndex, id, picSrc, bandName, trackName }) => {
+    const uri = `?inFocus=${id}`;
     return (
-        <Link href={uri} replace={true} scroll={false} className="flex flex-row h-32 w-full justify-between content-center items-center">
+        <Link href={uri} replace scroll={false} className="flex flex-row h-32 w-full justify-between content-center items-center">
             <div className="flex">
                 <div className="min-h-24 min-w-24 justify-center content-center">
                     <Image src={picSrc} alt="Album Art" height="96" width="96" />
@@ -30,9 +21,9 @@ export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInF
                     <Label text={trackName} />
                 </div>
             </div>
-            {isInFocus && <div className="flex justify-center content-center">
-                <PlayButton variant="track" trackIndex={trackIndex} status={playButtonStatus} />
-            </div>}
+            <div className="flex justify-center content-center">
+                <PlayButton variant="track" trackIndex={trackIndex} trackId={id} />
+            </div>
         </Link>
     )
 }
