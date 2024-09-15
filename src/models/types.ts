@@ -8,6 +8,7 @@ export interface TrackSchema extends Document {
     audioSrc: string;
     picSrc: string;
     buyLink: string;
+    position: number;
 }
 
 export interface MusicSubmissionSchema extends Document {
@@ -34,4 +35,5 @@ export interface TrackData {
     audioSrc: string;
     picSrc: string;
     buyLink: string;
+    position: number;
 }
