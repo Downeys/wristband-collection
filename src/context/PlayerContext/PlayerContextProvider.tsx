@@ -55,13 +55,15 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, playerStatus, inFocus, router]);
 
     const handlePlayerStatusUpdate = useCallback(() => {
-        if (playerStatus === PlayerStatus.paused && state.currentHowl.playing()) state.currentHowl.pause();
-        if (playerStatus === PlayerStatus.playing && !state.currentHowl.playing()) state.currentHowl.play();
-        setState({ ...state, status: playerStatus })
+        if (state.currentHowl.state() !== 'unloaded') {
+            if (playerStatus === PlayerStatus.paused && state.currentHowl.playing()) state.currentHowl.pause();
+            if (playerStatus === PlayerStatus.playing && !state.currentHowl.playing()) state.currentHowl.play();
+            setState({ ...state, status: playerStatus })
+        }
     }, [state, playerStatus, index, next]);
 
     const handlePIndexUpdate = useCallback(() => {
-        if (state.currentHowl.playing()) state.currentHowl.stop();
+        if (state.currentHowl.state() !== 'unloaded' && state.currentHowl.playing()) state.currentHowl.stop();
         let newHowl = createHowl(state.playList[index].audioSrc, next);
         if (playerStatus === PlayerStatus.playing) newHowl.play();
         setState({ ...state, pIndex: index, trackInPlayer: state.playList[index], currentHowl: newHowl, status: playerStatus })

@@ -21,6 +21,10 @@ const trackSchema = new Schema<TrackSchema>({
     buyLink: {
         type: String,
         requried: true
+    },
+    position: {
+        type: Number,
+        required: true
     }
 })
 

@@ -19,5 +19,6 @@ const trackMapper = (tracks: TrackSchema[]): TrackData[] => tracks.map(track => 
     bandName: track.bandName,
     audioSrc: track.audioSrc,
     picSrc: track.picSrc,
-    buyLink: track.buyLink
+    buyLink: track.buyLink,
+    position: track.position
 }));
