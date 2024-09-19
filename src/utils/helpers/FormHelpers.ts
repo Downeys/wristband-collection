@@ -1,4 +1,4 @@
-import { SubmitForm } from "@/types/SubmitMusicFormTypes";
+import { SubmitForm } from "@/types/submitMusicFormTypes";
 
 export const getNextIndex = (someArray: any[]) => (someArray[someArray.length -1]?.index ?? 0) + 1;
 

@@ -1,4 +1,4 @@
-import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { PlayerStatus } from '@/types/playerStatusEnum';
 import { TrackData } from "@/models/types";
 
 export interface PlayerContextState {

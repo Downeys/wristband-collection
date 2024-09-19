@@ -6,7 +6,7 @@ import Heading from "@/components/text/Heading";
 import { Label } from "@/components/text/Label";
 import { v4 as uuidv4 } from "uuid";
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from "react";
-import { ContactForm, ContactState } from "@/types/ContactFormTypes";
+import { ContactForm, ContactState } from "@/types/contactFormTypes";
 import FetchService from "@/config/FetchService";
 import ContactFormValidator from "@/utils/validations/validators/ContactFormValidator";
 import Font from "@/config/fonts"

@@ -1,5 +1,5 @@
 import { connectToDb } from "@/config/mongoRepo";
-import { ContactForm } from "@/types/ContactFormTypes";
+import { ContactForm } from "@/types/contactFormTypes";
 import { UserFeedback } from "@/models/userFeedback";
 
 export const insertUserFeedback = async (form: ContactForm): Promise<number> => {
