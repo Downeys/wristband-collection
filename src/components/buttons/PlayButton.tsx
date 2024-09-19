@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "../icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '../icons/PauseIcon';
-import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { PlayerStatus } from '@/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/utils/helpers/SearchParamHelpers';
 import Spinner from '../Spinner/Spinner';
 
@@ -20,14 +20,14 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
     const router = useRouter();
     const searchParams = useSearchParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
-    const inFocusParam = useMemo(() => searchParams.get('inFocus'), [searchParams]);
+    const [inFocusParam, orderParam] = useMemo(() => [searchParams.get('inFocus'), searchParams.get('order')], [searchParams]);
     
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
-        router.replace(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}`, { scroll: false })
-    }, [router, isPlaying, inFocusParam, trackIndex]);
+        router.replace(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}&order=${orderParam}`, { scroll: false })
+    }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 
     const variantStyle = {
         primary: 'h-20 w-20 mx-12 rounded-full shadow-blue pl-3 pt-3',

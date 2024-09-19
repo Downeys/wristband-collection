@@ -1,6 +1,6 @@
 import { connectToDb } from "@/config/mongoRepo";
 import { MusicSubmission } from "@/models/musicSubmission";
-import { SubmitFormDto } from "@/types/SubmitMusicFormTypes";
+import { SubmitFormDto } from "@/types/submitMusicFormTypes";
 
 export const insertMusicSubmission = async (form: SubmitFormDto): Promise<number> => {
     try {

@@ -1,5 +1,5 @@
-import { Specification } from "@/types/SpecificationTypes";
-import { SubmitForm } from "@/types/SubmitMusicFormTypes";
+import { Specification } from "@/types/specificationTypes";
+import { SubmitForm } from "@/types/submitMusicFormTypes";
 
 export const isBandNameValid: Specification<SubmitForm>  = {
     isSatisfiedBy: async (form: SubmitForm) => form.band?.length > 0

@@ -10,7 +10,7 @@ import { createMusicSubmissionFormData, getNextIndex } from "@/utils/helpers/For
 import { FormEventHandler, MouseEventHandler, useCallback, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import constants from '@/static-data/SubmitFormConstants';
-import { SubmitState, SubmitForm } from "@/types/SubmitMusicFormTypes";
+import { SubmitState, SubmitForm } from "@/types/submitMusicFormTypes";
 import SubmitMusicValidator from "@/utils/validations/validators/MusicFormValidator";
 import FetchService from "@/config/FetchService";
 

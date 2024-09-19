@@ -1,6 +1,6 @@
-import { SubmitForm } from "@/types/SubmitMusicFormTypes";
+import { SubmitForm } from "@/types/submitMusicFormTypes";
 import { isBandNameValid, isContactNameValid, isEmailValid, isPhoneValid, isEveryAlbumNameValid, isEveryAlbumPhotoPresent, isEverySongNameValid, isEverySongFilePresent, isAtLeastOneSongInEveryAlbum } from "../specifications/MusicFormSpecifications";
-import { Validator, ValidatorConfig } from "@/types/SpecificationTypes";
+import { Validator, ValidatorConfig } from "@/types/specificationTypes";
 
 const validatorConfig: ValidatorConfig<SubmitForm> ={
     config: [{

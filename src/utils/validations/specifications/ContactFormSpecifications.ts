@@ -1,5 +1,5 @@
-import { ContactForm } from "@/types/ContactFormTypes";
-import { Specification } from "@/types/SpecificationTypes";
+import { ContactForm } from "@/types/contactFormTypes";
+import { Specification } from "@/types/specificationTypes";
 
 export const isNameValid: Specification<ContactForm> = {
     isSatisfiedBy: async (form: ContactForm) => /^[a-zÀ-ÿ ,.'-]+$/i.test(form.name)

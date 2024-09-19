@@ -1,5 +1,5 @@
-import { ContactForm } from "@/types/ContactFormTypes";
-import { Validator, ValidatorConfig } from "@/types/SpecificationTypes";
+import { ContactForm } from "@/types/contactFormTypes";
+import { Validator, ValidatorConfig } from "@/types/specificationTypes";
 import { isEmailValid, isMessageValid, isNameValid, isPhoneValid } from "../specifications/ContactFormSpecifications";
 
 const validatorConfig: ValidatorConfig<ContactForm> = {

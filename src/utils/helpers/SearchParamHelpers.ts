@@ -1,4 +1,14 @@
-import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { PlayerStatus } from '@/types/playerStatusEnum';
+import { Buffer } from 'buffer';
+
+const encodeParam = (param: string): string => {
+    return Buffer.from(param, 'utf-8').toString('base64');
+}
+
+const decodeParam = (param: string): string => {
+    const decodedData = Buffer.from(param, 'base64');
+    return decodedData.toString();
+}
 
 export const getPlayerStatusAction = (actionCode: string) => {
     switch (actionCode){
@@ -34,4 +44,14 @@ export const constructPlayerStatusAction = (action: PlayerStatus | null, trackIn
     else if (action === PlayerStatus.paused) actionCode = "S";
     else actionCode = "S";
     return `${actionCode}${trackIndex}`
+}
+
+export const encodeOrderParam = (orderList: number[]): string => {
+    return encodeParam(JSON.stringify(orderList));
+}
+
+export const decodeOrderParam = (param: string): number[] => {
+    if (!param || !param.length) return [];
+    const decodedString = decodeParam(param)
+    return JSON.parse(decodedString);
 }

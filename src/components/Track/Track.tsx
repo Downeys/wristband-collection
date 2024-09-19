@@ -2,7 +2,7 @@ import Image from 'next/image';
 import PlayButton from "../buttons/PlayButton";
 import Label from "../text/Label";
 import Link from "next/link";
-import { PlayerStatus } from '@/types/PlayerStatusEnum';
+import { PlayerStatus } from '@/types/playerStatusEnum';
 import { constructPlayerStatusAction } from "@/utils/helpers/SearchParamHelpers";
 import { TrackData } from '@/models/types';
 
@@ -11,14 +11,15 @@ export interface TrackProps extends TrackData {
     trackIndex: number;
     trackInPlayer: number;
     trackInFocus?: string;
+    orderParam: string;
 }
 
-export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName }) => {
+export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam }) => {
     const isInPlayer = trackInPlayer === trackIndex;
     const isInFocus = trackInFocus === id;
     const playButtonStatus = isInPlayer ? playerStatus : PlayerStatus.paused;
     const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
-    const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}`;
+    const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}&order=${orderParam}`;
     return (
         <Link href={uri} replace={true} scroll={false} className="flex flex-row h-32 w-full justify-between content-center items-center">
             <div className="flex">
