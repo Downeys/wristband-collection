@@ -26,3 +26,5 @@ export const sortPlaylistByOrderList = (trackList: TrackData[], orderList: numbe
 export const sortPlaylistByPosition = (tracks: TrackData[]): TrackData[] => {
     return tracks.sort((a, b) => a.position - b.position);
 }
+
+export const getNextIndex = (currentIndex: number, playlist: TrackData[]) =>  currentIndex + 1 === playlist.length ? 0 : currentIndex + 1;
