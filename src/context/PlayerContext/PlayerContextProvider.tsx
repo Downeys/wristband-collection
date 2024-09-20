@@ -9,7 +9,7 @@ import { PlayerContextState } from './PlayerContextState';
 import { constructPlayerStatusAction, decodeOrderParam, decodePlayerStatusParam, encodeOrderParam } from '@/utils/helpers/SearchParamHelpers';
 import { PlayerStatus } from '@/types/playerStatusEnum';
 import { createHowl } from '@/utils/helpers/HowlHelpers';
-import { getRandomizedOrder, sortPlaylistByOrderList } from '@/utils/helpers/PlaylistHelpers';
+import { getNextIndex, getRandomizedOrder, sortPlaylistByOrderList } from '@/utils/helpers/PlaylistHelpers';
 
 interface PlayListProviderProps {
     playList: TrackData[]
@@ -19,8 +19,8 @@ interface InternalState {
     status: PlayerStatus;
     pIndex: number;
     trackInPlayer: TrackData | null;
+    orderParam: string;
     currentHowl: Howl;
-    orderHeader: string;
 }
  
 export const PlayListContext = createContext<PlayerContextState>(InitialPlayerState)
@@ -41,20 +41,24 @@ export default function PlayListProvider({ children, props }: { children: React.
         status: PlayerStatus.paused,
         pIndex: 0,
         trackInPlayer: props.playList ? props.playList[0] : null,
+        orderParam: '',
         currentHowl: { state: () => 'unloaded' } as Howl,
-        orderHeader: ''
     });
 
     const back = useCallback(() => {
         const newIndex = state.pIndex === 0 ? playlist.length - 1 : state.pIndex - 1;
         const newPlayerStatus = constructPlayerStatusAction(playerStatus, newIndex);
-        router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${inFocus}&order=${state.orderHeader}`, { scroll: false })
+        router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${inFocus}&order=${state.orderParam}`, { scroll: false })
     }, [state, playerStatus, inFocus, router, playlist]);
+
+    const goNext = useCallback((newPlayerStatus: string, newInFocus: string, orderParam: string) => {
+        router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${newInFocus}&order=${orderParam}`, { scroll: false })
+    }, [router]);
     
     const next = useCallback(() => {
-        const newIndex = state.pIndex + 1 === playlist.length ? 0 : state.pIndex + 1;
+        const newIndex = getNextIndex(state.pIndex, playlist);
         const newPlayerStatus = constructPlayerStatusAction(playerStatus, newIndex);
-        router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${inFocus}&order=${state.orderHeader}`, { scroll: false })
+        router.replace(`?playerStatus=${newPlayerStatus}&inFocus=${inFocus}&order=${state.orderParam}`, { scroll: false })
     }, [state, playerStatus, inFocus, router, playlist]);
 
     const handlePlayerStatusUpdate = useCallback(() => {
@@ -67,17 +71,19 @@ export default function PlayListProvider({ children, props }: { children: React.
 
     const handlePIndexUpdate = useCallback(() => {
         if (state.currentHowl.state() !== 'unloaded' && state.currentHowl.playing()) state.currentHowl.stop();
-        let newHowl = createHowl(playlist[index].audioSrc, next);
+        const newIndex = getNextIndex(index, playlist);
+        let newHowl = createHowl(playlist[index].audioSrc, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
         if (playerStatus === PlayerStatus.playing) newHowl.play();
-        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentHowl: newHowl, status: playerStatus })
-    }, [state, index, playerStatus, playlist, next])
+        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], status: playerStatus, currentHowl: newHowl })
+    }, [state, index, playerStatus, playlist, goNext])
 
     useEffect(() => {
         const randomTrackOrder = getRandomizedOrder(props.playList)
         const trackOrder = encodeOrderParam(randomTrackOrder);
         const sortedTrackList = sortPlaylistByOrderList(props.playList, randomTrackOrder)
         const initialStatus = constructPlayerStatusAction(state.status, 0)
-        setState({ ...state, currentHowl: createHowl(sortedTrackList[0].audioSrc, next), orderHeader: trackOrder, trackInPlayer: sortedTrackList[0] })
+        const newPlayerStatus = 'P1';
+        setState({ ...state, currentHowl: createHowl(sortedTrackList[0].audioSrc, () => goNext(newPlayerStatus, inFocus ?? '', trackOrder)), orderParam: trackOrder, trackInPlayer: sortedTrackList[0] })
         router.replace(`?playerStatus=${initialStatus}&inFocus=${sortedTrackList[0].id}&order=${trackOrder}`, { scroll: false })
     }, [])
 

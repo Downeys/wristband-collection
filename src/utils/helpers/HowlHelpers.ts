@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
 
-export const createHowl = (src: string, onEnd: (soundId?: number) => void) => {
+export const createHowl = (src: string, onEnd: () => void) => {
     // console.log("New howl created")
     return new Howl({
         src: [src],
