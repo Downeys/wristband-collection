@@ -13,6 +13,8 @@ import constants from '@/static-data/SubmitFormConstants';
 import { SubmitState, SubmitForm } from "@/types/submitMusicFormTypes";
 import SubmitMusicValidator from "@/utils/validations/validators/MusicFormValidator";
 import FetchService from "@/config/FetchService";
+import ConfirmationModal from "@/components/modals/ConfirmationModal";
+import FailureModal from "@/components/modals/FailureModal";
 
 const initState = {
     band: '',
@@ -21,7 +23,9 @@ const initState = {
     phone: '',
     albums: [{ id: uuidv4(), index: 0, songs: [{ id: uuidv4(), index: 0 }] }],
     validationMessages: [],
-    inProgress: false
+    inProgress: false,
+    showConfirmationModal: false,
+    showFailureModal: false
 }
 
 export default function Submit({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
@@ -52,8 +56,13 @@ export default function Submit({ searchParams }: { searchParams: { [key: string]
         setState({ ...state, validationMessages }); 
         if (isValid) {
             const formData = createMusicSubmissionFormData(form)
-            await FetchService.POST('/api/submissions', formData);
-            resetState();
+            try {
+                await FetchService.POST('/api/submissions', formData);
+                setState({ ...state, showConfirmationModal: true });
+            } catch (e) {
+                setState({ ...state, showFailureModal: true });
+            }
+            
         }
     }, [state])
 
@@ -153,18 +162,25 @@ export default function Submit({ searchParams }: { searchParams: { [key: string]
         setState({ ...state, albums: filteredAlbums })
     }, [state]);
 
+    const handleRetry = useCallback(() => {
+        setState({ ...state, showFailureModal: false, inProgress: true });
+        handleSubmit();
+    }, [state, handleSubmit])
+
     return (
         <div className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
+            <ConfirmationModal message="Songs submitted successfully. Thank you." onConfirm={resetState} showModal={state.showConfirmationModal} />
+            <FailureModal message="Failed to submit songs. If issue persists, please report via the contact form. Thank you!" showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
             <div className="w-full max-w-screen-sm">
                 <Heading size="3xl" text="Submit music" additionalStyles="w-full text-center p-2"/>
                 <form onSubmit={handleSubmitEvent} className="my-4">
-                    <FormInput name={BAND} label="Band/Artist Name" onChange={handleInputChange}/>
-                    <FormInput name={CONTACT} label="Contact Person Name" onChange={handleInputChange}/>
-                    <FormInput name={EMAIL} type="email" label="Contact Email" onChange={handleInputChange}/>
-                    <FormInput name={PHONE} type="tel" label="Phone Number (optional)" onChange={handleInputChange}/>
+                    <FormInput name={BAND} label="Band/Artist Name" onChange={handleInputChange} value={state.band} />
+                    <FormInput name={CONTACT} label="Contact Person Name" onChange={handleInputChange} value={state.contact} />
+                    <FormInput name={EMAIL} type="email" label="Contact Email" onChange={handleInputChange} value={state.email} />
+                    <FormInput name={PHONE} type="tel" label="Phone Number (optional)" onChange={handleInputChange} value={state.phone} />
                     {state.albums.sort((a, b) => a.index - b.index).map((album) => (
-                        <AlbumInput key={album.id} id={album.id} index={album.index} onNameChange={handleInputChange} onPhotoChange={handlePhotoChange}>
-                            {album.songs.sort((a, b) => a.index - b.index).map((song) => (<SongInput key={song.id} id={song.id} onNameChange={handleInputChange} onFileChange={handleSongChange} onRemoveSong={handleRemoveSong} />))}
+                        <AlbumInput key={album.id} id={album.id} index={album.index} value={album.name ?? ''} onNameChange={handleInputChange} onPhotoChange={handlePhotoChange}>
+                            {album.songs.sort((a, b) => a.index - b.index).map((song) => (<SongInput key={song.id} id={song.id} value={song.name ?? ''} onNameChange={handleInputChange} onFileChange={handleSongChange} onRemoveSong={handleRemoveSong} />))}
                             <div className="p-2 flex flex-row justify-between" >
                                 <SpanButton text="- Remove Album" id={album.id} onClick={handleRemoveAlbum} />
                                 <SpanButton text="+ Add Song" id={album.id} onClick={handleAddSong} />

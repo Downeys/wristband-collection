@@ -21,6 +21,8 @@ export interface SubmitState {
     albums: Album[];
     validationMessages: string[];
     inProgress: boolean;
+    showConfirmationModal: boolean;
+    showFailureModal: boolean;
 }
 
 export interface SongDto {

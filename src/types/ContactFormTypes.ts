@@ -5,6 +5,8 @@ export interface ContactState {
     message: string;
     validationMessages: string[];
     inProgress: boolean;
+    showConfirmationModal: boolean;
+    showFailureModal: boolean;
 }
 
 export interface ContactForm {
