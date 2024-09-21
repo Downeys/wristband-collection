@@ -5,10 +5,11 @@ interface FormInputProps {
     name: string;
     type?: 'text' | 'tel' | 'email';
     label: string;
+    value: string;
     onChange: (name: string, text: string) => void
 }
 
-export const FormInput: React.FC<FormInputProps> = ({ label, type, name, onChange }) => {
+export const FormInput: React.FC<FormInputProps> = ({ label, type, name, value, onChange }) => {
     const inputType = type ?? 'text';
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         onChange(name, e.target.value)
@@ -19,7 +20,8 @@ export const FormInput: React.FC<FormInputProps> = ({ label, type, name, onChang
             className={`${Font.secondary.className} text-lg font-semibold placeholder-black outline-none focus:outline-none w-full p-1 border-none rounded-lg`}
             type={inputType}
             onChange={handleOnChange}
-            placeholder={label}/>
+            placeholder={label}
+            value={value}/>
     </div>)
 }
 

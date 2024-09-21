@@ -6,6 +6,7 @@ import constants from '@/static-data/SubmitFormConstants'
 interface AlbumInputProps {
     id: string;
     index: number;
+    value: string;
     onNameChange: (name: string, text: string, id?: string) => void;
     onPhotoChange: (song: File, id: string) => void;
 }
@@ -13,7 +14,7 @@ interface AlbumInputProps {
 const shadows = ["shadow-green","shadow-blue"]
 const borders = ["border-wbGreen","border-wbBlue"]
 
-export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ children, id, index, onNameChange, onPhotoChange }) => {
+export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ children, id, index, value, onNameChange, onPhotoChange }) => {
     const shadowColor = shadows[index%2];
     const borderColor = borders[index%2];
     const { ALBUM } = constants.FieldNames;
@@ -21,7 +22,7 @@ export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ child
     const handlePhotoChange = useCallback((file:  File) => onPhotoChange(file, id), [onPhotoChange]);
     return (
         <div className={`flex flex-col border border-opacity-55 rounded-lg p-3 mb-4 ${shadowColor} ${borderColor}`}>
-            <FormInput name={ALBUM} label="Album Name" onChange={handleNameChange}/>
+            <FormInput name={ALBUM} label="Album Name" onChange={handleNameChange} value={value} />
             <FileInput name="Choose album photo file" type="photo" onChange={handlePhotoChange} />
             { children }
         </div>
