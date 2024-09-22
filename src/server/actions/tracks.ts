@@ -1,6 +1,6 @@
-import { connectToDb } from "@/config/mongoRepo";
 import { Track } from "@/models/track";
 import { TrackData, TrackSchema } from "@/models/types";
+import { connectToDb } from "@/server/config/mongoRepo";
 
 export const getAllTracks = async (): Promise<TrackData[]> => {
     try {

@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose'
 import { MusicSubmissionSchema } from "@/models/types";
-import { AlbumDto, SongDto } from "@/types/submitMusicFormTypes";
+import { SongDto, AlbumDto } from '@/Submit/types/submitMusicFormTypes';
 
 const songSchema = new Schema<SongDto>({
     id: {
