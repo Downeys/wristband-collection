@@ -52,7 +52,7 @@ export default function SubmitPage() {
                         }))
                 }))
         }
-        const { isValid, validationMessages } = await SubmitMusicValidator.isValid(form);
+        const { isValid, validationMessages } = SubmitMusicValidator.isValid(form);
         setState({ ...state, validationMessages }); 
         if (isValid) {
             const formData = createMusicSubmissionFormData(form)
