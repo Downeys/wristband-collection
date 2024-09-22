@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
 import { ContactState, ContactForm } from '@/Contact/types/contactFormTypes';
 import { FieldNames } from '@/Contact/constants/contactFormConstants';
-import { ContactFormValidator } from '@/Contact/utils/validations/validators/contactFormValidator';
+import { ContactFormValidator } from './utils/validations/validators/ContactFormValidator';
 
 const initState: ContactState = {
     name: '',
@@ -36,7 +36,7 @@ export default function ContactPage() {
             phone: state.phone,
             message: state.message
         }
-        const { isValid, validationMessages } = await ContactFormValidator.isValid(form);
+        const { isValid, validationMessages } = ContactFormValidator.isValid(form);
         setState({ ...state, validationMessages }); 
         if (isValid) {
             try {

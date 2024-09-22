@@ -1,5 +1,5 @@
 export interface Specification<T> {
-    isSatisfiedBy: (entity: T) => Promise<boolean>;
+    isSatisfiedBy: (entity: T) => boolean;
 }
 
 export interface ValidatorConfigItem<T> {
@@ -18,5 +18,5 @@ export interface IsValidResponse {
 }
 
 export interface Validator<T> {
-    isValid: (form: T) => Promise<IsValidResponse>;
+    isValid: (form: T) => IsValidResponse;
 }

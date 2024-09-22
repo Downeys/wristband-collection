@@ -1,6 +1,6 @@
 import { ContactForm } from "@/Contact/types/contactFormTypes";
 import { Validator, ValidatorConfig } from "@/common/types/specificationTypes";
-import { isEmailValid, isMessageValid, isNameValid, isPhoneValid } from "@/Contact/utils/validations/specifications/contactFormSpecifications";
+import { isNameValid, isEmailValid, isPhoneValid, isMessageValid } from "../specifications/contactFormSpecifications";
 
 const validatorConfig: ValidatorConfig<ContactForm> = {
     config: [{
@@ -26,10 +26,10 @@ const validatorConfig: ValidatorConfig<ContactForm> = {
 }
 
 export const ContactFormValidator: Validator<ContactForm> = {
-    isValid: async (form: ContactForm) => {
+    isValid: (form: ContactForm) => {
         let validationMessages: string[] = [];
-        validatorConfig.config.forEach(async (item) => {
-            if (!(await item.specification.isSatisfiedBy(form))) {
+        validatorConfig.config.forEach((item) => {
+            if (!(item.specification.isSatisfiedBy(form))) {
                 validationMessages = [...validationMessages, item.validationMessage ];
             }
         })

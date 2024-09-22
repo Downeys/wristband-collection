@@ -51,10 +51,10 @@ const validatorConfig: ValidatorConfig<SubmitForm> ={
 }
 
 export const SubmitMusicValidator: Validator<SubmitForm> = {
-    isValid: async (form: SubmitForm) => {
+    isValid: (form: SubmitForm) => {
         let validationMessages: string[] = [];
-        await validatorConfig.config.forEach(async (item) => {
-            if (!(await item.specification.isSatisfiedBy(form))) {
+        validatorConfig.config.forEach((item) => {
+            if (!(item.specification.isSatisfiedBy(form))) {
                 validationMessages = [...validationMessages, item.validationMessage ];
             }
         })
