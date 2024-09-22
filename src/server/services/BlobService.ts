@@ -1,6 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import { v1 } from "uuid";
-import config from "@/config/config"
+import config from "@/common/config/config"
 import sharp from 'sharp';
 
 const blobServiceClient = BlobServiceClient.fromConnectionString(config.blob.connectionString);

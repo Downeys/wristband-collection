@@ -1,5 +1,5 @@
 import { model, models, Schema } from "mongoose";
-import { UserFeedbackSchema } from "./types";
+import { UserFeedbackSchema } from "@/models/types";
 
 const userFeedbackSchema = new Schema<UserFeedbackSchema>({
     name: {
