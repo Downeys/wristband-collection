@@ -11,7 +11,8 @@ import { v4 as uuidv4 } from "uuid";
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
 import { ContactState, ContactForm } from '@/Contact/types/contactFormTypes';
 import { FieldNames } from '@/Contact/constants/contactFormConstants';
-import { ContactFormValidator } from './utils/validations/validators/ContactFormValidator';
+import { ContactFormValidator } from './utils/validations/validators/contactFormValidator';
+import { useTranslation } from 'react-i18next';
 
 const initState: ContactState = {
     name: '',
@@ -27,6 +28,7 @@ const initState: ContactState = {
 export default function ContactPage() {
     const { NAME, EMAIL, PHONE, MESSAGE } = FieldNames;
     const [state, setState] = useState<ContactState>(initState)
+    const { t } = useTranslation('contact');
     const resetState = () => setState(initState);
 
     const handleSubmit = useCallback(async () => {
@@ -92,12 +94,12 @@ export default function ContactPage() {
             <div className="w-full max-w-screen-sm">
                 <Heading size="3xl" text="Contact Me" additionalStyles="w-full text-center p-2"/>
                 <form onSubmit={handleSubmitEvent} className="my-4">
-                    <FormInput name={NAME} label="Name" onChange={handleInputChange} value={state.name} />
-                    <FormInput name={EMAIL} type="email" label="Email" onChange={handleInputChange} value={state.email} />
-                    <FormInput name={PHONE} type="tel" label="Phone Number (optional)" onChange={handleInputChange} value={state.phone} />
-                    <textarea name={MESSAGE} placeholder="Enter your message here" onChange={handleTextAreaChange} value={state.message} className={`${Font.secondary.className} text-lg font-semibold placeholder-black outline-none focus:outline-none h-60 w-full p-1 border-none rounded-lg`} />
+                    <FormInput name={NAME} label={t('nameLabel')} onChange={handleInputChange} value={state.name} />
+                    <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
+                    <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
+                    <textarea name={MESSAGE} placeholder={t('messageLabel')} onChange={handleTextAreaChange} value={state.message} className={`${Font.secondary.className} text-lg font-semibold placeholder-black outline-none focus:outline-none h-60 w-full p-1 border-none rounded-lg`} />
                     <div className="mb-6 flex flex-col">
-                        {state.validationMessages.map(message => <Label key={uuidv4()} text={`- ${message}`} color="red" />)}
+                        {state.validationMessages.map(message => <Label key={uuidv4()} text={t(message)} color="red" />)}
                     </div>
                     <div className="flex w-full justify-center items-center">
                         <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">

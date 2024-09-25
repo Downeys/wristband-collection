@@ -1,0 +1,11 @@
+{
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone Number (optional)",
+    "messageLabel": "Enter your message here",
+    "submitButton": "Submit",
+    "invalidName": "- Please enter valid name",
+    "invalidEmail": "- Email address is invalid",
+    "invalidPhone": "- Phone number is invalid",
+    "invalidMessage": "- Message is a required field"
+}

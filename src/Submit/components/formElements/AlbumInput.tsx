@@ -4,6 +4,7 @@ import { PropsWithChildren, useCallback } from "react";
 import { FileInput } from "@/Submit/components/formElements/FileInput";
 import FormInput from "@/common/components/formElements/FormInput";
 import { FieldNames } from "@/Submit/constants/submitFormConstants";
+import { useTranslation } from 'react-i18next';
 
 interface AlbumInputProps {
     id: string;
@@ -17,6 +18,7 @@ const shadows = ["shadow-green","shadow-blue"]
 const borders = ["border-wbGreen","border-wbBlue"]
 
 export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ children, id, index, value, onNameChange, onPhotoChange }) => {
+    const { t } = useTranslation('submit');
     const shadowColor = shadows[index%2];
     const borderColor = borders[index%2];
     const { ALBUM } = FieldNames;
@@ -24,8 +26,8 @@ export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ child
     const handlePhotoChange = useCallback((file:  File) => onPhotoChange(file, id), [onPhotoChange]);
     return (
         <div className={`flex flex-col border border-opacity-55 rounded-lg p-3 mb-4 ${shadowColor} ${borderColor}`}>
-            <FormInput name={ALBUM} label="Album Name" onChange={handleNameChange} value={value} />
-            <FileInput name="Choose album photo file" type="photo" onChange={handlePhotoChange} />
+            <FormInput name={ALBUM} label={t('albumLabel')} onChange={handleNameChange} value={value} />
+            <FileInput name={t('albumPhotoLabel')} type="photo" onChange={handlePhotoChange} />
             { children }
         </div>
     )

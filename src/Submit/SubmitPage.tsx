@@ -15,6 +15,7 @@ import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
 import { createMusicSubmissionFormData, getNextIndex } from '@/Submit/utils/helpers/formHelpers';
 import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
 import { FieldNames } from '@/Submit/constants/submitFormConstants';
+import { useTranslation } from 'react-i18next';
 
 const initState = {
     band: '',
@@ -30,6 +31,7 @@ const initState = {
 
 export default function SubmitPage() {
     const [state, setState] = useState<SubmitState>(initState);
+    const { t } = useTranslation('submit');
     const { BAND, CONTACT, EMAIL, PHONE, ALBUM, SONG } = FieldNames;
     const resetState = () => setState(initState);
 
@@ -169,33 +171,33 @@ export default function SubmitPage() {
 
     return (
         <main className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
-            <ConfirmationModal message="Songs submitted successfully. Thank you." onConfirm={resetState} showModal={state.showConfirmationModal} />
-            <FailureModal message="Failed to submit songs. If issue persists, please report via the contact form. Thank you!" showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
+            <ConfirmationModal message={t('confirmationMessage')} onConfirm={resetState} showModal={state.showConfirmationModal} />
+            <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
             <div className="w-full max-w-screen-sm">
-                <Heading size="3xl" text="Submit music" additionalStyles="w-full text-center p-2"/>
+                <Heading size="3xl" text={t('submitHeading')} additionalStyles="w-full text-center p-2"/>
                 <form onSubmit={handleSubmitEvent} className="my-4">
-                    <FormInput name={BAND} label="Band/Artist Name" onChange={handleInputChange} value={state.band} />
-                    <FormInput name={CONTACT} label="Contact Person Name" onChange={handleInputChange} value={state.contact} />
+                    <FormInput name={BAND} label={t('bandLabel')} onChange={handleInputChange} value={state.band} />
+                    <FormInput name={CONTACT} label={t('contactLabel')} onChange={handleInputChange} value={state.contact} />
                     <FormInput name={EMAIL} type="email" label="Contact Email" onChange={handleInputChange} value={state.email} />
-                    <FormInput name={PHONE} type="tel" label="Phone Number (optional)" onChange={handleInputChange} value={state.phone} />
+                    <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
                     {state.albums.sort((a, b) => a.index - b.index).map((album) => (
                         <AlbumInput key={album.id} id={album.id} index={album.index} value={album.name ?? ''} onNameChange={handleInputChange} onPhotoChange={handlePhotoChange}>
                             {album.songs.sort((a, b) => a.index - b.index).map((song) => (<SongInput key={song.id} id={song.id} value={song.name ?? ''} onNameChange={handleInputChange} onFileChange={handleSongChange} onRemoveSong={handleRemoveSong} />))}
                             <div className="p-2 flex flex-row justify-between" >
-                                <SpanButton text="- Remove Album" id={album.id} onClick={handleRemoveAlbum} />
-                                <SpanButton text="+ Add Song" id={album.id} onClick={handleAddSong} />
+                                <SpanButton text={t('removeAlbumButton')} id={album.id} onClick={handleRemoveAlbum} />
+                                <SpanButton text={t('addSongButton')} id={album.id} onClick={handleAddSong} />
                             </div>
                         </AlbumInput>)
                     )}
                     <div className="flex flex-row justify-end">
-                        <SpanButton text="+ Add Album" onClick={handleAddAlbum} />
+                        <SpanButton text={t('addAlbumButton')} onClick={handleAddAlbum} />
                     </div>
                     <div className="mb-6 flex flex-col">
-                        {state.validationMessages.map(message => <Label key={uuidv4()} text={`- ${message}`} color="red" />)}
+                        {state.validationMessages.map(message => <Label key={uuidv4()} text={t(message)} color="red" />)}
                     </div>
                     <div className="flex w-full justify-center items-center">
                         <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">
-                            <Label text="Submit" bold size="2xl"/>
+                            <Label text={t('submitButton')} bold size="2xl"/>
                         </button>
                     </div>
                 </form>

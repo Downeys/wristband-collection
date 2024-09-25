@@ -5,6 +5,7 @@ import { TrackData } from '@/models/types';
 import { Label } from '@/common/components/text/Label';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
+import initTranslations from '@/common/utils/i18n';
 
 export interface TrackProps extends TrackData {
     playerStatus: PlayerStatus;
@@ -12,9 +13,11 @@ export interface TrackProps extends TrackData {
     trackInPlayer: number;
     trackInFocus?: string;
     orderParam: string;
+    locale: string;
 }
 
-export const Track: React.FC<TrackProps> = ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam }) => {
+export const Track: React.FC<TrackProps> = async ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam, locale }) => {
+    const { t } = await initTranslations(locale, ['home'])
     const isInPlayer = trackInPlayer === trackIndex;
     const isInFocus = trackInFocus === id;
     const showPlayButton = isInFocus || isInPlayer;
