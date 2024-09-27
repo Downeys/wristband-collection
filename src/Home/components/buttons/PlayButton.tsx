@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "@/Home/components/icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '@/Home/components/icons/PauseIcon';
@@ -19,6 +19,7 @@ export interface PlayButtonProps {
 export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, status, loading, onClick }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const params = useParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
     const [inFocusParam, orderParam] = useMemo(() => [searchParams.get('inFocus'), searchParams.get('order')], [searchParams]);
     
@@ -26,7 +27,7 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
-        router.replace(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}&order=${orderParam}`, { scroll: false })
+        router.replace(`/${params.locale}?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}&order=${orderParam}`, { scroll: false })
     }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 
     const variantStyle = {

@@ -5,7 +5,7 @@ import { TrackData } from '@/models/types';
 import { Label } from '@/common/components/text/Label';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
-import initTranslations from '@/common/utils/i18n';
+import initTranslations from '@/common/utils/i18n/i18n';
 
 export interface TrackProps extends TrackData {
     playerStatus: PlayerStatus;

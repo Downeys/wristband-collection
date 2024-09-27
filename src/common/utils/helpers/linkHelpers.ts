@@ -1,0 +1,11 @@
+import config from "@/common/config/config"
+
+export const getHomeLink = (locale: string): string => `${config.links.baseUrl}${locale}/`;
+
+export const getContactLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.contactLink}`;
+
+export const getSubmitLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.submitLink}`;
+
+export const getAboutLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.aboutLink}`;
+
+export default {  getHomeLink, getContactLink, getSubmitLink, getAboutLink };
