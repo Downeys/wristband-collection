@@ -1,12 +1,14 @@
 "use client"
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "@/Home/components/icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '@/Home/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
+import { SearchParams } from '@/Home/constants/playerContextConstants';
+import { DEFAULT_LOCALE } from '@/common/constants/i18nConstants';
 
 export interface PlayButtonProps {
     variant?: 'primary' | 'track';
@@ -19,14 +21,17 @@ export interface PlayButtonProps {
 export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, status, loading, onClick }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const params = useParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
-    const [inFocusParam, orderParam] = useMemo(() => [searchParams.get('inFocus'), searchParams.get('order')], [searchParams]);
+    const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
+    const [inFocusParam, orderParam] = useMemo(() => [searchParams.get(IN_FOCUS), searchParams.get(ORDER)], [searchParams]);
     
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
-        router.replace(`/?playerStatus=${newPlayerStatus}&inFocus=${inFocusParam}&order=${orderParam}`, { scroll: false })
+        const locale = params.locale ?? DEFAULT_LOCALE;
+        router.replace(`/${locale}?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
     }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 
     const variantStyle = {

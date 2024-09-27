@@ -7,4 +7,6 @@ export const FieldNames = {
     SONG: "SONG"
 }
 
-export default { FieldNames }
+export const UNRECOGNIZED_FIELD_MESSAGE = "Something went wrong";
+
+export default { FieldNames, UNRECOGNIZED_FIELD_MESSAGE }

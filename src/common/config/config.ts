@@ -9,6 +9,11 @@ interface RawEnvVars {
     musicSubmissionContainer: string | undefined;
     photoSubmissionUrl: string | undefined;
     musicSubmissionUrl: string | undefined;
+    baseUrl: string | undefined;
+    contactLink: string | undefined;
+    submitLink: string | undefined;
+    aboutLink: string | undefined;
+    picOfMeLink: string | undefined;
 }
 
 interface DbProps {
@@ -23,9 +28,18 @@ interface BlobProps {
     musicSubmissionUrl: string;
 }
 
+interface LinkProps {
+    baseUrl: string;
+    contactLink: string;
+    submitLink: string;
+    aboutLink: string;
+    picOfMeLink: string;
+}
+
 interface Config {
     mongoDb: DbProps;
-    blob: BlobProps
+    blob: BlobProps;
+    links: LinkProps;
 }
 
 const envVars: RawEnvVars = {
@@ -34,7 +48,12 @@ const envVars: RawEnvVars = {
     photoSubmissionContainer: process.env.PHOTO_SUBMISSION_CONTAINER,
     musicSubmissionContainer: process.env.MUSIC_SUBMISSION_CONTAINER,
     photoSubmissionUrl: process.env.PHOTO_SUBMISSION_URL,
-    musicSubmissionUrl: process.env.MUSIC_SUBMISSION_URL
+    musicSubmissionUrl: process.env.MUSIC_SUBMISSION_URL,
+    baseUrl: process.env.BASE_URL,
+    contactLink: process.env.CONTACT_URI,
+    submitLink: process.env.SUBMIT_URI,
+    aboutLink: process.env.ABOUT_URI,
+    picOfMeLink: process.env.PIC_OF_ME_LINK
 }
 
 const getSanatizedConfig = (c: RawEnvVars): Config => {
@@ -54,9 +73,19 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
         photoSubmissionUrl: c.photoSubmissionUrl ?? '',
         musicSubmissionUrl: c.musicSubmissionUrl ?? ''
     }
+
+    const LINKS: LinkProps = {
+        baseUrl: c.baseUrl ?? '',
+        contactLink: c.contactLink ?? '',
+        submitLink: c.submitLink ?? '',
+        aboutLink: c.aboutLink ?? '',
+        picOfMeLink: c.picOfMeLink ?? ''
+    }
+
     return {
         mongoDb: MONGO,
-        blob: BLOB
+        blob: BLOB,
+        links: LINKS
     }
 }
 

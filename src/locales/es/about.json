@@ -1,0 +1,20 @@
+{
+    "pageHeading": "Sólo Música Local",
+    "pageSubHeading": "Estamos recopilando la mejor música underground de todas partes para compartirla a través de nuestra aplicación de transmisión de música casera.",
+    "submitButton": "Enviar Música",
+    "ownershipGuarantee": "*Todos los derechos y propiedad de la música enviada son retenidos por los artistas. Sólo presentamos la música.",
+    "aboutMe1": "Wristband Radio es actualmente un equipo de uno. Mi nombre es Steve Downey. Soy un músico local convertido en desarrollador de software.",
+    "aboutMe2": "Estoy cumpliendo el sueño de toda mi vida de crear mi propia aplicación de transmisión de música. Un hogar para la mejor música underground de la que nadie ha oído hablar.",
+    "aboutMe3": "Esto también está en mi currículum.",
+    "missionStatement": "Wristband Radio tiene la misión de recopilar 10,080 minutos de excelente música underground para compartir a través de nuestra aplicación de transmisión de música casera.",
+    "streamingDisclaimer": "Aviso: todavía no tenemos una aplicación de transmisión de música. Es más bien una aplicación web de reproductor de música... cosa. Este proyecto aún se encuentra en una etapa muy temprana.",
+    "picOfMeAltText": "Yo y mi banda.",
+    "comingSoon": "Muy pronto...",
+    "bullet1A": "Primero, estamos creando versiones nativas móviles de nuestra ",
+    "bullet1Link": "aplicación web de reproductor de música",
+    "bullet1B": " ...cosa.",
+    "bullet2": "A continuación, conectaremos la transmisión de medios real a través de tecnología altamente patentada, es decir, websockets.",
+    "bullet3A": "Luego, estamos abiertos a comenzar a desarrollar funciones, así que háganos saber lo que desea a través de ",
+    "bullet3Link": "la pestaña de contactos",
+    "bullet3B": "."
+}

@@ -1,7 +1,5 @@
 import React from "react";
-import { Lacquer } from "next/font/google";
-
-const lacquer = Lacquer({ subsets: ["latin"], weight: "400" });
+import Font from "@/common/config/fonts";
 
 export interface HeadingProps {
     text: string;
@@ -20,7 +18,7 @@ export const Heading: React.FC<HeadingProps> = (props) => {
         '4xl': 'text-4xl ',
         '5xl': 'text-5xl '
     }
-    return <p className={`${lacquer.className} dark:text-white font-bold leading-5 ${fontSizes[size]} ${additionalStyles}`}>{props.text}</p>
+    return <p className={`${Font.primary.className} dark:text-white font-bold leading-5 ${fontSizes[size]} ${additionalStyles}`}>{props.text}</p>
 }
 
 export default Heading

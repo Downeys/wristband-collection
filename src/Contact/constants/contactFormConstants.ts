@@ -3,6 +3,8 @@ export const FieldNames = {
     EMAIL: "EMAIL",
     PHONE: "PHONE",
     MESSAGE: "MESSAGE",
-}
+} as const;
 
-export default { FieldNames }
+export const UNRECOGNIZE_FIELD_MESSAGE = "Something went wrong";
+
+export default { FieldNames, UNRECOGNIZE_FIELD_MESSAGE }

@@ -5,7 +5,7 @@ import { ContactForm } from "@/Contact/types/contactFormTypes";
 export const insertUserFeedback = async (form: ContactForm): Promise<number> => {
     try {
         await connectToDb();
-        const returnVal = UserFeedback.create(form);
+        await UserFeedback.create(form);
         return 1;
     } catch (e: any) {
         console.log(e.message)

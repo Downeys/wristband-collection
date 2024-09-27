@@ -1,10 +1,8 @@
-import HomePage from "@/Home/HomePage";
+import { DEFAULT_LOCALE } from "@/common/constants/i18nConstants";
+import { getHomeLink } from "@/common/utils/helpers/linkHelpers";
+import { redirect } from "next/navigation";
 
-export default function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-  const inFocusParam = `${searchParams.inFocus}`;
-  const playerStatusParam = `${searchParams.playerStatus}`;
-  const orderParam = searchParams.order ? `${searchParams.order}` : '';
-  return (
-    <HomePage inFocusParam={inFocusParam} playerStatusParam={playerStatusParam} orderParam={orderParam} />
-  );
+export default function Home({ params }: { params: { locale: string } }) {
+  const locale = params.locale ?? DEFAULT_LOCALE;
+  redirect(getHomeLink(locale))
 }

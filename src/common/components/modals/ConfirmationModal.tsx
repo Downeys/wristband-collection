@@ -1,5 +1,9 @@
+'use client'
+
 import React from 'react'
 import Label from '@/common/components/text/Label';
+import { useTranslation } from 'react-i18next';
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 interface ConfirmationModalProps {
     message: string;
@@ -8,6 +12,7 @@ interface ConfirmationModalProps {
 }
 
 export const ConfirmationModal = ({ message, showModal, onConfirm }: ConfirmationModalProps) => {
+    const { t } = useTranslation(Namespaces.COMMON)
     if (!showModal) return null;
     return (
         <div className='absolute top-0 left-0 h-full w-full flex justify-center pt-20 bg-slate-950 bg-opacity-90'>
@@ -17,7 +22,7 @@ export const ConfirmationModal = ({ message, showModal, onConfirm }: Confirmatio
                 </div>
                 <div className='w-full flex justify-center p-2 mt-2'>
                     <button className='h-12 w-16 border rounded-lg' onClick={onConfirm}>
-                        <Label text='Ok' bold />
+                        <Label text={t('okButton')} bold />
                     </button>
                 </div>
             </div>

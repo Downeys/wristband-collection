@@ -6,22 +6,22 @@ const validatorConfig: ValidatorConfig<ContactForm> = {
     config: [{
         id: 1,
         specification: isNameValid,
-        validationMessage: 'Please enter valid name.'
+        validationMessage: 'invalidName'
     },
     {
         id: 2,
         specification: isEmailValid,
-        validationMessage: 'Email address is invalid'
+        validationMessage: 'invalidEmail'
     },
     {
         id: 3,
         specification: isPhoneValid,
-        validationMessage: 'Phone number is invalid'
+        validationMessage: 'invalidPhone'
     },
     {
         id: 4,
         specification: isMessageValid,
-        validationMessage: 'Message is a required field'
+        validationMessage: 'invalidMessage'
     }]
 }
 

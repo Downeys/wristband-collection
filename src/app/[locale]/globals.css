@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 .header-link-container {
+    margin-left: 12px;
+    margin-right: 12px;
     display: flex;
-    height: 40px;
-    width: 112px;
     background: rgba(255, 255, 255, 0);
     color: #FFF;
-    margin: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     border-radius: 20px;
     justify-content: center;
     align-items: center;

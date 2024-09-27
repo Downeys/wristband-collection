@@ -6,47 +6,47 @@ const validatorConfig: ValidatorConfig<SubmitForm> ={
     config: [{
         id: 1,
         specification: isBandNameValid,
-        validationMessage: 'Band name is required'
+        validationMessage: 'invalidBand'
     },
     {
         id: 2,
         specification: isContactNameValid,
-        validationMessage: 'Contact name is invalid'
+        validationMessage: 'invalidContact'
     },
     {
         id: 3,
         specification: isEmailValid,
-        validationMessage: 'Email address is invalid'
+        validationMessage: 'invalidEmail'
     },
     {
         id: 4,
         specification: isPhoneValid,
-        validationMessage: 'Phone number is invalid'
+        validationMessage: 'invalidPhone'
     },
     {
         id: 5,
         specification: isEveryAlbumNameValid,
-        validationMessage: 'Album names required for each album'
+        validationMessage: 'invalidAlbumName'
     },
     {
         id: 6,
         specification: isEveryAlbumPhotoPresent,
-        validationMessage: 'Photo is reqired for each album'
+        validationMessage: 'invalidAlbumPhoto'
     },
     {
         id: 7,
         specification: isEverySongNameValid,
-        validationMessage: 'Song name is required for each song'
+        validationMessage: 'invalidSongName'
     },
     {
         id: 8,
         specification: isEverySongFilePresent,
-        validationMessage: 'Mp3 is required for each song'
+        validationMessage: 'invalidSongFile'
     },
     {
         id: 9,
         specification: isAtLeastOneSongInEveryAlbum,
-        validationMessage: 'Every album must have at least one song'
+        validationMessage: 'albumMissingSong'
     }]
 }
 

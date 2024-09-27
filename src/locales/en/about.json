@@ -1,0 +1,20 @@
+{
+    "pageHeading": "Local Music Only",
+    "pageSubHeading": "We're collecting the best underground music, from all over, to share via our homemade music streaming app.",
+    "submitButton": "Submit Music",
+    "ownershipGuarantee": "*All rights and ownership of submitted music is retained by the artists. We just host the music.",
+    "aboutMe1": "Wristband Radio is currently a team of one. My name is Steve Downey. I'm a local musician turned software developer.",
+    "aboutMe2": "I'm fulfilling a lifelong dream of creating my own music streaming app. A home for the best underground music no one has ever heard of.",
+    "aboutMe3": "This is also going on my resume.",
+    "missionStatement": "Wristband Radio is on a mission to collect 10,080 minutes of excellent underground music to share via our homemade music steaming app.",
+    "streamingDisclaimer": "Disclaimer: we don't actually have a music streaming app yet. It's more of just a music player web-app...thing. This project is still very early stage.",
+    "picOfMeAltText": "Me and my band.",
+    "comingSoon": "Coming soon...",
+    "bullet1A": "First, we're making mobile native versions of our ",
+    "bullet1Link": "music player web-app",
+    "bullet1B": " ...thing.",
+    "bullet2": "Next, we'll hook up the actual media-streaming through highly proprietary technology, i.e. websockets.",
+    "bullet3A": "Then, we're wide open to start developing features, so let us know what you want via the ",
+    "bullet3Link": "contact tab",
+    "bullet3B": "."
+}
