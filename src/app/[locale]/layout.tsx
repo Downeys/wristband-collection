@@ -4,10 +4,12 @@ import { Header } from "@/common/components/Header/Header";
 import i18nConfig from "../../../i18nConfig";
 import TranslationsProvider from "@/common/context/TranslationsProvider";
 import initTranslations from "@/common/utils/i18n/i18n";
+import { Namespaces } from "@/common/constants/i18nConstants";
+import { APP_TITLE, APP_DESCRIPTION } from "@/common/constants/metadataConstants";
 
 export const metadata: Metadata = {
-  title: "Wristband Radio",
-  description: "A music player for underground music.",
+  title: APP_TITLE,
+  description: APP_DESCRIPTION,
 };
 
 export function generateStaticParams() {
@@ -22,12 +24,12 @@ export default async function RootLayout({
   params: { locale: string }
 }>) {
   const locale = params.locale;
-  const { resources } = await initTranslations(locale, ['common', 'home', 'contact', 'submit', 'about']);
+  const { resources } = await initTranslations(locale, Object.values(Namespaces));
   return (
     <html lang={locale}>
       <body>
         <TranslationsProvider
-          namespaces={['contact']}
+          namespaces={Object.values(Namespaces)}
           locale={locale}
           resources={resources}
         >

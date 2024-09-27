@@ -3,13 +3,14 @@ import Label from '@/common/components/text/Label';
 import initTranslations from '@/common/utils/i18n/i18n';
 import React from 'react'
 import Font from "@/common/config/fonts"
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 interface AboutMeSectionProps {
     locale: string;
 }
 
 export const AboutMeSection = async ({ locale }: AboutMeSectionProps) => {
-    const { t } = await initTranslations(locale, ['about'])
+    const { t } = await initTranslations(locale, [Namespaces.ABOUT])
     return (
         <>
             <Label alignment='center' size='lg' additionalStyles={`md:text-2xl lg:text-3xl mt-4`} text={t('aboutMe1')} />

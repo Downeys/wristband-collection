@@ -5,6 +5,7 @@ import { FileInput } from "@/Submit/components/formElements/FileInput";
 import FormInput from "@/common/components/formElements/FormInput";
 import { FieldNames } from "@/Submit/constants/submitFormConstants";
 import { useTranslation } from 'react-i18next';
+import { Namespaces } from "@/common/constants/i18nConstants";
 
 interface AlbumInputProps {
     id: string;
@@ -18,7 +19,7 @@ const shadows = ["shadow-green","shadow-blue"]
 const borders = ["border-wbGreen","border-wbBlue"]
 
 export const AlbumInput: React.FC<PropsWithChildren<AlbumInputProps>> = ({ children, id, index, value, onNameChange, onPhotoChange }) => {
-    const { t } = useTranslation('submit');
+    const { t } = useTranslation(Namespaces.SUBMIT);
     const shadowColor = shadows[index%2];
     const borderColor = borders[index%2];
     const { ALBUM } = FieldNames;

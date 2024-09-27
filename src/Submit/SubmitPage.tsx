@@ -14,8 +14,10 @@ import SongInput from '@/Submit/components/formElements/SongInput';
 import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
 import { createMusicSubmissionFormData, getNextIndex } from '@/Submit/utils/helpers/formHelpers';
 import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
-import { FieldNames } from '@/Submit/constants/submitFormConstants';
+import { FieldNames, UNRECOGNIZED_FIELD_MESSAGE } from '@/Submit/constants/submitFormConstants';
 import { useTranslation } from 'react-i18next';
+import { Namespaces } from '@/common/constants/i18nConstants';
+import { SUBMIT_URI } from './constants/apiConstants';
 
 const initState = {
     band: '',
@@ -31,7 +33,7 @@ const initState = {
 
 export default function SubmitPage() {
     const [state, setState] = useState<SubmitState>(initState);
-    const { t } = useTranslation('submit');
+    const { t } = useTranslation(Namespaces.SUBMIT);
     const { BAND, CONTACT, EMAIL, PHONE, ALBUM, SONG } = FieldNames;
     const resetState = () => setState(initState);
 
@@ -59,7 +61,7 @@ export default function SubmitPage() {
         if (isValid) {
             const formData = createMusicSubmissionFormData(form)
             try {
-                await FetchService.POST('/api/submissions', formData);
+                await FetchService.POST(SUBMIT_URI, formData);
                 setState({ ...state, showConfirmationModal: true });
             } catch (e) {
                 setState({ ...state, showFailureModal: true });
@@ -118,7 +120,7 @@ export default function SubmitPage() {
                 updateSongName(id!, text);
                 break;
             default:
-                console.log("Something went wrong")
+                console.log(UNRECOGNIZED_FIELD_MESSAGE)
         }
     }
 
@@ -178,7 +180,7 @@ export default function SubmitPage() {
                 <form onSubmit={handleSubmitEvent} className="my-4">
                     <FormInput name={BAND} label={t('bandLabel')} onChange={handleInputChange} value={state.band} />
                     <FormInput name={CONTACT} label={t('contactLabel')} onChange={handleInputChange} value={state.contact} />
-                    <FormInput name={EMAIL} type="email" label="Contact Email" onChange={handleInputChange} value={state.email} />
+                    <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
                     <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
                     {state.albums.sort((a, b) => a.index - b.index).map((album) => (
                         <AlbumInput key={album.id} id={album.id} index={album.index} value={album.name ?? ''} onNameChange={handleInputChange} onPhotoChange={handlePhotoChange}>

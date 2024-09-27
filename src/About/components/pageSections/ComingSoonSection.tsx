@@ -4,13 +4,14 @@ import initTranslations from '@/common/utils/i18n/i18n';
 import Heading from '@/common/components/text/Heading';
 import Link from 'next/link';
 import { getContactLink, getHomeLink } from '@/common/utils/helpers/linkHelpers';
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 interface ComingSoonSectionProps {
     locale: string;
 }
 
 export const ComingSoonSection = async  ({ locale }: ComingSoonSectionProps) => {
-    const { t } = await initTranslations(locale, ['about'])
+    const { t } = await initTranslations(locale, [Namespaces.ABOUT])
     const playerLink = getHomeLink(locale);
     const contactLink = getContactLink(locale);
     return (

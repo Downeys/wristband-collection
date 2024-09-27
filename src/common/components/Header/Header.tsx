@@ -4,6 +4,7 @@ import Label from "@/common/components/text/Label";
 import initTranslations from '@/common/utils/i18n/i18n';
 import { getAboutLink, getContactLink, getHomeLink, getSubmitLink } from "@/common/utils/helpers/linkHelpers";
 import LanguageChanger from "@/common/utils/i18n/LanguageChanger";
+import { APP_TITLE } from "@/common/constants/metadataConstants";
 
 interface HeaderProps {
     locale: string;
@@ -19,7 +20,7 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
         <div className="h-20 w-screen flex flex-row justify-between items-center bg-slate-950 text-white shadow-header fixed top-0 z-10">
             <div className="flex flex-row items-center">
                 <Image height={75} width={75} src='/logo.png' alt="logo" />
-                <Heading text="Wristband Radio" size="2xl" additionalStyles="md:text-4xl sm:text-3xl" />
+                <Heading text={APP_TITLE} size="2xl" additionalStyles="md:text-4xl sm:text-3xl" />
             </div>
             <input id="menu-toggle" type="checkbox" />
             <label className='menu-button-container' htmlFor="menu-toggle">

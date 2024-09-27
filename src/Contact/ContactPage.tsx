@@ -10,9 +10,11 @@ import Font from "@/common/config/fonts"
 import { v4 as uuidv4 } from "uuid";
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
 import { ContactState, ContactForm } from '@/Contact/types/contactFormTypes';
-import { FieldNames } from '@/Contact/constants/contactFormConstants';
+import { FieldNames, UNRECOGNIZE_FIELD_MESSAGE } from '@/Contact/constants/contactFormConstants';
 import { ContactFormValidator } from './utils/validations/validators/contactFormValidator';
 import { useTranslation } from 'react-i18next';
+import { Namespaces } from '@/common/constants/i18nConstants';
+import { CONTACT_URI } from './constants/apiConstants';
 
 const initState: ContactState = {
     name: '',
@@ -28,7 +30,7 @@ const initState: ContactState = {
 export default function ContactPage() {
     const { NAME, EMAIL, PHONE, MESSAGE } = FieldNames;
     const [state, setState] = useState<ContactState>(initState)
-    const { t } = useTranslation('contact');
+    const { t } = useTranslation(Namespaces.CONTACT);
     const resetState = () => setState(initState);
 
     const handleSubmit = useCallback(async () => {
@@ -42,7 +44,7 @@ export default function ContactPage() {
         setState({ ...state, validationMessages }); 
         if (isValid) {
             try {
-                await FetchService.POST('/api/contact', JSON.stringify(form), 'application/json');
+                await FetchService.POST(CONTACT_URI, JSON.stringify(form), 'application/json');
                 setState({ ...state, showConfirmationModal: true });
             } catch (e) {
                 setState({ ...state, showFailureModal: true });
@@ -74,7 +76,7 @@ export default function ContactPage() {
                 setState({ ...state, phone: text })
                 break;
             default:
-                console.log("Something went wrong")
+                console.log(UNRECOGNIZE_FIELD_MESSAGE)
         }
     }, [state]);
 
@@ -89,10 +91,10 @@ export default function ContactPage() {
 
     return (
         <main className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
-            <ConfirmationModal message="Message sent successfully. Thank you." onConfirm={resetState} showModal={state.showConfirmationModal} />
-            <FailureModal message="Failed to send message. If issue persists, please try again later. Thank you." showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
+            <ConfirmationModal message={t('successMessage')} onConfirm={resetState} showModal={state.showConfirmationModal} />
+            <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
             <div className="w-full max-w-screen-sm">
-                <Heading size="3xl" text="Contact Me" additionalStyles="w-full text-center p-2"/>
+                <Heading size="3xl" text={t('pageHeading')} additionalStyles="w-full text-center p-2"/>
                 <form onSubmit={handleSubmitEvent} className="my-4">
                     <FormInput name={NAME} label={t('nameLabel')} onChange={handleInputChange} value={state.name} />
                     <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
@@ -103,7 +105,7 @@ export default function ContactPage() {
                     </div>
                     <div className="flex w-full justify-center items-center">
                         <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">
-                            <Label text="Submit" bold size="2xl"/>
+                            <Label text={t('submitButton')} bold size="2xl"/>
                         </button>
                     </div>
                 </form>

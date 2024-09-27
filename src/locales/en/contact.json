@@ -1,4 +1,5 @@
 {
+    "pageHeading": "Contact Me",
     "nameLabel": "Name",
     "emailLabel": "Email",
     "phoneLabel": "Phone Number (optional)",
@@ -7,5 +8,7 @@
     "invalidName": "- Please enter valid name",
     "invalidEmail": "- Email address is invalid",
     "invalidPhone": "- Phone number is invalid",
-    "invalidMessage": "- Message is a required field"
+    "invalidMessage": "- Message is a required field",
+    "successMessage": "Message sent successfully. Thank you.",
+    "failureMessage": "Failed to send message. If issue persists, please try again later. Thank you."
 }

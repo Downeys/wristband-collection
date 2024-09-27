@@ -4,13 +4,14 @@ import React from 'react'
 import SubmitButton from '../buttons/SubmitButton';
 import initTranslations from '@/common/utils/i18n/i18n';
 import Font from "@/common/config/fonts"
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 interface SubmitSectionProps {
     locale: string;
 }
 
 export const SubmitSection = async ({ locale }: SubmitSectionProps) => {
-    const { t } = await initTranslations(locale, ['about'])
+    const { t } = await initTranslations(locale, [Namespaces.ABOUT])
     return (
         <>
             <Heading text={t('pageHeading')} size='2xl' additionalStyles={`md:text-4xl ${Font.secondary.className} font-semibold self-center`} />

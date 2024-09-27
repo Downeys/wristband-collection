@@ -1,3 +1,4 @@
+import { GET_TRACKS_FAILURE } from "@/common/constants/backend/responseMessages";
 import { getAllTracks } from "@/server/actions/tracks";
 import { NextResponse } from "next/server";
 
@@ -8,7 +9,7 @@ export const GET = async () => {
     } catch (e: any) {
         console.log(e.message)
         return NextResponse.json({
-          message: 'Failed to retrieve tracks.',
+          message: GET_TRACKS_FAILURE,
           status: 500
        })
     };

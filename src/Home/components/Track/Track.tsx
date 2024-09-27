@@ -6,6 +6,7 @@ import { Label } from '@/common/components/text/Label';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
 import initTranslations from '@/common/utils/i18n/i18n';
+import { SearchParams } from '@/Home/constants/playerContextConstants';
 
 export interface TrackProps extends TrackData {
     playerStatus: PlayerStatus;
@@ -23,7 +24,8 @@ export const Track: React.FC<TrackProps> = async ({ playerStatus, trackIndex, tr
     const showPlayButton = isInFocus || isInPlayer;
     const playButtonStatus = isInPlayer ? playerStatus : PlayerStatus.paused;
     const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
-    const uri = `?playerStatus=${playerStatusParam}&inFocus=${id}&order=${orderParam}`;
+    const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
+    const uri = `?${PLAYER_STATUS}=${playerStatusParam}&${IN_FOCUS}=${id}&${ORDER}=${orderParam}`;
     return (
         <Link href={uri} replace={true} scroll={false} className="flex flex-row h-32 w-full justify-between content-center items-center">
             <div className="flex">

@@ -4,9 +4,10 @@ import { useParams, useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Font from "@/common/config/fonts"
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 export default function LanguageChanger() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(Namespaces.COMMON);
   const params = useParams();
   // const currentLocale = i18n.language;
   const currentLocale = params.locale;

@@ -5,13 +5,14 @@ import config from '@/common/config/config';
 import SubmitSection from './components/pageSections/SubmitSection';
 import AboutMeSection from './components/pageSections/AboutMeSection';
 import ComingSoonSection from './components/pageSections/ComingSoonSection';
+import { Namespaces } from '@/common/constants/i18nConstants';
 
 interface AboutPageProps {
     locale: string;
 }
 
 export const AboutPage = async ({ locale }: AboutPageProps) => {
-    const { t } = await initTranslations(locale, ['about'])
+    const { t } = await initTranslations(locale, [Namespaces.ABOUT])
     return (
         <main className='bg-slate-950 flex min-w-screen min-h-screen relative top-20 z-0'>
             <div className='flex flex-col sm:flex-row p-2'>

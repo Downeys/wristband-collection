@@ -1,4 +1,5 @@
 {
+    "pageHeading": "Contáctame",
     "nameLabel": "Nombre",
     "emailLabel": "Email",
     "phoneLabel": "Teléfono (opcional)",
@@ -7,5 +8,7 @@
     "invalidName": "- Por favor proporcione un nombre válido",
     "invalidEmail": "- Email no es válido",
     "invalidPhone": "- Teléfono no es válido",
-    "invalidMessage": "- El mensaje es un campo obligatorio"
+    "invalidMessage": "- El mensaje es un campo obligatorio",
+    "successMessage": "Mensaje enviado exitosamente. Gracias.",
+    "failureMessage": "No se pudo enviar el mensaje. Si el problema persiste, inténtalo de nuevo más tarde. Gracias."
 }

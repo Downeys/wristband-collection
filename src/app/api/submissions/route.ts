@@ -1,6 +1,7 @@
 import { insertMusicSubmission } from "@/server/actions/musicSubmissions";
 import { uploadAlbumPhoto, uploadSongFile } from "@/server/services/BlobService";
 import { NextResponse } from "next/server";
+import { SUCCESS_MESSAGE, SUBMIT_FAILURE } from "@/common/constants/backend/responseMessages";
 
 export const POST = async (request: Request) => {
     try {
@@ -14,12 +15,12 @@ export const POST = async (request: Request) => {
         await insertMusicSubmission({ band, contact, email, phone, albums });
 
         return NextResponse.json({
-            message: "This message has been successfully sent",
+            message: SUCCESS_MESSAGE,
         });
     } catch (e: any) {
         console.log(e.message)
         return NextResponse.json({
-            message: 'Failed to insert music submission.',
+            message: SUBMIT_FAILURE,
             status: 500
          })
     };

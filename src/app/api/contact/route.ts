@@ -1,5 +1,6 @@
 import { insertUserFeedback } from "@/server/actions/userFeedback";
 import { NextResponse } from "next/server";
+import { SUCCESS_MESSAGE, CONTACT_FAILURE } from "@/common/constants/backend/responseMessages";
 
 export const POST = async (request: Request) => {
     try {
@@ -8,12 +9,12 @@ export const POST = async (request: Request) => {
         await insertUserFeedback(data);
 
         return NextResponse.json({
-            message: "This message has been successfully sent",
+            message: SUCCESS_MESSAGE,
         });
     } catch (e: any) {
         console.log(e.message)
         return NextResponse.json({
-            message: 'Failed to insert music submission.',
+            message: CONTACT_FAILURE,
             status: 500
          })
     };

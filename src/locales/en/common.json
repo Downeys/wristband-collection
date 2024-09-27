@@ -4,5 +4,9 @@
     "contactLink": "Contact",
     "submitLink": "Submit",
     "english": "English",
-    "spanish": "Spanish"
+    "spanish": "Spanish",
+    "okButton": "Ok",
+    "cancelButton": "Cancel",
+    "retryButton": "Retry",
+    "loading": "Loading..."
 }

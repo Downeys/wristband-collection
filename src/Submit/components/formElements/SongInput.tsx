@@ -5,6 +5,7 @@ import FormInput from "@/common/components/formElements/FormInput";
 import { FieldNames } from "@/Submit/constants/submitFormConstants";
 import FileInput from "@/Submit/components/formElements/FileInput";
 import { useTranslation } from 'react-i18next';
+import { Namespaces } from "@/common/constants/i18nConstants";
 
 interface SongInputProps {
     id: string;
@@ -15,7 +16,7 @@ interface SongInputProps {
 }
 
 export const SongInput: React.FC<SongInputProps> = ({ id, value, onNameChange, onFileChange, onRemoveSong }) => {
-    const { t } = useTranslation('submit');
+    const { t } = useTranslation(Namespaces.SUBMIT);
     const { SONG } = FieldNames;
     const handleNameChange = (name: string, text: string) => onNameChange(name, text, id)
     const handleFileChange = (file: File) => onFileChange(file, id)

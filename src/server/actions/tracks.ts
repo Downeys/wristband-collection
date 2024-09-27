@@ -5,7 +5,7 @@ import { connectToDb } from "@/server/config/mongoRepo";
 export const getAllTracks = async (): Promise<TrackData[]> => {
     try {
         await connectToDb();
-        const tracks =  await Track.find();
+        const tracks = await Track.find();
         return trackMapper(tracks);
     } catch (e: any) {
         console.log(e.message)
