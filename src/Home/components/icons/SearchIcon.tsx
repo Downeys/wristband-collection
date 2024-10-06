@@ -1,6 +1,6 @@
 "use client"
 
-import { IconProps } from "@/Home/types/types"
+import { IconProps } from "@/common/types/types"
 
 export const SearchIcon: React.FC<IconProps> = (props) => <span onClick={() => props.onClick && props.onClick()}>
     <svg xmlns="http://www.w3.org/2000/svg" className={props.styling || "h-5 w-5"} viewBox="0 0 20 20" fill="currentColor">

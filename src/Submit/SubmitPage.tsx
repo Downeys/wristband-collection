@@ -1,6 +1,5 @@
 'use client'
 
-import SpanButton from '@/common/components/buttons/SpanButtton';
 import FormInput from '@/common/components/formElements/FormInput';
 import ConfirmationModal from '@/common/components/modals/ConfirmationModal';
 import FailureModal from '@/common/components/modals/FailureModal';
@@ -9,8 +8,6 @@ import Label from '@/common/components/text/Label';
 import FetchService from '@/common/config/FetchService';
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from "uuid";
-import AlbumInput from '@/Submit/components/formElements/AlbumInput';
-import SongInput from '@/Submit/components/formElements/SongInput';
 import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
 import { createMusicSubmissionFormData, getNextIndex } from '@/Submit/utils/helpers/formHelpers';
 import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
@@ -18,13 +15,18 @@ import { FieldNames, UNRECOGNIZED_FIELD_MESSAGE } from '@/Submit/constants/submi
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '@/common/constants/i18nConstants';
 import { SUBMIT_URI } from './constants/apiConstants';
+import FileInput from './components/FileInput/FileInput';
+import LoadingModal from '@/common/components/modals/LoadingModal';
+import Attestation from './components/Attestation/Attestation';
 
 const initState = {
     band: '',
     contact: '',
     email: '',
     phone: '',
-    albums: [{ id: uuidv4(), index: 0, songs: [{ id: uuidv4(), index: 0 }] }],
+    imageFiles: [],
+    audioFiles: [],
+    ownershipAttestation: false,
     validationMessages: [],
     inProgress: false,
     showConfirmationModal: false,
@@ -34,7 +36,7 @@ const initState = {
 export default function SubmitPage() {
     const [state, setState] = useState<SubmitState>(initState);
     const { t } = useTranslation(Namespaces.SUBMIT);
-    const { BAND, CONTACT, EMAIL, PHONE, ALBUM, SONG } = FieldNames;
+    const { BAND, CONTACT, EMAIL, PHONE } = FieldNames;
     const resetState = () => setState(initState);
 
     const handleSubmit = useCallback(async () => {
@@ -43,21 +45,12 @@ export default function SubmitPage() {
             contact: state.contact,
             email: state.email,
             phone: state.phone,
-            albums: state.albums.map(album => 
-                ({
-                    id: album.id ?? '',
-                    name: album.name ?? '',
-                    photo: album.photo!,
-                    songs: album.songs.map(song => 
-                        ({
-                            id: song.id ?? '',
-                            name: song.name ?? '',
-                            file: song.file!
-                        }))
-                }))
+            imageFiles: state.imageFiles,
+            audioFiles: state.audioFiles,
+            ownershipAttestation: state.ownershipAttestation
         }
         const { isValid, validationMessages } = SubmitMusicValidator.isValid(form);
-        setState({ ...state, validationMessages }); 
+        if (!isValid) setState({ ...state, validationMessages }); 
         if (isValid) {
             const formData = createMusicSubmissionFormData(form)
             try {
@@ -82,24 +75,12 @@ export default function SubmitPage() {
         handleSubmit();
     }, [state, handleSubmit]);
 
-    const updateAlbumName = (albumId: string, text: string) => {
-        const albumToUpdate = state.albums.filter(album => album.id === albumId)?.[0]
-        const updatedAlbum = { ...albumToUpdate, name: text }
-        const filteredAlbums = state.albums.filter(album => album.id !== albumId);
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }
+    const handleRetry = useCallback(() => {
+        setState({ ...state, showFailureModal: false, inProgress: true });
+        handleSubmit();
+    }, [state, handleSubmit])
 
-    const updateSongName = (songId: string, text: string) => {
-        const albumToUpdate = state.albums.filter(album => album.songs.map(song => song.id).includes(songId))?.[0]
-        const songToUpdate = albumToUpdate.songs.filter(song => song.id === songId)?.[0]
-        const updatedSong = { ...songToUpdate, name: text };
-        const filteredSongs = albumToUpdate.songs.filter(song => song.id !== songId);
-        const updatedAlbum = { ...albumToUpdate, songs: [...filteredSongs, updatedSong] }
-        const filteredAlbums = state.albums.filter(album => !album.songs.map(song => song.id).includes(songId))
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }
-
-    const handleInputChange = (name: string, text: string, id?: string) => {
+    const handleInputChange = useCallback((name: string, text: string) => {
         switch (name) {
             case BAND:
                 setState({ ...state, band: text })
@@ -113,66 +94,30 @@ export default function SubmitPage() {
             case PHONE:
                 setState({ ...state, phone: text })
                 break;
-            case ALBUM:
-                updateAlbumName(id!, text);
-                break;
-            case SONG:
-                updateSongName(id!, text);
-                break;
             default:
                 console.log(UNRECOGNIZED_FIELD_MESSAGE)
         }
-    }
+    }, [state])
 
-    const handlePhotoChange = useCallback((file: File, albumId: string) => {
-        const albumToUpdate = state.albums.filter(album => album.id === albumId)?.[0]
-        const updatedAlbum = { ...albumToUpdate, photo: file }
-        const filteredAlbums = state.albums.filter(album => album.id !== albumId);
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }, [state]);
+    const handleFilesAdded = useCallback((imageFiles: File[], audioFiles: File[]) => {
+        const updatedImageFiles = [...state.imageFiles, ...imageFiles];
+        const updatedAudioFiles = [...state.audioFiles, ...audioFiles];
+        setState({ ...state, imageFiles: updatedImageFiles, audioFiles: updatedAudioFiles});
+    }, [state])
 
-    const handleSongChange = useCallback((file: File, songId: string) => {
-        const albumToUpdate = state.albums.filter(album => album.songs.map(song => song.id).includes(songId))?.[0]
-        const songToUpdate = albumToUpdate.songs.filter(song => song.id === songId)?.[0]
-        const updatedSong = { ...songToUpdate, file: file };
-        const filteredSongs = albumToUpdate.songs.filter(song => song.id !== songId);
-        const updatedAlbum = { ...albumToUpdate, songs: [...filteredSongs, updatedSong] }
-        const filteredAlbums = state.albums.filter(album => !album.songs.map(song => song.id).includes(songId))
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }, [state]);
+    const handleFileRemoved = useCallback((fileName: string) => {
+        const updatedImageFiles = state.imageFiles.filter(file => file.name !== fileName);
+        const updatedAudioFiles = state.audioFiles.filter(file => file.name !== fileName);
+        setState({ ...state, imageFiles: updatedImageFiles, audioFiles: updatedAudioFiles});
+    }, [state])
 
-    const handleAddSong = useCallback((albumId?: string) => {
-        const newIndex = getNextIndex(state.albums.filter(a => a.id === albumId)?.[0].songs);
-        const updatedAlbum = state.albums.filter(a => a.id === albumId).map(album => ({ ...album, songs: [...album.songs, { id: uuidv4(), index: newIndex }] }))?.[0];
-        const filteredAlbums = state.albums.filter(a => a.id !== albumId);
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }, [state]);
-
-    const handleAddAlbum = useCallback(() => {
-        const newIndex = getNextIndex(state.albums);
-        setState({ ...state, albums: [...state.albums, { id: uuidv4(), index: newIndex, songs: [{ id: uuidv4(), index: 0 }] } ] })
-    }, [state]);
-
-    const handleRemoveSong = useCallback((songId: string = "") => {
-        const albumToUpdate = state.albums.filter(album => album.songs.map(song => song.id).includes(songId))?.[0];
-        const updatedSongList = albumToUpdate.songs.filter(song => song.id !== songId);
-        const updatedAlbum = { ...albumToUpdate, songs: updatedSongList }
-        const filteredAlbums = state.albums.filter(a => a.id !== updatedAlbum.id);
-        setState({ ...state, albums: [...filteredAlbums, updatedAlbum] })
-    }, [state]);
-
-    const handleRemoveAlbum = useCallback((albumId: string = "") => {
-        const filteredAlbums = state.albums.filter(a => a.id !== albumId);
-        setState({ ...state, albums: filteredAlbums })
-    }, [state]);
-
-    const handleRetry = useCallback(() => {
-        setState({ ...state, showFailureModal: false, inProgress: true });
-        handleSubmit();
-    }, [state, handleSubmit])
+    const handleAttestationChange = useCallback((value: boolean) => {
+        setState({ ...state, ownershipAttestation: value })
+    }, [state])
 
     return (
         <main className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
+            <LoadingModal showModal={state.inProgress} />
             <ConfirmationModal message={t('confirmationMessage')} onConfirm={resetState} showModal={state.showConfirmationModal} />
             <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
             <div className="w-full max-w-screen-sm">
@@ -182,18 +127,8 @@ export default function SubmitPage() {
                     <FormInput name={CONTACT} label={t('contactLabel')} onChange={handleInputChange} value={state.contact} />
                     <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
                     <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
-                    {state.albums.sort((a, b) => a.index - b.index).map((album) => (
-                        <AlbumInput key={album.id} id={album.id} index={album.index} value={album.name ?? ''} onNameChange={handleInputChange} onPhotoChange={handlePhotoChange}>
-                            {album.songs.sort((a, b) => a.index - b.index).map((song) => (<SongInput key={song.id} id={song.id} value={song.name ?? ''} onNameChange={handleInputChange} onFileChange={handleSongChange} onRemoveSong={handleRemoveSong} />))}
-                            <div className="p-2 flex flex-row justify-between" >
-                                <SpanButton text={t('removeAlbumButton')} id={album.id} onClick={handleRemoveAlbum} />
-                                <SpanButton text={t('addSongButton')} id={album.id} onClick={handleAddSong} />
-                            </div>
-                        </AlbumInput>)
-                    )}
-                    <div className="flex flex-row justify-end">
-                        <SpanButton text={t('addAlbumButton')} onClick={handleAddAlbum} />
-                    </div>
+                    <FileInput imageFiles={state.imageFiles} audioFiles={state.audioFiles} onFilesAdded={handleFilesAdded} onFileRemoved={handleFileRemoved} />
+                    <Attestation onChange={handleAttestationChange} checked={state.ownershipAttestation} />
                     <div className="mb-6 flex flex-col">
                         {state.validationMessages.map(message => <Label key={uuidv4()} text={t(message)} color="red" />)}
                     </div>

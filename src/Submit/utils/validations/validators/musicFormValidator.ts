@@ -1,5 +1,5 @@
 import { SubmitForm } from "@/Submit/types/submitMusicFormTypes";
-import { isBandNameValid, isContactNameValid, isEmailValid, isPhoneValid, isEveryAlbumNameValid, isEveryAlbumPhotoPresent, isEverySongNameValid, isEverySongFilePresent, isAtLeastOneSongInEveryAlbum } from "@/Submit/utils/validations/specifications/musicFormSpecifications";
+import { isAtLeastOneImagePresent, isAtLeastOneSongPresent, isAttestationChecked, isBandNameValid, isContactNameValid, isEmailValid, isPhoneValid } from "@/Submit/utils/validations/specifications/musicFormSpecifications";
 import { Validator, ValidatorConfig } from "@/common/types/specificationTypes";
 
 const validatorConfig: ValidatorConfig<SubmitForm> ={
@@ -25,28 +25,18 @@ const validatorConfig: ValidatorConfig<SubmitForm> ={
     },
     {
         id: 5,
-        specification: isEveryAlbumNameValid,
-        validationMessage: 'invalidAlbumName'
+        specification: isAtLeastOneSongPresent,
+        validationMessage: 'missingSong'
     },
     {
         id: 6,
-        specification: isEveryAlbumPhotoPresent,
-        validationMessage: 'invalidAlbumPhoto'
+        specification: isAtLeastOneImagePresent,
+        validationMessage: 'missingAlbumArt'
     },
     {
         id: 7,
-        specification: isEverySongNameValid,
-        validationMessage: 'invalidSongName'
-    },
-    {
-        id: 8,
-        specification: isEverySongFilePresent,
-        validationMessage: 'invalidSongFile'
-    },
-    {
-        id: 9,
-        specification: isAtLeastOneSongInEveryAlbum,
-        validationMessage: 'albumMissingSong'
+        specification: isAttestationChecked,
+        validationMessage: 'missingAttestation'
     }]
 }
 

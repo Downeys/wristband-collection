@@ -1,4 +1,3 @@
-import { AlbumDto } from "@/Submit/types/submitMusicFormTypes";
 import { Document, ObjectId } from "mongoose";
 
 export interface TrackSchema extends Document {
@@ -17,7 +16,9 @@ export interface MusicSubmissionSchema extends Document {
     contact: string;
     email: string;
     phone: string;
-    albums: AlbumDto[];
+    attestation: boolean;
+    imageLinks: string[];
+    audioLinks: string[];
 }
 
 export interface UserFeedbackSchema extends Document {

@@ -1,6 +1,6 @@
 "use client"
 
-import { IconProps } from "@/Home/types/types"
+import { IconProps } from "@/common/types/types"
 
 export const PlayIcon: React.FC<IconProps> = (props) => (
     <span onClick={() => props.onClick && props.onClick()}>
