@@ -17,56 +17,14 @@ export const isPhoneValid: Specification<SubmitForm> = {
     isSatisfiedBy: (form: SubmitForm) => !form.phone || /^(1[ -]?)?\d{3}[ -]?\d{3}[ -]?\d{4}$/i.test(form.phone)
 }
 
-export const isEveryAlbumNameValid: Specification<SubmitForm> = {
-    isSatisfiedBy: (form: SubmitForm) => {
-        let returnVal = true;
-        form.albums.forEach(album => {
-            if (!album.name || album.name.length === 0) returnVal=false;
-        })
-        return returnVal;
-    }
+export const isAtLeastOneSongPresent: Specification<SubmitForm> = {
+    isSatisfiedBy: (form: SubmitForm) => form.audioFiles.length > 0
 }
 
-export const isEveryAlbumPhotoPresent: Specification<SubmitForm> = {
-    isSatisfiedBy: (form: SubmitForm) => {
-        let returnVal = true;
-        form.albums.forEach(album => {
-            if (!album.photo) returnVal=false;
-        })
-        return returnVal;
-    }
+export const isAtLeastOneImagePresent: Specification<SubmitForm> = {
+    isSatisfiedBy: (form: SubmitForm) => form.imageFiles.length > 0
 }
 
-export const isAtLeastOneSongInEveryAlbum: Specification<SubmitForm> = {
-    isSatisfiedBy: (form: SubmitForm) => {
-        let returnVal = true;
-        form.albums.forEach(album => {
-            if (!album.songs?.length) returnVal=false;
-        })
-        return returnVal;
-    }
-}
-
-export const isEverySongNameValid: Specification<SubmitForm> ={
-    isSatisfiedBy: (form: SubmitForm) => {
-        let returnVal = true;
-        form.albums.forEach(album => {
-            album.songs.forEach(song => {
-                if (!song.name || song.name.length === 0) returnVal=false;
-            })
-        })
-        return returnVal;
-    }
-}
-
-export const isEverySongFilePresent: Specification<SubmitForm> = {
-    isSatisfiedBy: (form: SubmitForm) => {
-        let returnVal = true;
-        form.albums.forEach(album => {
-            album.songs.forEach(song => {
-                if (!song.file) returnVal=false;
-            })
-        })
-        return returnVal;
-    }
+export const isAttestationChecked: Specification<SubmitForm> = {
+    isSatisfiedBy: (form: SubmitForm) => form.ownershipAttestation
 }

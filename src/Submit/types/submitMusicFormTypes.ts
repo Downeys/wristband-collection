@@ -18,24 +18,13 @@ export interface SubmitState {
     contact: string;
     email: string;
     phone: string;
-    albums: Album[];
+    imageFiles:  File[];
+    audioFiles: File[];
+    ownershipAttestation: boolean;
     validationMessages: string[];
     inProgress: boolean;
     showConfirmationModal: boolean;
     showFailureModal: boolean;
-}
-
-export interface SongDto {
-    id: string;
-    name: string;
-    file: string;
-}
-
-export interface AlbumDto {
-    id: string;
-    name: string;
-    photo: string;
-    songs: SongDto[];
 }
 
 export interface SubmitFormDto {
@@ -43,20 +32,9 @@ export interface SubmitFormDto {
     contact: string;
     email: string;
     phone: string;
-    albums: AlbumDto[];
-}
-
-export interface SongInput {
-    id: string;
-    name: string;
-    file: File;
-}
-
-export interface AlbumInput {
-    id: string;
-    name: string;
-    photo: File;
-    songs: SongInput[];
+    attestation: boolean;
+    imageLinks: string[];
+    audioLinks: string[];
 }
 
 export interface SubmitForm {
@@ -64,5 +42,9 @@ export interface SubmitForm {
     contact: string;
     email: string;
     phone: string;
-    albums: AlbumInput[];
+    imageFiles: File[];
+    audioFiles: File[];
+    ownershipAttestation: boolean;
 }
+
+export type ValidFileType = 'audio' | 'image' | 'unknown';

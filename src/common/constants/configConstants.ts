@@ -1,0 +1,3 @@
+export const DEFAULT_MAX_FILES_ACCEPTED = 20;
+
+export default { DEFAULT_MAX_FILES_ACCEPTED };

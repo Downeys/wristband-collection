@@ -1,4 +1,14 @@
-import { SubmitForm } from "@/Submit/types/submitMusicFormTypes";
+import { SubmitForm, ValidFileType } from "@/Submit/types/submitMusicFormTypes";
+import { getFormattedFileName } from "../formatting/fileFormatting";
+import { FileType } from "@/Submit/constants/submitFormConstants";
+
+export const getFileType = (file: File): ValidFileType => {
+    const splitType = file.type.split('/');
+    if (!splitType.length) return FileType.UNKNOWN;
+    const returnVal = splitType[0];
+    const isValidType = returnVal == FileType.AUDIO|| returnVal == FileType.IMAGE;
+    return isValidType ? returnVal : FileType.UNKNOWN;
+}
 
 export const getNextIndex = (someArray: any[]) => (someArray[someArray.length -1]?.index ?? 0) + 1;
 
@@ -8,13 +18,12 @@ export const createMusicSubmissionFormData = (form: SubmitForm): FormData => {
     formData.append('contact', form.contact)
     formData.append('email', form.email)
     formData.append('phone', form.phone)
-    form.albums.forEach(album => {
-        formData.append(`albumName-${album.id}`, album.name)
-        formData.append(`albumPhoto-${album.id}`, album.photo)
-        album.songs.forEach(song => {
-            formData.append(`songName-${album.id}-${song.id}`, song.name)
-            formData.append(`songFile-${album.id}-${song.id}`, song.file)
-        })
+    formData.append('attestation', `${form.ownershipAttestation}`)
+    form.imageFiles.forEach(image => {
+        formData.append(getFormattedFileName(image.name, getFileType(image)), image)
+    })
+    form.audioFiles.forEach(song => {
+        formData.append(getFormattedFileName(song.name, getFileType(song)), song)
     })
     return formData;
 }
