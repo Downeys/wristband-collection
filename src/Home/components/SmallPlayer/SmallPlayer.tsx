@@ -2,10 +2,10 @@
 
 import { useContext, useMemo } from "react";
 import { Label } from "@/common/components/text/Label";
-import { BackButton } from "@/Home/components/buttons/BackButton";
-import { NextButton } from "@/Home/components//buttons/NextButton";
-import { PlayButton } from "@/Home/components//buttons/PlayButton";
-import { PlayListContext } from "@/Home/context/PlayerContextProvider";
+import { BackButton } from "@/common/components/buttons/BackButton";
+import { NextButton } from "@/common/components/buttons/NextButton";
+import { PlayButton } from "@/common/components/buttons/PlayButton";
+import { PlayListContext } from "@/common/context/player/PlayerContextProvider";
 
 export const SmallPlayer: React.FC = () => {
     const { trackInPlayer, playerStatus, index, back, next } = useContext(PlayListContext);

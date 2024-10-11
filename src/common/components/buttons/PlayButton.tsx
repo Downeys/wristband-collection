@@ -1,9 +1,9 @@
 "use client"
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import PlayIcon from "@/Home/components/icons/PlayIcon";
+import PlayIcon from "@/common/components/icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
-import PauseIcon from '@/Home/components/icons/PauseIcon';
+import PauseIcon from '@/common/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
@@ -35,7 +35,7 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
     }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 
     const variantStyle = {
-        primary: 'h-20 w-20 mx-12 rounded-full shadow-blue pl-3 pt-3',
+        primary: 'h-20 w-20 mx-6 rounded-full shadow-blue pl-3 pt-3',
         track: 'h-14 w-14 border border-1 rounded-full pl-1 pt-1'
     }
     const iconStyling = {
@@ -49,9 +49,11 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
     if (loading) return <Spinner />
 
     return (
-        <button className={`flex flex-col items-center justify-center ${variantStyle[styleVariant]}`} onClick={handleClick}>
-            <Icon styling={iconStyling[styleVariant]} selected={isPink} />
-        </button>
+        <span>
+            <button className={`flex flex-col items-center justify-center ${variantStyle[styleVariant]}`} onClick={handleClick}>
+                <Icon styling={iconStyling[styleVariant]} selected={isPink} />
+            </button>
+        </span>
     )
 }
 

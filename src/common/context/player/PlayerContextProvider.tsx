@@ -4,13 +4,13 @@ import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter, useParams } from 'next/navigation';
 import { Howl } from 'howler';
-import { InitialPlayerState } from '@/Home/context/InitialPlayerState';
-import { PlayerContextState } from '@/Home/context/PlayerContextState';
+import { InitialPlayerState } from '@/common/context/player/InitialPlayerState';
+import { PlayerContextState } from '@/common/context/player/PlayerContextState';
 import { createHowl } from '@/Home/utils/helpers/HowlHelpers';
 import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex } from '@/Home/utils/helpers/PlaylistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/SearchParamHelpers';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
-import { SearchParams, INITIAL_HOWL_STATE } from '../constants/playerContextConstants';
+import { SearchParams, INITIAL_HOWL_STATE } from '../../../Home/constants/playerContextConstants';
 
 interface PlayListProviderProps {
     playList: TrackData[]

@@ -3,7 +3,7 @@ import { sortPlaylistByOrderList } from "@/Home/utils/helpers/PlaylistHelpers";
 import { decodeOrderParam, decodePlayerStatusParam } from "@/Home/utils/helpers/SearchParamHelpers";
 import { Track } from "@/Home/components/Track/Track";
 import SmallPlayer from "@/Home/components/SmallPlayer/SmallPlayer";
-import PlayListProvider from "@/Home/context/PlayerContextProvider";
+import PlayListProvider from "@/common/context/player/PlayerContextProvider";
 
 interface HomeProps {
     inFocusParam: string;

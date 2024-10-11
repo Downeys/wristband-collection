@@ -16,7 +16,7 @@
     "missingAlbumArt": "- Please add at least one image file",
     "missingAttestation": "- Please attest to content ownership",
     "attestationMessage": "Please check this box to confirm you own the rights to all content being uploaded.",
-    "initialFileInputMessage1": "Add album art and song files here ",
+    "initialFileInputMessage1": "Add album art and song files here",
     "initialFileInputMessage2": "Drag and drop files or click to start",
     "secondaryFileInputMessage1": "You can continue to add files here",
     "secondaryFileInputMessage2": "Drag and drop files or click to continue",

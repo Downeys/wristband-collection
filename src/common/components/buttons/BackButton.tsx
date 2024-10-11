@@ -1,4 +1,4 @@
-import BackIcon from "@/Home/components/icons/BackIcon";
+import BackIcon from "@/common/components/icons/BackIcon";
 
 interface BackButtonProps {
     onClick: () => void

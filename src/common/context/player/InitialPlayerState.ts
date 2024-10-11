@@ -1,5 +1,5 @@
 import { TrackData } from "@/models/types";
-import { PlayerContextState } from "@/Home/context/PlayerContextState";
+import { PlayerContextState } from "@/common/context/player/PlayerContextState";
 import { PlayerStatus } from "@/Home/types/playerStatusEnum";
 
 export const InitialPlayerState: PlayerContextState = {
