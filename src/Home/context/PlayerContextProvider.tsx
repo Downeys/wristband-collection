@@ -77,7 +77,7 @@ export default function PlayListProvider({ children, props }: { children: React.
     const handlePIndexUpdate = useCallback(() => {
         if (state.currentHowl.state() !== INITIAL_HOWL_STATE && (state.currentHowl.playing() || state.currentHowl.state() == 'loading')) state.currentHowl.unload();
         const newIndex = getNextIndex(index, playlist);
-        let newHowl = createHowl(playlist[index]?.audioSrc, playlist[index]?.webmSrc, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
+        let newHowl = createHowl(playlist[index]?.audioSrc, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
         if (playerStatus === PlayerStatus.playing) newHowl.play();
         setState({ ...state, pIndex: index, trackInPlayer: playlist[index], status: playerStatus, currentHowl: newHowl })
     }, [state, index, playerStatus, playlist, goNext])
@@ -88,16 +88,9 @@ export default function PlayListProvider({ children, props }: { children: React.
         const sortedTrackList = sortPlaylistByOrderList(props.playList, randomTrackOrder)
         const initialStatus = constructPlayerStatusAction(state.status, 0)
         const newPlayerStatus = 'P0';
-        console.log(`new howl: ${JSON.stringify(sortedTrackList[0])}`)
-        setState({ ...state, currentHowl: createHowl(sortedTrackList[0].audioSrc, sortedTrackList[0]?.webmSrc, () => goNext(newPlayerStatus, inFocus ?? '', trackOrder)), orderParam: trackOrder, trackInPlayer: sortedTrackList[0] })
+        setState({ ...state, currentHowl: createHowl(sortedTrackList[0].audioSrc, () => goNext(newPlayerStatus, inFocus ?? '', trackOrder)), orderParam: trackOrder, trackInPlayer: sortedTrackList[0] })
         router.replace(`${params.locale}?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrder}`, { scroll: false })
     }, [])
-
-    const howlState = useMemo(() => state.currentHowl.state(), [state.currentHowl])
-
-    useEffect(() => {
-        console.log(`howl state:  ${state.currentHowl.state()}`)
-    }, [state.currentHowl])
 
     useEffect(() => {
         if (state.pIndex !== index) handlePIndexUpdate()
