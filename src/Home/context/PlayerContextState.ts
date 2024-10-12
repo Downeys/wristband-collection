@@ -5,6 +5,6 @@ export interface PlayerContextState {
     trackInPlayer: TrackData | null;
     playerStatus: PlayerStatus;
     index: number;
-    back: () => void;
-    next: () => void;
+    back: (status: string, inFocus: string, order: string) => void;
+    next: (status: string, inFocus: string, order: string) => void;
 }
