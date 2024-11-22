@@ -7,6 +7,7 @@ interface RawEnvVars {
     acceptedImageFiles: string | undefined;
     acceptedAudioFiles: string | undefined;
     maxAcceptedFiles: string | undefined;
+    audioStreamBaseUrl: string | undefined;
 }
 
 interface MusicSubmissionProps {
@@ -15,14 +16,20 @@ interface MusicSubmissionProps {
     maxAcceptedFiles: number;
 }
 
+interface AudioStreamProps {
+    audioStreamBaseUrl: string;
+}
+
 interface Config {
     musicSubmission: MusicSubmissionProps;
+    audioStream: AudioStreamProps;
 }
 
 const envVars: RawEnvVars = {
     acceptedImageFiles: process.env.NEXT_PUBLIC_ACCEPTED_IMAGE_FILES,
     acceptedAudioFiles: process.env.NEXT_PUBLIC_ACCEPTED_AUDIO_FILES,
-    maxAcceptedFiles: process.env.NEXT_PUBLIC_MAX_ACCEPTED_FILES
+    maxAcceptedFiles: process.env.NEXT_PUBLIC_MAX_ACCEPTED_FILES,
+    audioStreamBaseUrl: process.env.NEXT_PUBLIC_AUDIO_STREAM_BASE_URL
 }
 
 const getSanatizedConfig = (c: RawEnvVars): Config => {
@@ -40,14 +47,19 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
         ? c.acceptedAudioFiles.split(',')
         : [];
 
-    const MUSIC_SUBMISSION: MusicSubmissionProps = {
+    const musicSubmission: MusicSubmissionProps = {
         acceptedImageFiles,
         acceptedAudioFiles,
         maxAcceptedFiles: c.maxAcceptedFiles ? parseInt(c.maxAcceptedFiles) : DEFAULT_MAX_FILES_ACCEPTED
     }
 
+    const audioStream: AudioStreamProps = {
+        audioStreamBaseUrl: c.audioStreamBaseUrl ?? ''
+    }
+
     return {
-        musicSubmission: MUSIC_SUBMISSION
+        musicSubmission,
+        audioStream
     }
 }
 

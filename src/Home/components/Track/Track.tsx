@@ -4,7 +4,7 @@ import Link from "next/link";
 import { TrackData } from '@/models/types';
 import { Label } from '@/common/components/text/Label';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
-import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
+import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
 import initTranslations from '@/common/utils/i18n/i18n';
 import { SearchParams } from '@/Home/constants/playerContextConstants';
 

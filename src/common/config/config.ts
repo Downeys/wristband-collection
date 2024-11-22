@@ -62,11 +62,11 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
             throw new Error(`Missing key ${key} in config.env`);
         }
     }
-    const MONGO: DbProps = {
+    const mongoDb: DbProps = {
         uri: c.uri ?? '',
     }
 
-    const BLOB: BlobProps = {
+    const blob: BlobProps = {
         connectionString: c.blobConnectionString ?? '',
         photoSubmissionContainer: c.photoSubmissionContainer ?? '',   
         musicSubmissionContainer: c.musicSubmissionContainer ?? '',
@@ -74,7 +74,7 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
         musicSubmissionUrl: c.musicSubmissionUrl ?? ''
     }
 
-    const LINKS: LinkProps = {
+    const links: LinkProps = {
         baseUrl: c.baseUrl ?? '',
         contactLink: c.contactLink ?? '',
         submitLink: c.submitLink ?? '',
@@ -83,9 +83,9 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
     }
 
     return {
-        mongoDb: MONGO,
-        blob: BLOB,
-        links: LINKS
+        mongoDb,
+        blob,
+        links
     }
 }
 
