@@ -1,6 +1,6 @@
 import { getAllTracks } from "@/server/actions/tracks";
-import { sortPlaylistByOrderList } from "@/Home/utils/helpers/PlaylistHelpers";
-import { decodeOrderParam, decodePlayerStatusParam } from "@/Home/utils/helpers/SearchParamHelpers";
+import { sortPlaylistByOrderList } from "@/Home/utils/helpers/playlistHelpers";
+import { decodeOrderParam, decodePlayerStatusParam } from "@/Home/utils/helpers/searchParamHelpers";
 import { Track } from "@/Home/components/Track/Track";
 import SmallPlayer from "@/Home/components/SmallPlayer/SmallPlayer";
 import PlayListProvider from "@/Home/context/PlayerContextProvider";

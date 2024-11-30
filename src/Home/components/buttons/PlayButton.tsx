@@ -6,7 +6,7 @@ import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '@/Home/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/Home/types/playerStatusEnum';
-import { constructPlayerStatusAction } from '@/Home/utils/helpers/SearchParamHelpers';
+import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
 import { SearchParams } from '@/Home/constants/playerContextConstants';
 import { DEFAULT_LOCALE } from '@/common/constants/i18nConstants';
 
