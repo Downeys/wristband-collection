@@ -4,6 +4,4 @@ export const SearchParams = {
     ORDER: 'order'
 } as const;
 
-export const INITIAL_HOWL_STATE = "unloaded";
-
-export default { SearchParams, INITIAL_HOWL_STATE };
+export default { SearchParams };

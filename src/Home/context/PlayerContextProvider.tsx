@@ -3,25 +3,24 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter, useParams } from 'next/navigation';
-import { Howl } from 'howler';
-import { createHowl } from '@/common/utils/helpers/howlHelpers';
 import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
-import { PlayerStatus } from '@/Home/types/playerStatusEnum';
-import { SearchParams, INITIAL_HOWL_STATE } from '../constants/playerContextConstants';
+import { PlayerStatus } from '@/common/types/playerStatusEnum';
+import { SearchParams } from '../constants/playerContextConstants';
 import { PlayerContextState } from './PlayerContextState';
 import { InitialPlayerState } from './InitialPlayerState';
+import { Song } from '@/common/utils/audioWrappers/Song';
+import HowlerSongImpl from '@/common/utils/audioWrappers/HowlerSongImpl';
 
 interface PlayListProviderProps {
     playList: TrackData[]
 }
 
 interface InternalState {
-    status: PlayerStatus;
     pIndex: number;
     trackInPlayer: TrackData | null;
     orderParam: string;
-    currentHowl: Howl;
+    currentSong: Song | null;
 }
  
 export const PlayListContext = createContext<PlayerContextState>(InitialPlayerState)
@@ -32,7 +31,7 @@ export default function PlayListProvider({ children, props }: { children: React.
     const params = useParams();
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
 
-    const [inFocus, playerStatus, index, playlist] = useMemo(() => {
+    const [inFocus, playerStatusParam, index, playlist] = useMemo(() => {
         const focus = searchParams.get(IN_FOCUS);
         const { status, index } = searchParams.get(PLAYER_STATUS) ? decodePlayerStatusParam(searchParams.get(PLAYER_STATUS)!) : { status: PlayerStatus.paused, index: 0 };
         const orderList = searchParams.get(ORDER) ? decodeOrderParam(searchParams.get(ORDER)!) : [];
@@ -41,12 +40,23 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [searchParams, props.playList]);
 
     const [state, setState] = useState<InternalState>({
-        status: PlayerStatus.paused,
         pIndex: 0,
         trackInPlayer: props.playList ? props.playList[0] : null,
         orderParam: '',
-        currentHowl: { state: () => INITIAL_HOWL_STATE } as Howl,
+        currentSong: null,
     });
+
+    const [status, setStatus] = useState<PlayerStatus>(PlayerStatus.uninitiated);
+    const [progress, setProgress] = useState<number>(0);
+    const [currentTime, setCurrentTime] = useState<number>(0);
+    const [duration, setDuration] = useState<number>(0);
+
+    const songUpdater = useCallback((newSong: Song) => {
+        setStatus(newSong.status);
+        if (progress != newSong.progress) setProgress(newSong.progress);
+        if (currentTime != newSong.currentTime) setCurrentTime(newSong.currentTime);
+        if (duration != newSong.duration) setDuration(newSong.duration);
+    }, [progress, currentTime, duration, status])
 
     const back = useCallback((status: string, inFocus: string, order: string) => {
         const currentStatus = decodePlayerStatusParam(status);
@@ -66,48 +76,55 @@ export default function PlayListProvider({ children, props }: { children: React.
         goNext(newPlayerStatus, inFocus ?? '', order);
     }, [playlist, goNext]);
 
+    const seek = useCallback((time: number) => {
+        state.currentSong?.seek(time);
+    }, [state.currentSong])
+
     const handlePlayerStatusUpdate = useCallback(() => {
-        if (state.currentHowl.state() !== INITIAL_HOWL_STATE) {
-            if (playerStatus === PlayerStatus.paused && state.currentHowl.playing()) state.currentHowl.pause();
-            if (playerStatus === PlayerStatus.playing && !state.currentHowl.playing()) state.currentHowl.play();
-            setState({ ...state, status: playerStatus })
-        } else {
+        if (status !== PlayerStatus.uninitiated) {
+            if (playerStatusParam === PlayerStatus.paused && status == PlayerStatus.playing) state.currentSong?.pause();
+            if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong?.play();
+        } else if (playlist[index]?.audioSrc) {
             const newIndex = getNextIndex(index, playlist);
-            let newHowl = createHowl(playlist[index]?.audioSrc, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
-            if (playerStatus === PlayerStatus.playing) newHowl.play();
-            setState({ ...state, status: playerStatus, currentHowl: newHowl })
+            const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
+            if (playerStatusParam === PlayerStatus.playing) newSong.play();
+            setState({ ...state, currentSong: newSong })
         }
-    }, [state, playerStatus, index, next]);
+    }, [state, playerStatusParam, index, status, next, songUpdater]);
 
     const handlePIndexUpdate = useCallback(() => {
-        if (state.currentHowl.state() !== INITIAL_HOWL_STATE && (state.currentHowl.playing() || state.currentHowl.state() == 'loading')) state.currentHowl.unload();
+        if (status == PlayerStatus.playing) state.currentSong?.unload();
         const newIndex = getNextIndex(index, playlist);
-        let newHowl = createHowl(playlist[index]?.audioSrc, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
-        if (playerStatus === PlayerStatus.playing) newHowl.play();
-        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], status: playerStatus, currentHowl: newHowl })
-    }, [state, index, playerStatus, playlist, goNext])
+        const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
+        if (playerStatusParam === PlayerStatus.playing) newSong.play();
+        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentSong: newSong })
+    }, [state, index, playerStatusParam, playlist, status, goNext, songUpdater])
 
     useEffect(() => {
         const randomTrackOrder = getRandomizedOrder(props.playList)
         const trackOrder = encodeOrderParam(randomTrackOrder);
         const sortedTrackList = sortPlaylistByOrderList(props.playList, randomTrackOrder)
-        const initialStatus = constructPlayerStatusAction(state.status, 0)
+        const initialStatus = constructPlayerStatusAction(status, 0)
         setState({ ...state, orderParam: trackOrder, trackInPlayer: sortedTrackList[0] })
         router.replace(`${params.locale}?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrder}`, { scroll: false })
     }, [])
 
     useEffect(() => {
         if (state.pIndex !== index) handlePIndexUpdate()
-        else if (state.status !== playerStatus) handlePlayerStatusUpdate()
-    }, [playerStatus, index])
+        else if (status !== playerStatusParam) handlePlayerStatusUpdate()
+    }, [playerStatusParam, index])
 
     const value: PlayerContextState = useMemo(() => ({
         trackInPlayer: state.trackInPlayer,
-        playerStatus,
+        playerStatus: status,
         index,
+        progress,
+        duration,
+        currentTime,
         back,
         next,
-    }), [state.trackInPlayer, playerStatus, index, back, next])
+        seek
+    }), [state.trackInPlayer, status, index, progress, duration, currentTime, back, next, seek])
 
     return <PlayListContext.Provider value={value}>{children}</PlayListContext.Provider>
 }
