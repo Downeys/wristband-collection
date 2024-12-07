@@ -1,6 +1,6 @@
 import { Howl } from "howler";
 import { getWebmStreamUrl, getMp3StreamUrl } from "@/common/utils/helpers/howlHelpers";
-import { PlayerStatus } from "@/Home/types/playerStatusEnum";
+import { PlayerStatus } from "@/common/types/playerStatusEnum";
 import config from '@/common/config/clientConfig';
 import { Song } from "./Song";
 

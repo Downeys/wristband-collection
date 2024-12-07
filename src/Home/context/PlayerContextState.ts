@@ -1,5 +1,5 @@
 import { TrackData } from "@/models/types";
-import { PlayerStatus } from "@/Home/types/playerStatusEnum";
+import { PlayerStatus } from "@/common/types/playerStatusEnum";
 
 export interface PlayerContextState {
     trackInPlayer: TrackData | null;

@@ -5,7 +5,7 @@ import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter, useParams } from 'next/navigation';
 import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
-import { PlayerStatus } from '@/Home/types/playerStatusEnum';
+import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { SearchParams } from '../constants/playerContextConstants';
 import { PlayerContextState } from './PlayerContextState';
 import { InitialPlayerState } from './InitialPlayerState';

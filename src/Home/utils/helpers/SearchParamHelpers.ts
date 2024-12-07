@@ -1,4 +1,4 @@
-import { PlayerStatus } from '@/Home/types/playerStatusEnum';
+import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { Buffer } from 'buffer';
 
 const encodeParam = (param: string): string => {
