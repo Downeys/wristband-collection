@@ -1,7 +1,6 @@
 import { Howl } from "howler";
 import { getWebmStreamUrl, getMp3StreamUrl } from "@/common/utils/helpers/howlHelpers";
 import { PlayerStatus } from "@/common/types/playerStatusEnum";
-import config from '@/common/config/clientConfig';
 import { Song } from "./Song";
 
 const TICK_INTERVAL = 100; // controls how often the song fires it's update event while playing
@@ -19,7 +18,7 @@ export class HowlerSongImpl implements Song {
     constructor(fileName: string, onUpdate: (song: Song) => void, onEnd: () => void) {
         const howl = new Howl({
             src: [getWebmStreamUrl(fileName), getMp3StreamUrl(fileName)],
-            format: [...config.audioStream.streamingFileTypes],
+            format: ['webm', 'mp3'],
             html5: true,
             preload: true,
             onend: onEnd,
