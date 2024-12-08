@@ -19,7 +19,6 @@ export const AboutMeSection = async ({ locale }: AboutMeSectionProps) => {
             <div className='border-t-2 border-b-2 border-wbBlue p-9 mt-14'>
                 <Heading size='xl' additionalStyles={`sm:text-2xl md:text-4xl p-1 text-center ${Font.secondary.className}`} text={t('missionStatement')} />
             </div>
-            <Label alignment='center' size='lg' additionalStyles={`md:text-2xl lg:text-3xl mt-4`} text={t('streamingDisclaimer')} />
         </>
     )
 }
