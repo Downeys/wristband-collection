@@ -81,9 +81,9 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state.currentSong])
 
     const handlePlayerStatusUpdate = useCallback(() => {
-        if (status !== PlayerStatus.uninitiated) {
-            if (playerStatusParam === PlayerStatus.paused && status == PlayerStatus.playing) state.currentSong?.pause();
-            if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong?.play();
+        if (state.currentSong && status !== PlayerStatus.uninitiated) {
+            if (playerStatusParam === PlayerStatus.paused && status == PlayerStatus.playing) state.currentSong.pause();
+            if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong.play();
         } else if (playlist[index]?.audioSrc) {
             const newIndex = getNextIndex(index, playlist);
             const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
