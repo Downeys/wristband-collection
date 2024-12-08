@@ -4,9 +4,9 @@ import { IconProps } from "@/common/types/types"
 
 export const BackIcon: React.FC<IconProps> = (props) =>
     <span onClick={() => props.onClick && props.onClick()}>
-        <svg className={props.styling || "h-7 w-8"} viewBox="0 0 33 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={props.styling || "h-5 w-6"} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_106_15)">
-                <path d="M16.5 0L4 9.375L16.5 18.75V0ZM16.5 9.375L29 18.75V0L16.5 9.375Z" fill="#06E7EC"/>
+                <path d="M21.875 0V18.75L6.25 9.375L21.875 0ZM6.25 9.375V18.75H0V0H6.25V9.375Z" fill="#06E7EC"/>
             </g>
             <defs>
                 <filter id="filter0_d_106_15" x="0" y="0" width="33" height="26.75" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
