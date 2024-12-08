@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, ChangeEventHandler, useCallback, useContext, useMemo } from "react";
+import { ChangeEvent, ChangeEventHandler, useCallback, useContext, useMemo, useState } from "react";
 import { Label } from "@/common/components/text/Label";
 import { BackButton } from "@/Home/components/buttons/BackButton";
 import { NextButton } from "@/Home/components//buttons/NextButton";
@@ -17,10 +17,12 @@ export const SmallPlayer: React.FC = () => {
         return `${current}/${total}`
     }, [currentTime, duration])
     const showTrackPosition = useMemo(() => duration > 0, [duration]);
+    const [seekDebouncer, setSeekDebouncer] = useState<NodeJS.Timeout>();
     const handleSeek: ChangeEventHandler<HTMLInputElement> = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const time = +e.target.value;
-        return seek(time);
+        clearTimeout(seekDebouncer);
+        setSeekDebouncer(setTimeout(() => seek(time), 100));
     }, [seek])
 
     return (
