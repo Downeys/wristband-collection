@@ -41,12 +41,12 @@ export default function PlayListProvider({ children, props }: { children: React.
 
     const [state, setState] = useState<InternalState>({
         pIndex: 0,
-        trackInPlayer: props.playList ? props.playList[0] : null,
+        trackInPlayer: playlist ? playlist[index] : null,
         orderParam: '',
         currentSong: null,
     });
 
-    const [status, setStatus] = useState<PlayerStatus>(PlayerStatus.uninitiated);
+    const [status, setStatus] = useState<PlayerStatus>(PlayerStatus.paused);
     const [progress, setProgress] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
@@ -88,7 +88,7 @@ export default function PlayListProvider({ children, props }: { children: React.
             const newIndex = getNextIndex(index, playlist);
             const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
             if (playerStatusParam === PlayerStatus.playing) newSong.play();
-            setState({ ...state, currentSong: newSong })
+            setState({ ...state, trackInPlayer: playlist[index], currentSong: newSong })
         }
     }, [state, playerStatusParam, index, status, next, songUpdater]);
 
