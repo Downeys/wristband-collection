@@ -3,10 +3,10 @@
 import { IconProps } from "@/common/types/types"
 
 export const NextIcon: React.FC<IconProps> = (props) =>
-    <span onClick={() => props.onClick && props.onClick()}>
-        <svg className={props.styling || "h-7 w-8"} viewBox="0 0 33 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className="flex flex-col items-center justify-center " onClick={() => props.onClick && props.onClick()}>
+        <svg className={props.styling || "h-5 w-6"} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_106_12)">
-                <path d="M4 0V18.75L16.5 9.375L4 0ZM16.5 9.375V18.75L29 9.375L16.5 0V9.375Z" fill="#06E7EC"/>
+                <path d="M0 0V18.75L15.625 9.375L0 0ZM15.625 9.375V18.75H21.875V0H15.625V9.375Z" fill="#06E7EC"/>
             </g>
             <defs>
                 <filter id="filter0_d_106_12" x="0" y="0" width="33" height="26.75" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
@@ -21,6 +21,6 @@ export const NextIcon: React.FC<IconProps> = (props) =>
                 </filter>
             </defs>
         </svg>
-    </span>
+    </div>
 
 export default NextIcon

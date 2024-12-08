@@ -17,7 +17,7 @@ export const NextButton: React.FC<NextButtonProps> = ({ onClick }) => {
         onClick(statusParam!, inFocusParam!, orderParam!);
     }, [statusParam, inFocusParam, orderParam])
     return (
-        <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink pt-2 pl-1`} onClick={handleClick}>
+        <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink`} onClick={handleClick}>
             <NextIcon />
         </button>
     )
