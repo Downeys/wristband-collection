@@ -19,7 +19,7 @@
     "initialFileInputMessage2": "Arrastre y suelte archivos o haga clic para comenzar",
     "secondaryFileInputMessage1": "Puedes continuar agregando archivos aquí.",
     "secondaryFileInputMessage2": "Arrastre y suelte archivos o haga clic para continuar",
-    "acceptedFilesMessage": "20 archivos máximo - .mp3 .wav .png or .jpeg - 15MB máximo",
+    "acceptedFilesMessage": "20 archivos máximo - .mp3 .webm .png or .jpeg - 15MB máximo",
     "albumArt": "Carátula del Album",
     "audioFiles": "Archivos de Audio",
     "filesUploadingMessage": "Espere mientras se cargan sus archivos. Gracias."
