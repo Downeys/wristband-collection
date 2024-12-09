@@ -21,7 +21,7 @@ interface FileInputProps {
 
 export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved }: FileInputProps) => {
     const { t } = useTranslation(Namespaces.SUBMIT);
-    const { acceptedImageFiles, acceptedAudioFiles, maxAcceptedFiles } = config.musicSubmission;
+    const { acceptedImageFiles, acceptedAudioFiles, acceptedVideoFiles, maxAcceptedFiles, maxFileSize } = config.musicSubmission;
     const [showModal, setShowModal] = useState(false);
     const [message1, message2, showImageFiles, showAudioFiles] = useMemo(() => {
         if (imageFiles.length || audioFiles.length) {
@@ -35,6 +35,7 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
     }, [imageFiles, audioFiles, t])
     
     const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
+        // need to handle rejected files here
         const totalFiles = acceptedFiles.length + imageFiles.length + audioFiles.length;
         if (totalFiles > 20 || fileRejections.length > 20) {
             setShowModal(true);
@@ -50,6 +51,7 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
             if (!isDuplicate) {
                 const type = getFileType(file);
                 if (type == FileType.AUDIO) updatedAudioFiles.push(file)
+                else if (type == FileType.VIDEO) updatedAudioFiles.push(file);
                 else if (type == FileType.IMAGE) updatedImageFiles.push(file);
             }
         })
@@ -64,9 +66,11 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
         onDrop,
         accept: {
             'image/*': [...acceptedImageFiles],
-            'audio/*': [...acceptedAudioFiles]
+            'audio/*': [...acceptedAudioFiles],
+            'video/*': [...acceptedVideoFiles]
         },
-        maxFiles: maxAcceptedFiles
+        maxFiles: maxAcceptedFiles,
+        maxSize: maxFileSize
     });
     
     return (

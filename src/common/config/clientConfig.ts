@@ -1,19 +1,23 @@
 import dotenv from 'dotenv';
-import { DEFAULT_MAX_FILES_ACCEPTED } from '../constants/configConstants';
+import { DEFAULT_MAX_FILES_ACCEPTED, DEFAULT_MAX_FILE_SIZE } from '../constants/configConstants';
 
 dotenv.config();
 
 interface RawEnvVars {
     acceptedImageFiles: string | undefined;
     acceptedAudioFiles: string | undefined;
+    acceptedVideoFiles: string | undefined;
     maxAcceptedFiles: string | undefined;
+    maxFileSize: string | undefined;
     audioStreamBaseUrl: string | undefined;
 }
 
 interface MusicSubmissionProps {
     acceptedImageFiles: string[];
     acceptedAudioFiles: string[];
+    acceptedVideoFiles: string[];
     maxAcceptedFiles: number;
+    maxFileSize: number;
 }
 
 interface AudioStreamProps {
@@ -28,7 +32,9 @@ interface Config {
 const envVars: RawEnvVars = {
     acceptedImageFiles: process.env.NEXT_PUBLIC_ACCEPTED_IMAGE_FILES,
     acceptedAudioFiles: process.env.NEXT_PUBLIC_ACCEPTED_AUDIO_FILES,
+    acceptedVideoFiles: process.env.NEXT_PUBLIC_ACCEPTED_VIDEO_FILES,
     maxAcceptedFiles: process.env.NEXT_PUBLIC_MAX_ACCEPTED_FILES,
+    maxFileSize: process.env.NEXT_PUBLIC_MAX_FILE_SIZE,
     audioStreamBaseUrl: process.env.NEXT_PUBLIC_AUDIO_STREAM_BASE_URL
 }
 
@@ -47,10 +53,16 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
         ? c.acceptedAudioFiles.split(',')
         : [];
 
+    const acceptedVideoFiles = c.acceptedVideoFiles
+        ? c.acceptedVideoFiles.split(',')
+        : [];
+
     const musicSubmission: MusicSubmissionProps = {
         acceptedImageFiles,
         acceptedAudioFiles,
-        maxAcceptedFiles: c.maxAcceptedFiles ? parseInt(c.maxAcceptedFiles) : DEFAULT_MAX_FILES_ACCEPTED
+        acceptedVideoFiles,
+        maxAcceptedFiles: c.maxAcceptedFiles ? parseInt(c.maxAcceptedFiles) : DEFAULT_MAX_FILES_ACCEPTED,
+        maxFileSize: c.maxFileSize ? parseInt(c.maxFileSize) : DEFAULT_MAX_FILE_SIZE
     }
 
     const audioStream: AudioStreamProps = {
