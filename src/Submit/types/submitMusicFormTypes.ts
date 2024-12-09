@@ -47,4 +47,4 @@ export interface SubmitForm {
     ownershipAttestation: boolean;
 }
 
-export type ValidFileType = 'audio' | 'image' | 'unknown';
+export type ValidFileType = 'audio' | 'image' | 'video' | 'unknown';

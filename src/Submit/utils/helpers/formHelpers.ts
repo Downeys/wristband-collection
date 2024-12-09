@@ -6,7 +6,7 @@ export const getFileType = (file: File): ValidFileType => {
     const splitType = file.type.split('/');
     if (!splitType.length) return FileType.UNKNOWN;
     const returnVal = splitType[0];
-    const isValidType = returnVal == FileType.AUDIO|| returnVal == FileType.IMAGE;
+    const isValidType = returnVal == FileType.AUDIO || returnVal == FileType.IMAGE  || returnVal == FileType.VIDEO;
     return isValidType ? returnVal : FileType.UNKNOWN;
 }
 

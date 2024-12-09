@@ -20,7 +20,7 @@
     "initialFileInputMessage2": "Drag and drop files or click to start",
     "secondaryFileInputMessage1": "You can continue to add files here",
     "secondaryFileInputMessage2": "Drag and drop files or click to continue",
-    "acceptedFilesMessage": "Max 20 files - .mp3 .wav .png or .jpeg",
+    "acceptedFilesMessage": "Max 20 files - .mp3 .webm .png or .jpeg - 15MB max",
     "albumArt": "Album Art",
     "audioFiles": "Audio Files",
     "filesUploadingMessage": "Please wait while your files are uploaded. Thank you."
