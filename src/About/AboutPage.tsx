@@ -6,6 +6,8 @@ import SubmitSection from './components/pageSections/SubmitSection';
 import AboutMeSection from './components/pageSections/AboutMeSection';
 import ComingSoonSection from './components/pageSections/ComingSoonSection';
 import { Namespaces } from '@/common/constants/i18nConstants';
+import RecentUpdatesSection from './components/pageSections/RecentUpdatesSection';
+import LongTermDirectionSection from './components/pageSections/LongTermDirectionSection';
 
 interface AboutPageProps {
     locale: string;
@@ -22,11 +24,13 @@ export const AboutPage = async ({ locale }: AboutPageProps) => {
                         <Image src={config.links.picOfMeLink} alt={t('picOfMeAltText')} width={605} height={805}/>
                     </div>
                     <AboutMeSection locale={locale} />
+                    <LongTermDirectionSection locale={locale} />
                 </div>
                 <div className="w-full sm:w-1/2 p-3 lg:p-6 flex flex-col items-center">
                     <div className='hidden sm:flex justify-center w-full'>
                         <Image src={config.links.picOfMeLink} alt={t('picOfMeAltText')} width={605} height={805}/>
                     </div>
+                    <RecentUpdatesSection locale={locale} />
                     <ComingSoonSection locale={locale} />
                 </div>
             </div>
