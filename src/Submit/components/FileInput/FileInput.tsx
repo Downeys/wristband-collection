@@ -35,7 +35,6 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
     }, [imageFiles, audioFiles, t])
     
     const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-        debugger
         // need to handle rejected files here
         const totalFiles = acceptedFiles.length + imageFiles.length + audioFiles.length;
         if (totalFiles > 20 || fileRejections.length > 20) {
