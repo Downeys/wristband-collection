@@ -62,7 +62,8 @@ export default function PlayListProvider({ children, props }: { children: React.
         const currentStatus = decodePlayerStatusParam(status);
         const newIndex = currentStatus.index === 0 ? playlist.length - 1 : currentStatus.index - 1;
         const newPlayerStatus = constructPlayerStatusAction(currentStatus.status, newIndex);
-        router.replace(`${params.locale}?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocus}&${ORDER}=${order}`, { scroll: false })
+        const newFocus = playlist[newIndex]?.id ?? '';
+        router.replace(`${params.locale}?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${newFocus}&${ORDER}=${order}`, { scroll: false })
     }, [state, router, playlist]);
 
     const goNext = useCallback((newPlayerStatus: string, newInFocus: string, orderParam: string) => {
@@ -73,7 +74,7 @@ export default function PlayListProvider({ children, props }: { children: React.
         const currentStatus = decodePlayerStatusParam(status);
         const newIndex = getNextIndex(currentStatus.index, playlist);
         const newPlayerStatus = constructPlayerStatusAction(currentStatus.status, newIndex);
-        goNext(newPlayerStatus, inFocus ?? '', order);
+        goNext(newPlayerStatus, playlist[newIndex]?.id ?? '', order);
     }, [playlist, goNext]);
 
     const seek = useCallback((time: number) => {
@@ -86,7 +87,7 @@ export default function PlayListProvider({ children, props }: { children: React.
             if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong.play();
         } else if (playlist[index]?.audioSrc) {
             const newIndex = getNextIndex(index, playlist);
-            const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
+            const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
             if (playerStatusParam === PlayerStatus.playing) newSong.play();
             setState({ ...state, trackInPlayer: playlist[index], currentSong: newSong })
         }
@@ -95,7 +96,7 @@ export default function PlayListProvider({ children, props }: { children: React.
     const handlePIndexUpdate = useCallback(() => {
         if (status == PlayerStatus.playing) state.currentSong?.unload();
         const newIndex = getNextIndex(index, playlist);
-        const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, inFocus ?? '', state.orderParam));
+        const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
         if (playerStatusParam === PlayerStatus.playing) newSong.play();
         setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentSong: newSong })
     }, [state, index, playerStatusParam, playlist, status, goNext, songUpdater])
