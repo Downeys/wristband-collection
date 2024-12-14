@@ -77,6 +77,7 @@ export class HowlerSongImpl implements Song {
     onSeek = () => {
         this.currentTime = this.howl.seek();
         this.progress = (this.currentTime/this.duration) * TICK_INTERVAL;
+        this.tick = setTimeout(this.onTick, TICK_INTERVAL);
         this.onUpdate(this);
     }
 
