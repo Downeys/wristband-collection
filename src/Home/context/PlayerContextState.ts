@@ -8,6 +8,7 @@ export interface PlayerContextState {
     progress: number;
     duration: number;
     currentTime: number;
+    playlist: TrackData[];
     back: (status: string, inFocus: string, order: string) => void;
     next: (status: string, inFocus: string, order: string) => void;
     seek: (time: number) => void;

@@ -1,4 +1,7 @@
+'use client'
+
 import { Label } from "@/common/components/text/Label";
+import { MouseEventHandler, useCallback } from "react";
 
 interface SpanButtonProps {
     text: string;
@@ -9,10 +12,12 @@ interface SpanButtonProps {
 
 export const SpanButton: React.FC<SpanButtonProps> = ({ text, color, id, onClick }) => {
     const textColor = color ?? 'white';
+    const handleClick: MouseEventHandler<HTMLSpanElement> = useCallback((e) => onClick(id), [id, onClick])
+
     return (
-        <span className="p-1 cursor-pointer" onClick={() => onClick(id)}>
+        <div className="p-1 cursor-pointer" onClick={handleClick}>
             <Label text={text} color={textColor} bold />
-        </span>
+        </div>
     )
 }
 

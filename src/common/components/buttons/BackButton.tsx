@@ -1,6 +1,6 @@
 'use client'
 
-import BackIcon from "@/Home/components/icons/BackIcon";
+import BackIcon from "@/common/components/icons/BackIcon";
 import { SearchParams } from "@/Home/constants/playerContextConstants";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useCallback } from "react";

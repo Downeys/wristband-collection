@@ -1,4 +1,4 @@
-import ShareIcon from "@/Home/components/icons/ShareIcon";
+import ShareIcon from "@/common/components/icons/ShareIcon";
 
 export const ShareButton: React.FC = () => {
     return (

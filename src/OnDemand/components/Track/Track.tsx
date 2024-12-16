@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import PlayButton from "@/Home/components/buttons/PlayButton";
+import PlayButton from "@/common/components/buttons/PlayButton";
 import Link from "next/link";
 import { TrackData } from '@/models/types';
 import { Label } from '@/common/components/text/Label';

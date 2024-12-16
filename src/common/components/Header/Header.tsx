@@ -2,7 +2,7 @@ import Heading from "@/common/components/text/Heading"
 import Image from 'next/image';
 import Label from "@/common/components/text/Label";
 import initTranslations from '@/common/utils/i18n/i18n';
-import { getAboutLink, getContactLink, getHomeLink, getSubmitLink } from "@/common/utils/helpers/linkHelpers";
+import { getAboutLink, getContactLink, getHomeLink, getOnDemandLink, getSubmitLink } from "@/common/utils/helpers/linkHelpers";
 import LanguageChanger from "@/common/utils/i18n/LanguageChanger";
 import { APP_TITLE } from "@/common/constants/metadataConstants";
 
@@ -16,6 +16,7 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
     const contactLink = getContactLink(locale);
     const submitLink = getSubmitLink(locale);
     const aboutLink = getAboutLink(locale);
+    const onDemandLink = getOnDemandLink(locale);
     return (
         <div className="h-20 w-screen flex flex-row justify-between items-center bg-slate-950 text-white shadow-header fixed top-0 z-10">
             <div className="flex flex-row items-center">
@@ -35,8 +36,15 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
                 </li>
                 <li className="menu-item-container">
                     <div className="header-link-container">
-                        <a id="header-music-button" className="header-link" type="button" href={homeLink}>
-                            <Label text={t('musicLink')} semibold font="primary" color="white" />
+                        <a id="header-radio-button" className="header-link" type="button" href={homeLink}>
+                            <Label text={t('radioLink')} semibold font="primary" color="white" />
+                        </a>
+                    </div>
+                </li>
+                <li className="menu-item-container">
+                    <div className="header-link-container">
+                        <a id="header-catelogue-button" className="header-link" type="button" href={onDemandLink}>
+                            <Label text={t('catalogLink')} semibold font="primary" color="white" />
                         </a>
                     </div>
                 </li>
