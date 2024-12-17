@@ -1,9 +1,9 @@
 "use client"
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import PlayIcon from "@/Home/components/icons/PlayIcon";
+import PlayIcon from "@/common/components/icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
-import PauseIcon from '@/Home/components/icons/PauseIcon';
+import PauseIcon from '@/common/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
@@ -31,7 +31,7 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
         const locale = params.locale ?? DEFAULT_LOCALE;
-        router.replace(`/${locale}?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
+        router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
     }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 
     const variantStyle = {

@@ -1,15 +1,20 @@
 'use client'
 
-import { ChangeEvent, ChangeEventHandler, useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { Label } from "@/common/components/text/Label";
-import { BackButton } from "@/Home/components/buttons/BackButton";
-import { NextButton } from "@/Home/components//buttons/NextButton";
-import { PlayButton } from "@/Home/components//buttons/PlayButton";
-import { PlayListContext } from "@/Home/context/PlayerContextProvider";
-import { formatTime } from "@/Home/utils/helpers/playlistHelpers";
+import { BackButton } from "@/common/components/buttons/BackButton";
+import { NextButton } from "@/common/components/buttons/NextButton";
+import { PlayButton } from "@/common/components/buttons/PlayButton";
 import Trackbar from "./Trackbar";
+import { PlayListContext } from "@/common/context/player/PlayerContextProvider";
 
-export const SmallPlayer: React.FC = () => {
+export interface SmallPlayerProps {
+    play?: boolean;
+    next?: boolean;
+    back?: boolean;
+}
+
+export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: showNext, back: showBack }) => {
     const { trackInPlayer, playerStatus, index, progress, duration, currentTime, back, next, seek } = useContext(PlayListContext);
     const trackMessage = useMemo(() => trackInPlayer?.bandName ? `${trackInPlayer?.bandName} - ${trackInPlayer?.trackName}` : 'Welcome to Wristband Radio', [trackInPlayer]);
     const handleSeek = useCallback((time: number) => seek(time), [seek])
@@ -22,9 +27,9 @@ export const SmallPlayer: React.FC = () => {
             </div>
             <Trackbar duration={duration} progress={progress} currentTime={currentTime} onSeek={handleSeek} />
             <div className="flex flex-row justify-center items-center pb-2">
-                <BackButton onClick={back}/>
-                <PlayButton trackIndex={index} status={playerStatus} />
-                <NextButton onClick={next}/>
+                {showBack && <BackButton onClick={back}/>}
+                {showPlay && <PlayButton trackIndex={index} status={playerStatus} />}
+                {showNext && <NextButton onClick={next}/>}
             </div>
         </div>
     )

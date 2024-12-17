@@ -1,7 +1,7 @@
 'use client'
 
-import NextIcon from "@/Home/components/icons/NextIcon";
-import { SearchParams } from '../../constants/playerContextConstants';
+import NextIcon from "@/common/components/icons/NextIcon";
+import { SearchParams } from '../../../Home/constants/playerContextConstants';
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 

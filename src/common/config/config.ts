@@ -13,6 +13,7 @@ interface RawEnvVars {
     contactLink: string | undefined;
     submitLink: string | undefined;
     aboutLink: string | undefined;
+    onDemandLink: string | undefined;
     picOfMeLink: string | undefined;
 }
 
@@ -33,6 +34,7 @@ interface LinkProps {
     contactLink: string;
     submitLink: string;
     aboutLink: string;
+    onDemandLink: string;
     picOfMeLink: string;
 }
 
@@ -53,6 +55,7 @@ const envVars: RawEnvVars = {
     contactLink: process.env.CONTACT_URI,
     submitLink: process.env.SUBMIT_URI,
     aboutLink: process.env.ABOUT_URI,
+    onDemandLink: process.env.ON_DEMAND_URI,
     picOfMeLink: process.env.PIC_OF_ME_LINK
 }
 
@@ -79,6 +82,7 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
         contactLink: c.contactLink ?? '',
         submitLink: c.submitLink ?? '',
         aboutLink: c.aboutLink ?? '',
+        onDemandLink: c.onDemandLink ?? '',
         picOfMeLink: c.picOfMeLink ?? ''
     }
 

@@ -8,4 +8,6 @@ export const getSubmitLink = (locale: string): string => `${config.links.baseUrl
 
 export const getAboutLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.aboutLink}`;
 
-export default {  getHomeLink, getContactLink, getSubmitLink, getAboutLink };
+export const getOnDemandLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.onDemandLink}`;
+
+export default {  getHomeLink, getContactLink, getSubmitLink, getAboutLink, getOnDemandLink };
