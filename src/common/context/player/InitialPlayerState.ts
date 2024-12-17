@@ -1,6 +1,6 @@
 import { TrackData } from "@/models/types";
-import { PlayerContextState } from "@/Home/context/PlayerContextState";
 import { PlayerStatus } from "@/common/types/playerStatusEnum";
+import { PlayerContextState } from "./PlayerContextState";
 
 export const InitialPlayerState: PlayerContextState = {
     trackInPlayer: {} as TrackData,
@@ -9,6 +9,7 @@ export const InitialPlayerState: PlayerContextState = {
     progress: 0,
     duration: 0,
     currentTime: 0,
+    playlist: [],
     back: () => {},
     next: () => {},
     seek: (time: number) => {}

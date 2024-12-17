@@ -1,6 +1,6 @@
 import { getAllTracks } from "@/server/actions/tracks";
-import PlayListProvider from "@/Home/context/PlayerContextProvider";
 import RadioPage from "@/Radio/RadioPage";
+import PlayListProvider from "@/common/context/player/PlayerContextProvider";
 
 const preloadTracks = (() => {
     void getAllTracks()

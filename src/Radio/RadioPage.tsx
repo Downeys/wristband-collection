@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { SmallPlayer } from '@/common/components/SmallPlayer/SmallPlayer';
-import { PlayListContext } from '@/Home/context/PlayerContextProvider';
+import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
 import React, { useContext, useMemo } from 'react'
 
 export const RadioPage: React.FC = () => {

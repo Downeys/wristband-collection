@@ -5,8 +5,8 @@ import { Label } from "@/common/components/text/Label";
 import { BackButton } from "@/common/components/buttons/BackButton";
 import { NextButton } from "@/common/components/buttons/NextButton";
 import { PlayButton } from "@/common/components/buttons/PlayButton";
-import { PlayListContext } from "@/Home/context/PlayerContextProvider";
 import Trackbar from "./Trackbar";
+import { PlayListContext } from "@/common/context/player/PlayerContextProvider";
 
 export interface SmallPlayerProps {
     play?: boolean;
