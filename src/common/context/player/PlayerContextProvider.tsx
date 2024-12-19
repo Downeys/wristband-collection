@@ -2,7 +2,7 @@
  
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { TrackData } from '@/models/types';
-import { useSearchParams, useRouter, useParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
@@ -28,7 +28,6 @@ export const PlayListContext = createContext<PlayerContextState>(InitialPlayerSt
 export default function PlayListProvider({ children, props }: { children: React.ReactNode, props: PlayListProviderProps }) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const params = useParams();
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
 
     const [playerStatusParam, index, playlist] = useMemo(() => {
