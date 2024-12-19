@@ -1,6 +1,6 @@
 "use client"
 
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from "@/common/components/icons/PlayIcon";
 import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '@/common/components/icons/PauseIcon';
@@ -8,7 +8,6 @@ import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
 import { SearchParams } from '@/Home/constants/playerContextConstants';
-import { DEFAULT_LOCALE } from '@/common/constants/i18nConstants';
 
 export interface PlayButtonProps {
     variant?: 'primary' | 'track';
@@ -21,7 +20,6 @@ export interface PlayButtonProps {
 export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, status, loading, onClick }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const params = useParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
     const [inFocusParam, orderParam] = useMemo(() => [searchParams.get(IN_FOCUS), searchParams.get(ORDER)], [searchParams]);
@@ -30,7 +28,6 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
-        const locale = params.locale ?? DEFAULT_LOCALE;
         router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
     }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
 

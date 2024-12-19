@@ -4,6 +4,7 @@ import { decodeOrderParam, decodePlayerStatusParam } from "@/Home/utils/helpers/
 import { Track } from "@/OnDemand/components/Track/Track";
 import SmallPlayer from "@/common/components/SmallPlayer/SmallPlayer";
 import PlayListProvider from "@/common/context/player/PlayerContextProvider";
+import { Suspense } from "react";
 
 interface OnDemandProps {
     inFocusParam: string;
@@ -30,9 +31,11 @@ export default async function OnDemandPage({ inFocusParam, playerStatusParam, or
                 <div className="h-60" />
             </div>
             <div className="fixed bottom-0 left-0">
-                <PlayListProvider props={{ playList: tracks }}>
-                    <SmallPlayer play back next />
-                </PlayListProvider>
+                <Suspense>
+                    <PlayListProvider props={{ playList: tracks }}>
+                        <SmallPlayer play back next />
+                    </PlayListProvider>
+                </Suspense>
             </div>
         </main>
     );
