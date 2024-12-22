@@ -5,7 +5,6 @@ import { Track } from "@/OnDemand/components/Track/Track";
 import SmallPlayer from "@/common/components/SmallPlayer/SmallPlayer";
 import PlayListProvider from "@/common/context/player/PlayerContextProvider";
 import { Suspense } from "react";
-import { mockTracks } from "@/common/mockData/mockTrackData";
 
 interface OnDemandProps {
     inFocusParam: string;
@@ -19,9 +18,8 @@ const preloadTracks = (() => {
 })
 
 export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam, locale }: OnDemandProps) {
-    // preloadTracks();
-    // const tracks = await getAllTracks();
-    const tracks = mockTracks;
+    preloadTracks();
+    const tracks = await getAllTracks();
     const orderList = decodeOrderParam(orderParam);
     const showTracks = orderList.length > 0;
     const sortedTracks = showTracks ? sortPlaylistByBand(tracks) : tracks;

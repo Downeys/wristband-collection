@@ -28,7 +28,10 @@ export const sortPlaylistByPosition = (tracks: TrackData[]): TrackData[] => {
 }
 
 export const sortPlaylistByBand = (tracks: TrackData[]): TrackData[] => {
-    return tracks.sort((a, b) => a.bandName.localeCompare(b.bandName))
+    const sortedByTrackName = tracks.sort((a, b) => a.trackName.localeCompare(b.trackName))
+    const x = sortedByTrackName.sort((a, b) => a.bandName.localeCompare(b.bandName))
+    debugger
+    return x;
 }
 
 export const getNextIndex = (currentIndex: number, playlist: TrackData[]) =>  currentIndex + 1 === playlist.length ? 0 : currentIndex + 1;
