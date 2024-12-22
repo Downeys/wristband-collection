@@ -27,6 +27,10 @@ export const sortPlaylistByPosition = (tracks: TrackData[]): TrackData[] => {
     return tracks.sort((a, b) => a.position - b.position);
 }
 
+export const sortPlaylistByBand = (tracks: TrackData[]): TrackData[] => {
+    return tracks.sort((a, b) => a.bandName.localeCompare(b.bandName))
+}
+
 export const getNextIndex = (currentIndex: number, playlist: TrackData[]) =>  currentIndex + 1 === playlist.length ? 0 : currentIndex + 1;
 
 export const formatTime = (secs: number): string => {
