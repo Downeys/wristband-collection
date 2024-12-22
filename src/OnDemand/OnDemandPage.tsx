@@ -32,7 +32,7 @@ export default async function OnDemandPage({ inFocusParam, playerStatusParam, or
             </div>
             <div className="fixed bottom-0 left-0">
                 <Suspense>
-                    <PlayListProvider props={{ playList: tracks }}>
+                    <PlayListProvider props={{ playList: tracks, mode: 'alphabetic' }}>
                         <SmallPlayer play back next />
                     </PlayListProvider>
                 </Suspense>

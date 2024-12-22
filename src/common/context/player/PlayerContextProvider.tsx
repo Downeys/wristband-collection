@@ -3,7 +3,7 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex } from '@/Home/utils/helpers/playlistHelpers';
+import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex, getAlphebeticOrder } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { PlayerContextState } from './PlayerContextState';
@@ -14,6 +14,7 @@ import { SearchParams } from '@/Home/constants/playerContextConstants';
 
 interface PlayListProviderProps {
     playList: TrackData[]
+    mode: 'random' | 'alphabetic';
 }
 
 interface InternalState {
@@ -100,12 +101,14 @@ export default function PlayListProvider({ children, props }: { children: React.
     }, [state, index, playerStatusParam, playlist, status, goNext, songUpdater])
 
     useEffect(() => {
-        const randomTrackOrder = getRandomizedOrder(props.playList)
-        const trackOrder = encodeOrderParam(randomTrackOrder);
-        const sortedTrackList = sortPlaylistByOrderList(props.playList, randomTrackOrder)
+        let trackOrder: number[] = [];
+        if (props.mode == 'random') trackOrder = getRandomizedOrder(props.playList)
+        if (props.mode == 'alphabetic') trackOrder = getAlphebeticOrder(props.playList);
+        const trackOrderParam = encodeOrderParam(trackOrder);
+        const sortedTrackList = sortPlaylistByOrderList(props.playList, trackOrder)
         const initialStatus = constructPlayerStatusAction(status, 0)
-        setState({ ...state, orderParam: trackOrder, trackInPlayer: sortedTrackList[0] })
-        router.replace(`?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrder}`, { scroll: false })
+        setState({ ...state, orderParam: trackOrderParam, trackInPlayer: sortedTrackList[0] })
+        router.replace(`?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrderParam}`, { scroll: false })
     }, [])
 
     useEffect(() => {
