@@ -13,7 +13,7 @@ export default async function HomePage() {
     return (
         <main className="flex min-w-screen min-h-screen flex-col px-6 sm:px-12 bg-slate-950 relative top-20 z-0">
             <Suspense>
-                <PlayListProvider props={{ playList: tracks }}>
+                <PlayListProvider props={{ playList: tracks, mode: 'random' }}>
                     <RadioPage />
                 </PlayListProvider>
             </Suspense>

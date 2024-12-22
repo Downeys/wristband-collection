@@ -1,7 +1,11 @@
 import { TrackData } from "@/models/types";
 
 interface OrderObj {
-    random: number;
+    sortedIndex: number;
+    index: number;
+}
+
+interface IndexedTrackData extends TrackData {
     index: number;
 }
 
@@ -9,22 +13,28 @@ export const getRandomizedOrder = (trackList: TrackData[]): number[] => {
     const orderList: OrderObj[] = [];
     for (let i = 0; i < trackList.length; i++) {
         const random = Math.floor(Math.random() * 100);
-        orderList.push({ random, index: i });
+        orderList.push({ sortedIndex: random, index: i });
     }
-    const sortedOrderList = orderList.sort((a, b) => a.random - b.random);
+    const sortedOrderList = orderList.sort((a, b) => a.sortedIndex - b.sortedIndex);
     return sortedOrderList.map(item => item.index);
 }
 
-export const sortPlaylistByOrderList = (trackList: TrackData[], orderList: number[]): TrackData[] => {
-    const randomlyOrderedTrackList: TrackData[] = [];
+export const getAlphebeticOrder = (trackList: TrackData[]): number[] => {
+    const orderList: IndexedTrackData[] = [];
     for (let i = 0; i < trackList.length; i++) {
-        randomlyOrderedTrackList.push(trackList[orderList[i]])
+        orderList.push({ ...trackList[i], index: i });
     }
-    return randomlyOrderedTrackList;
+    const sortedByTrackName = orderList.sort((a, b) => a.trackName.localeCompare(b.trackName))
+    const sortedByBandName = sortedByTrackName.sort((a, b) => a.bandName.localeCompare(b.bandName))
+    return sortedByBandName.map(item => item.index);
 }
 
-export const sortPlaylistByPosition = (tracks: TrackData[]): TrackData[] => {
-    return tracks.sort((a, b) => a.position - b.position);
+export const sortPlaylistByOrderList = (trackList: TrackData[], orderList: number[]): TrackData[] => {
+    const sortedTrackList: TrackData[] = [];
+    for (let i = 0; i < trackList.length; i++) {
+        sortedTrackList.push(trackList[orderList[i]])
+    }
+    return sortedTrackList;
 }
 
 export const getNextIndex = (currentIndex: number, playlist: TrackData[]) =>  currentIndex + 1 === playlist.length ? 0 : currentIndex + 1;
