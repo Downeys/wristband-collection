@@ -41,7 +41,7 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
                         ? <div className="w-20 flex flex-row justify-end">
                             <LoopButton onClick={(shouldLoop: boolean) => {}}/>
                         </div>
-                        : <div className="h-10 w-24" />}
+                        : <div className="h-10 w-20" />}
                 </div>
                 {showPlay && <PlayButton status={playerStatus} trackId={trackInPlayer?.id} />}
                 <div className="flex flex-col justify-center items-center">
@@ -53,7 +53,7 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
                         ? <div className="w-20 flex flex-row justify-start">
                             <RandomizeButton onClick={handleShuffle}/>
                         </div>
-                        : <div className="h-10 w-24" />}
+                        : <div className="h-10 w-20" />}
                 </div>
             </div>
         </div>
