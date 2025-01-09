@@ -11,13 +11,13 @@ import { SearchParams } from '@/Home/constants/playerContextConstants';
 
 export interface PlayButtonProps {
     variant?: 'primary' | 'track';
-    trackIndex: number;
+    trackId?: string;
     status: PlayerStatus;
     loading?: boolean;
     onClick?: (trackId: string, status: 'playing' | 'paused') => void;
 }
 
-export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, status, loading, onClick }) => {
+export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status, loading, onClick }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
@@ -27,12 +27,12 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackIndex, sta
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
-        const newPlayerStatus = constructPlayerStatusAction(newStatus, trackIndex);
+        const newPlayerStatus = constructPlayerStatusAction(newStatus, trackId ?? '');
         router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
-    }, [router, isPlaying, inFocusParam, orderParam, trackIndex]);
+    }, [router, isPlaying, inFocusParam, orderParam, trackId]);
 
     const variantStyle = {
-        primary: 'h-20 w-20 mx-12 rounded-full shadow-blue pl-3 pt-3',
+        primary: 'h-20 w-20 mx-6 rounded-full shadow-blue pl-3 pt-3',
         track: 'h-14 w-14 border border-1 rounded-full pl-1 pt-1'
     }
     const iconStyling = {

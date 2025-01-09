@@ -15,9 +15,9 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
     const [statusParam, inFocusParam, orderParam] = useMemo(() => [searchParams.get(PLAYER_STATUS), searchParams.get(IN_FOCUS), searchParams.get(ORDER)], [searchParams]);
     const handleClick = useCallback(() => {
         onClick(statusParam!, inFocusParam!, orderParam!);
-    }, [statusParam, inFocusParam, orderParam])
+    }, [statusParam, inFocusParam, orderParam, onClick])
     return (
-        <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink`} onClick={handleClick}>
+        <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink mt-4`} onClick={handleClick}>
             <BackIcon />
         </button>
     )
