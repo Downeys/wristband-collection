@@ -9,7 +9,8 @@ export interface PlayerContextState {
     duration: number;
     currentTime: number;
     playlist: TrackData[];
-    back: (status: string, inFocus: string, order: string) => void;
-    next: (status: string, inFocus: string, order: string) => void;
+    back: () => void;
+    next: () => void;
     seek: (time: number) => void;
+    shuffle: (random: boolean) => void;
 }

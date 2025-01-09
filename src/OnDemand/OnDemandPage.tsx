@@ -1,5 +1,5 @@
 import { getAllTracks } from "@/server/actions/tracks";
-import { sortPlaylistByOrderList } from "@/Home/utils/helpers/playlistHelpers";
+import { getAlphebeticOrder, sortPlaylistByOrderList } from "@/Home/utils/helpers/playlistHelpers";
 import { decodeOrderParam, decodePlayerStatusParam } from "@/Home/utils/helpers/searchParamHelpers";
 import { Track } from "@/OnDemand/components/Track/Track";
 import SmallPlayer from "@/common/components/SmallPlayer/SmallPlayer";
@@ -20,20 +20,20 @@ const preloadTracks = (() => {
 export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam, locale }: OnDemandProps) {
     preloadTracks();
     const tracks = await getAllTracks();
-    const orderList = decodeOrderParam(orderParam);
+    const orderList = getAlphebeticOrder(tracks);;
     const showTracks = orderList.length > 0;
     const sortedTracks = showTracks ? sortPlaylistByOrderList(tracks, orderList) : tracks;
-    const { status, index } = decodePlayerStatusParam(playerStatusParam);
+    const { status, id } = decodePlayerStatusParam(playerStatusParam);
     return (
         <main className="flex min-w-screen min-h-screen flex-col px-6 sm:px-12 pt-4 bg-slate-950 relative top-20 z-0">
             <div>
-                {showTracks && sortedTracks.map((track, idx) => <Track { ...track } key={`${track.id}`} trackInFocus={inFocusParam} trackIndex={idx} trackInPlayer={index} playerStatus={status} orderParam={orderParam} locale={locale} />)}
+                {showTracks && sortedTracks.map((track) => <Track { ...track } key={`${track.id}`} trackInFocus={inFocusParam} trackInPlayer={id} playerStatus={status} orderParam={orderParam} locale={locale} />)}
                 <div className="h-60" />
             </div>
             <div className="fixed bottom-0 left-0">
                 <Suspense>
                     <PlayListProvider props={{ playList: tracks, mode: 'alphabetic' }}>
-                        <SmallPlayer play back next />
+                        <SmallPlayer play back next shuffle />
                     </PlayListProvider>
                 </Suspense>
             </div>

@@ -9,9 +9,16 @@ interface IndexedTrackData extends TrackData {
     index: number;
 }
 
-export const getRandomizedOrder = (trackList: TrackData[]): number[] => {
+export const getRandomizedOrder = (trackList: TrackData[], startId?: string): number[] => {
     const orderList: OrderObj[] = [];
-    for (let i = 0; i < trackList.length; i++) {
+    let tracks: TrackData[] = [...trackList];
+    if (startId) {
+        const firstSong = tracks.filter(track => track.id === startId)?.[0];
+        const firstSongIndex = tracks.indexOf(firstSong);
+        orderList.push({ sortedIndex: 0, index: firstSongIndex });
+        tracks = tracks.filter(track => track.id !== startId);
+    }
+    for (let i = 0; i < tracks.length; i++) {
         const random = Math.floor(Math.random() * 100);
         orderList.push({ sortedIndex: random, index: i });
     }
@@ -19,13 +26,18 @@ export const getRandomizedOrder = (trackList: TrackData[]): number[] => {
     return sortedOrderList.map(item => item.index);
 }
 
-export const getAlphebeticOrder = (trackList: TrackData[]): number[] => {
+export const getAlphebeticOrder = (trackList: TrackData[], startId?: string): number[] => {
     const orderList: IndexedTrackData[] = [];
     for (let i = 0; i < trackList.length; i++) {
         orderList.push({ ...trackList[i], index: i });
     }
     const sortedByTrackName = orderList.sort((a, b) => a.trackName.localeCompare(b.trackName))
-    const sortedByBandName = sortedByTrackName.sort((a, b) => a.bandName.localeCompare(b.bandName))
+    let sortedByBandName = sortedByTrackName.sort((a, b) => a.bandName.localeCompare(b.bandName))
+    if (startId) {
+        const firstSong = sortedByBandName.filter(track => track.id === startId)?.[0];
+        const firstSongIndex = sortedByBandName.indexOf(firstSong);
+        sortedByBandName = [...sortedByBandName.slice(firstSongIndex), ...sortedByBandName.slice(0,firstSongIndex)]
+    }
     return sortedByBandName.map(item => item.index);
 }
 

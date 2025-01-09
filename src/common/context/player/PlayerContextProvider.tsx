@@ -32,9 +32,11 @@ export default function PlayListProvider({ children, props }: { children: React.
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
 
     const [playerStatusParam, index, playlist] = useMemo(() => {
-        const { status, index } = searchParams.get(PLAYER_STATUS) ? decodePlayerStatusParam(searchParams.get(PLAYER_STATUS)!) : { status: PlayerStatus.paused, index: 0 };
+        const { status, id } = searchParams.get(PLAYER_STATUS) ? decodePlayerStatusParam(searchParams.get(PLAYER_STATUS)!) : { status: PlayerStatus.paused, id: '' };
         const orderList = searchParams.get(ORDER) ? decodeOrderParam(searchParams.get(ORDER)!) : [];
         const sortedTrackList = sortPlaylistByOrderList(props.playList, orderList)
+        const indexedSong = sortedTrackList.filter(track => track?.id === id)?.[0];
+        const index = sortedTrackList.indexOf(indexedSong); 
         return [status, index, sortedTrackList]
     }, [searchParams, props.playList]);
 
@@ -57,24 +59,22 @@ export default function PlayListProvider({ children, props }: { children: React.
         if (duration != newSong.duration) setDuration(newSong.duration);
     }, [progress, currentTime, duration, status])
 
-    const back = useCallback((status: string, inFocus: string, order: string) => {
-        const currentStatus = decodePlayerStatusParam(status);
-        const newIndex = currentStatus.index === 0 ? playlist.length - 1 : currentStatus.index - 1;
-        const newPlayerStatus = constructPlayerStatusAction(currentStatus.status, newIndex);
-        const newFocus = playlist[newIndex]?.id ?? '';
-        router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${newFocus}&${ORDER}=${order}`, { scroll: false })
-    }, [state, router, playlist]);
-
-    const goNext = useCallback((newPlayerStatus: string, newInFocus: string, orderParam: string) => {
+    const updateParams = useCallback((newPlayerStatus: string, newInFocus: string, orderParam: string) => {
         router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${newInFocus}&${ORDER}=${orderParam}`, { scroll: false })
     }, [router]);
+
+    const back = useCallback(() => {
+        const newIndex = index === 0 ? playlist.length - 1 : index - 1;
+        const newPlayerStatus = constructPlayerStatusAction(status, playlist[newIndex]?.id);
+        const newFocus = playlist[newIndex]?.id ?? '';
+        updateParams(newPlayerStatus, newFocus, state.orderParam)
+    }, [state, playlist, index, status, updateParams]);
     
-    const next = useCallback((status: string, inFocus: string, order: string) => {
-        const currentStatus = decodePlayerStatusParam(status);
-        const newIndex = getNextIndex(currentStatus.index, playlist);
-        const newPlayerStatus = constructPlayerStatusAction(currentStatus.status, newIndex);
-        goNext(newPlayerStatus, playlist[newIndex]?.id ?? '', order);
-    }, [playlist, goNext]);
+    const next = useCallback(() => {
+        const newIndex = getNextIndex(index, playlist);
+        const newPlayerStatus = constructPlayerStatusAction(status, playlist[newIndex]?.id);
+        updateParams(newPlayerStatus, playlist[newIndex]?.id ?? '', state.orderParam);
+    }, [state, index, status, playlist, updateParams]);
 
     const seek = useCallback((time: number) => {
         state.currentSong?.seek(time);
@@ -86,7 +86,7 @@ export default function PlayListProvider({ children, props }: { children: React.
             if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong.play();
         } else if (playlist[index]?.audioSrc) {
             const newIndex = getNextIndex(index, playlist);
-            const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
+            const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
             if (playerStatusParam === PlayerStatus.playing) newSong.play();
             setState({ ...state, trackInPlayer: playlist[index], currentSong: newSong })
         }
@@ -95,20 +95,24 @@ export default function PlayListProvider({ children, props }: { children: React.
     const handlePIndexUpdate = useCallback(() => {
         if (status == PlayerStatus.playing) state.currentSong?.unload();
         const newIndex = getNextIndex(index, playlist);
-        const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => goNext(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
+        const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
         if (playerStatusParam === PlayerStatus.playing) newSong.play();
-        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentSong: newSong })
-    }, [state, index, playerStatusParam, playlist, status, goNext, songUpdater])
+        setState({ ...state, pIndex: 0, trackInPlayer: playlist[index], currentSong: newSong })
+    }, [state, index, playerStatusParam, playlist, status, updateParams, songUpdater])
 
-    useEffect(() => {
-        let trackOrder: number[] = [];
-        if (props.mode == 'random') trackOrder = getRandomizedOrder(props.playList)
-        if (props.mode == 'alphabetic') trackOrder = getAlphebeticOrder(props.playList);
+    const shuffle = useCallback((random: boolean) => {
+        let trackOrder: number[] = random
+            ? getRandomizedOrder(props.playList, state.trackInPlayer?.id)
+            : getAlphebeticOrder(props.playList, state.trackInPlayer?.id);
         const trackOrderParam = encodeOrderParam(trackOrder);
         const sortedTrackList = sortPlaylistByOrderList(props.playList, trackOrder)
-        const initialStatus = constructPlayerStatusAction(status, 0)
+        const initialStatus = constructPlayerStatusAction(status, sortedTrackList[0].id)
         setState({ ...state, orderParam: trackOrderParam, trackInPlayer: sortedTrackList[0] })
         router.replace(`?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrderParam}`, { scroll: false })
+    }, [state, status, props.playList])
+
+    useEffect(() => {
+        shuffle(props.mode == 'random');
     }, [])
 
     useEffect(() => {
@@ -126,8 +130,9 @@ export default function PlayListProvider({ children, props }: { children: React.
         playlist,
         back,
         next,
-        seek
-    }), [state.trackInPlayer, status, index, progress, duration, currentTime, playlist, back, next, seek])
+        seek,
+        shuffle,
+    }), [state.trackInPlayer, status, index, progress, duration, currentTime, playlist, back, next, seek, shuffle])
 
     return <PlayListContext.Provider value={value}>{children}</PlayListContext.Provider>
 }

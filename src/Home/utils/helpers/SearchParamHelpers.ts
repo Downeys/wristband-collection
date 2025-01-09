@@ -32,18 +32,20 @@ export const getPlayerStatus = (actionCode: string ='') => {
     }
 }
 
-export const decodePlayerStatusParam = (playerStatusParam: string) : { status: PlayerStatus, index: number } => {
-    const status = getPlayerStatus(playerStatusParam.slice(0,1))
-    const index = Number.parseInt(playerStatusParam.slice(1));
-    return { status, index };
+export const decodePlayerStatusParam = (playerStatusParam: string) : { status: PlayerStatus, id: string } => {
+    const decodedPlayerStatus = decodeParam(playerStatusParam);
+    const [status, id] = decodedPlayerStatus.split('$');
+    const s = getPlayerStatus(status)
+    return { status: s, id };
 }
 
-export const constructPlayerStatusAction = (action: PlayerStatus | null, trackIndex: number) => {
+export const constructPlayerStatusAction = (action: PlayerStatus | null, trackId: string) => {
     var actionCode;
     if (action === PlayerStatus.playing) actionCode = "P";
     else if (action === PlayerStatus.paused) actionCode = "S";
     else actionCode = "S";
-    return `${actionCode}${trackIndex}`
+    const encodedPlayerStatus = encodeParam(`${actionCode}$${trackId}`);
+    return encodedPlayerStatus;
 }
 
 export const encodeOrderParam = (orderList: number[]): string => {

@@ -10,20 +10,19 @@ import { SearchParams } from '@/Home/constants/playerContextConstants';
 
 export interface TrackProps extends TrackData {
     playerStatus: PlayerStatus;
-    trackIndex: number;
-    trackInPlayer: number;
+    trackInPlayer: string;
     trackInFocus?: string;
     orderParam: string;
     locale: string;
 }
 
-export const Track: React.FC<TrackProps> = async ({ playerStatus, trackIndex, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam, locale }) => {
+export const Track: React.FC<TrackProps> = async ({ playerStatus, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam, locale }) => {
     const { t } = await initTranslations(locale, ['home'])
-    const isInPlayer = trackInPlayer === trackIndex;
+    const isInPlayer = trackInPlayer === id;
     const isInFocus = trackInFocus === id;
     const showPlayButton = isInFocus || isInPlayer;
     const playButtonStatus = isInPlayer ? playerStatus : PlayerStatus.paused;
-    const playerStatusParam = constructPlayerStatusAction(playerStatus, trackInPlayer);
+    const playerStatusParam = constructPlayerStatusAction(playerStatus, id);
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
     const uri = `?${PLAYER_STATUS}=${playerStatusParam}&${IN_FOCUS}=${id}&${ORDER}=${orderParam}`;
     return (
@@ -38,7 +37,7 @@ export const Track: React.FC<TrackProps> = async ({ playerStatus, trackIndex, tr
                 </div>
             </div>
             {showPlayButton && <div className="flex justify-center content-center">
-                <PlayButton variant="track" trackIndex={trackIndex} status={playButtonStatus} />
+                <PlayButton variant="track" trackId={id} status={playButtonStatus} />
             </div>}
         </Link>
     )

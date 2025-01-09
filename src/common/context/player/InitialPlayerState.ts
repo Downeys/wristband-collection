@@ -12,5 +12,6 @@ export const InitialPlayerState: PlayerContextState = {
     playlist: [],
     back: () => {},
     next: () => {},
-    seek: (time: number) => {}
+    seek: (time: number) => {},
+    shuffle: (random: boolean) => {}
 }
