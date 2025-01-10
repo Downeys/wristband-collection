@@ -97,7 +97,7 @@ export default function PlayListProvider({ children, props }: { children: React.
         const newIndex = getNextIndex(index, playlist);
         const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
         if (playerStatusParam === PlayerStatus.playing) newSong.play();
-        setState({ ...state, pIndex: 0, trackInPlayer: playlist[index], currentSong: newSong })
+        setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentSong: newSong })
     }, [state, index, playerStatusParam, playlist, status, updateParams, songUpdater])
 
     const shuffle = useCallback((random: boolean) => {
