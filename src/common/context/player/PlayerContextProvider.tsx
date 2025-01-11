@@ -34,7 +34,8 @@ export default function PlayListProvider({ children, props }: { children: React.
 
   const [playerStatusParam, index, playlist] = useMemo(() => {
     const { status, id } = searchParams.get(PLAYER_STATUS) ? decodePlayerStatusParam(searchParams.get(PLAYER_STATUS)!) : { status: PlayerStatus.paused, id: '' };
-    const orderList = searchParams.get(ORDER) ? decodeOrderParam(searchParams.get(ORDER)!) : [];
+    const orderParam = searchParams.get(ORDER);
+    const orderList = orderParam && orderParam !== 'null' ? decodeOrderParam(orderParam) : [];
     const sortedTrackList = sortPlaylistByOrderList(props.playList, orderList);
     const indexedSong = sortedTrackList.filter((track) => track?.id === id)?.[0];
     const index = sortedTrackList.indexOf(indexedSong);

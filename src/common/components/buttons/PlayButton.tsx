@@ -27,9 +27,11 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.preventDefault();
-      const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
-      const newPlayerStatus = constructPlayerStatusAction(newStatus, trackId ?? '');
-      router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false });
+      if (orderParam && orderParam !== 'null') {
+        const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
+        const newPlayerStatus = constructPlayerStatusAction(newStatus, trackId ?? '');
+        router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false });
+      }
     },
     [router, isPlaying, inFocusParam, orderParam, trackId, PLAYER_STATUS, IN_FOCUS, ORDER]
   );
