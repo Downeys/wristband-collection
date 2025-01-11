@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import Font from "@/common/config/fonts"
+import Font from '@/common/config/fonts';
 import { Namespaces } from '@/common/constants/i18nConstants';
 
 export default function LanguageChanger() {
@@ -14,7 +14,7 @@ export default function LanguageChanger() {
   const router = useRouter();
   const currentPathname = usePathname();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const newLocale = e.target.value;
     // set cookie for next-i18n-router
     const days = 30;
@@ -24,9 +24,7 @@ export default function LanguageChanger() {
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
 
     // redirect to the new locale path
-    router.replace(
-      currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
-    );
+    router.replace(currentPathname.replace(`/${currentLocale}`, `/${newLocale}`));
 
     router.refresh();
   };

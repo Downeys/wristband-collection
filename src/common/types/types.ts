@@ -1,5 +1,5 @@
 export interface IconProps {
-    styling?: string;
-    selected?: boolean;
-    onClick?: () => void;
+  styling?: string;
+  selected?: boolean;
+  onClick?: () => void;
 }

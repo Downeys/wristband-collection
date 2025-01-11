@@ -1,7 +1,5 @@
-import HomePage from "@/Home/HomePage";
+import HomePage from '@/Home/HomePage';
 
 export default function Home() {
-  return (
-    <HomePage />
-  );
+  return <HomePage />;
 }

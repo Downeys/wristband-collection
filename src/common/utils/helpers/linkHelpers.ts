@@ -1,4 +1,4 @@
-import config from "@/common/config/config"
+import config from '@/common/config/config';
 
 export const getHomeLink = (locale: string): string => `${config.links.baseUrl}${locale}/`;
 
@@ -10,6 +10,6 @@ export const getAboutLink = (locale: string): string => `${config.links.baseUrl}
 
 export const getOnDemandLink = (locale: string): string => `${config.links.baseUrl}${locale}/${config.links.onDemandLink}`;
 
-export const linkHelper = {  getHomeLink, getContactLink, getSubmitLink, getAboutLink, getOnDemandLink };
+export const linkHelper = { getHomeLink, getContactLink, getSubmitLink, getAboutLink, getOnDemandLink };
 
 export default linkHelper;

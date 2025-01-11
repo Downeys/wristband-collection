@@ -1,7 +1,5 @@
-import SubmitPage from "@/Submit/SubmitPage";
+import SubmitPage from '@/Submit/SubmitPage';
 
 export default async function Submit() {
-    return (
-        <SubmitPage />
-    )
+  return <SubmitPage />;
 }
