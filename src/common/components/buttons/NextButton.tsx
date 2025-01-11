@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import NextIcon from '@/common/components/icons/NextIcon';
 
 interface NextButtonProps {

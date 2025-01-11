@@ -6,7 +6,7 @@ export const isNameValid: Specification<ContactForm> = {
 };
 
 export const isEmailValid: Specification<ContactForm> = {
-  isSatisfiedBy: (form: ContactForm) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(form.email) && form.email.length > 6,
+  isSatisfiedBy: (form: ContactForm) => /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/i.test(form.email) && form.email.length > 6,
 };
 
 export const isPhoneValid: Specification<ContactForm> = {

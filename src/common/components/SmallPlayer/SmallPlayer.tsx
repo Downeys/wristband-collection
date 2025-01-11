@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useCallback, useContext, useMemo } from 'react';
 import { Label } from '@/common/components/text/Label';
 import { BackButton } from '@/common/components/buttons/BackButton';

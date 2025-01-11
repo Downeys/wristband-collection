@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter } from 'next/navigation';

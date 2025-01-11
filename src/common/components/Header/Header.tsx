@@ -1,3 +1,4 @@
+import React from 'react';
 import Heading from '@/common/components/text/Heading';
 import Image from 'next/image';
 import Label from '@/common/components/text/Label';

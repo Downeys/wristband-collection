@@ -8,7 +8,7 @@ import Label from '@/common/components/text/Label';
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
-import { createMusicSubmissionFormData, getNextIndex } from '@/Submit/utils/helpers/formHelpers';
+import { createMusicSubmissionFormData } from '@/Submit/utils/helpers/formHelpers';
 import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
 import { FieldNames, UNRECOGNIZED_FIELD_MESSAGE } from '@/Submit/constants/submitFormConstants';
 import { useTranslation } from 'react-i18next';

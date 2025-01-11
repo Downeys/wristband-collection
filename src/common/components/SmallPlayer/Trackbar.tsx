@@ -17,7 +17,6 @@ export const Trackbar: React.FC<TrackbarProps> = ({ duration, currentTime, progr
     return `${current}/${total}`;
   }, [value, duration]);
   const showTrackPosition = useMemo(() => duration > 0, [duration]);
-  const [seekDebouncer, setSeekDebouncer] = useState<NodeJS.Timeout>();
   const handleSeek: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();

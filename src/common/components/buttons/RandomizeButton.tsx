@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useMemo, useCallback, useState } from 'react';
 import RandomizeIcon from '../icons/RandomizeIcon';
 

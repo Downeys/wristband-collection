@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from '@/common/components/icons/PlayIcon';
 import { MouseEventHandler, useCallback, useMemo } from 'react';
@@ -14,10 +15,9 @@ export interface PlayButtonProps {
   trackId?: string;
   status: PlayerStatus;
   loading?: boolean;
-  onClick?: (trackId: string, status: 'playing' | 'paused') => void;
 }
 
-export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status, loading, onClick }) => {
+export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status, loading }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);

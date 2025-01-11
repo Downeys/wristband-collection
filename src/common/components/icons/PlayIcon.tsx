@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { IconProps } from '@/common/types/types';
 
 export const PlayIcon: React.FC<IconProps> = (props) => (

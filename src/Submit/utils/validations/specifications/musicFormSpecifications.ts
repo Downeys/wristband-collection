@@ -10,7 +10,7 @@ export const isContactNameValid: Specification<SubmitForm> = {
 };
 
 export const isEmailValid: Specification<SubmitForm> = {
-  isSatisfiedBy: (form: SubmitForm) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(form.email),
+  isSatisfiedBy: (form: SubmitForm) => /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/i.test(form.email),
 };
 
 export const isPhoneValid: Specification<SubmitForm> = {

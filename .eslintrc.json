@@ -1,5 +1,6 @@
 {
   "env": {
+    "node": true,
     "browser": true,
     "es2021": true
   },
@@ -26,6 +27,8 @@
         "endOfLine": "auto"
       }
     ],
+    "no-undef": "off",
+    "no-unused-vars": "warn",
     "react/react-in-jsx-scope": "off"
   }
 }

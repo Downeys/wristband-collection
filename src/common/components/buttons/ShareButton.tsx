@@ -1,3 +1,4 @@
+import React from 'react';
 import ShareIcon from '@/common/components/icons/ShareIcon';
 
 export const ShareButton: React.FC = () => {

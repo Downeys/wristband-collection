@@ -10,14 +10,13 @@ interface OnDemandProps {
   inFocusParam: string;
   playerStatusParam: string;
   orderParam: string;
-  locale: string;
 }
 
 const preloadTracks = () => {
   void getAllTracks();
 };
 
-export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam, locale }: OnDemandProps) {
+export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam }: OnDemandProps) {
   preloadTracks();
   const tracks = await getAllTracks();
   const orderList = getAlphebeticOrder(tracks);
@@ -27,7 +26,7 @@ export default async function OnDemandPage({ inFocusParam, playerStatusParam, or
   return (
     <main className="flex min-w-screen min-h-screen flex-col px-6 sm:px-12 pt-4 bg-slate-950 relative top-20 z-0">
       <div>
-        {showTracks && sortedTracks.map((track) => <Track {...track} key={`${track.id}`} trackInFocus={inFocusParam} trackInPlayer={id} playerStatus={status} orderParam={orderParam} locale={locale} />)}
+        {showTracks && sortedTracks.map((track) => <Track {...track} key={`${track.id}`} trackInFocus={inFocusParam} trackInPlayer={id} playerStatus={status} orderParam={orderParam} />)}
         <div className="h-60" />
       </div>
       <div className="fixed bottom-0 left-0">

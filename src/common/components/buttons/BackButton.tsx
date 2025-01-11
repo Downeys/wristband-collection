@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import BackIcon from '@/common/components/icons/BackIcon';
 
 interface BackButtonProps {

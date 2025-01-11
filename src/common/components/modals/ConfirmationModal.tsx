@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Label from '@/common/components/text/Label';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '@/common/constants/i18nConstants';

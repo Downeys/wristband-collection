@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import PlayButton from '@/common/components/buttons/PlayButton';
 import Link from 'next/link';
@@ -5,7 +6,6 @@ import { TrackData } from '@/models/types';
 import { Label } from '@/common/components/text/Label';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
-import initTranslations from '@/common/utils/i18n/i18n';
 import { SearchParams } from '@/Home/constants/playerContextConstants';
 
 export interface TrackProps extends TrackData {
@@ -13,11 +13,9 @@ export interface TrackProps extends TrackData {
   trackInPlayer: string;
   trackInFocus?: string;
   orderParam: string;
-  locale: string;
 }
 
-export const Track: React.FC<TrackProps> = async ({ playerStatus, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam, locale }) => {
-  const { t } = await initTranslations(locale, ['home']);
+export const Track: React.FC<TrackProps> = async ({ playerStatus, trackInFocus, trackInPlayer, id, picSrc, bandName, trackName, orderParam }) => {
   const isInPlayer = trackInPlayer === id;
   const isInFocus = trackInFocus === id;
   const showPlayButton = isInFocus || isInPlayer;
