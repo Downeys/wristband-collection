@@ -96,7 +96,8 @@ export default function PlayListProvider({ children, props }: { children: React.
       if (playerStatusParam === PlayerStatus.playing && status == PlayerStatus.paused) state.currentSong.play();
     } else if (playlist[index]?.audioSrc) {
       const newIndex = getNextIndex(index, playlist);
-      const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
+      const newStatus = constructPlayerStatusAction(PlayerStatus.playing, playlist[newIndex].id);
+      const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(newStatus, playlist[newIndex]?.id ?? '', state.orderParam));
       if (playerStatusParam === PlayerStatus.playing) newSong.play();
       setState({ ...state, trackInPlayer: playlist[index], currentSong: newSong });
     }
@@ -105,7 +106,8 @@ export default function PlayListProvider({ children, props }: { children: React.
   const handlePIndexUpdate = useCallback(() => {
     if (status == PlayerStatus.playing) state.currentSong?.unload();
     const newIndex = getNextIndex(index, playlist);
-    const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(`P${newIndex}`, playlist[newIndex]?.id ?? '', state.orderParam));
+    const newStatus = constructPlayerStatusAction(PlayerStatus.playing, playlist[newIndex].id);
+    const newSong = new HowlerSongImpl(playlist[index]?.audioSrc, songUpdater, () => updateParams(newStatus, playlist[newIndex]?.id ?? '', state.orderParam));
     if (playerStatusParam === PlayerStatus.playing) newSong.play();
     setState({ ...state, pIndex: index, trackInPlayer: playlist[index], currentSong: newSong });
   }, [state, index, playerStatusParam, playlist, status, updateParams, songUpdater]);
@@ -116,7 +118,7 @@ export default function PlayListProvider({ children, props }: { children: React.
       const trackOrderParam = encodeOrderParam(trackOrder);
       const sortedTrackList = sortPlaylistByOrderList(props.playList, trackOrder);
       const initialStatus = constructPlayerStatusAction(status, sortedTrackList[0].id);
-      setState({ ...state, orderParam: trackOrderParam, trackInPlayer: sortedTrackList[0] });
+      setState({ ...state, pIndex: 0, orderParam: trackOrderParam, trackInPlayer: sortedTrackList[0] });
       router.replace(`?${PLAYER_STATUS}=${initialStatus}&${IN_FOCUS}=${sortedTrackList[0].id}&${ORDER}=${trackOrderParam}`, { scroll: false });
     },
     [router, state, status, PLAYER_STATUS, IN_FOCUS, ORDER, props.playList]
