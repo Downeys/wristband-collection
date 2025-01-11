@@ -22,14 +22,14 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
     const searchParams = useSearchParams();
     const isPlaying = useMemo(() => status === PlayerStatus.playing, [status]);
     const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
-    const [inFocusParam, orderParam] = useMemo(() => [searchParams.get(IN_FOCUS), searchParams.get(ORDER)], [searchParams]);
+    const [inFocusParam, orderParam] = useMemo(() => [searchParams.get(IN_FOCUS), searchParams.get(ORDER)], [searchParams, IN_FOCUS, ORDER]);
     
     const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
         e.preventDefault();
         const newStatus = isPlaying ? PlayerStatus.paused : PlayerStatus.playing;
         const newPlayerStatus = constructPlayerStatusAction(newStatus, trackId ?? '');
         router.replace(`?${PLAYER_STATUS}=${newPlayerStatus}&${IN_FOCUS}=${inFocusParam}&${ORDER}=${orderParam}`, { scroll: false })
-    }, [router, isPlaying, inFocusParam, orderParam, trackId]);
+    }, [router, isPlaying, inFocusParam, orderParam, trackId, PLAYER_STATUS, IN_FOCUS, ORDER]);
 
     const variantStyle = {
         primary: 'h-20 w-20 mx-6 rounded-full shadow-blue pl-3 pt-3',

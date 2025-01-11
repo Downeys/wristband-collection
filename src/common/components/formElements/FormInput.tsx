@@ -15,7 +15,7 @@ export const FormInput: React.FC<FormInputProps> = ({ label, type, name, value, 
     const inputType = type ?? 'text';
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         onChange(name, e.target.value)
-    }, [onChange]);
+    }, [name, onChange]);
     return (
     <div className="flex flex-row mb-4">
         <input

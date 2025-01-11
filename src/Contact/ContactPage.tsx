@@ -5,7 +5,6 @@ import ConfirmationModal from '@/common/components/modals/ConfirmationModal';
 import FailureModal from '@/common/components/modals/FailureModal';
 import Heading from '@/common/components/text/Heading';
 import Label from '@/common/components/text/Label';
-import FetchService from '@/common/config/FetchService';
 import Font from "@/common/config/fonts"
 import { v4 as uuidv4 } from "uuid";
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
@@ -15,6 +14,7 @@ import { ContactFormValidator } from './utils/validations/validators/contactForm
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '@/common/constants/i18nConstants';
 import { CONTACT_URI } from './constants/apiConstants';
+import fetchService from '@/common/config/FetchService';
 
 const initState: ContactState = {
     name: '',
@@ -44,7 +44,7 @@ export default function ContactPage() {
         setState({ ...state, validationMessages }); 
         if (isValid) {
             try {
-                await FetchService.POST(CONTACT_URI, JSON.stringify(form), 'application/json');
+                await fetchService.POST(CONTACT_URI, JSON.stringify(form), 'application/json');
                 setState({ ...state, showConfirmationModal: true });
             } catch (e) {
                 setState({ ...state, showFailureModal: true });
@@ -78,7 +78,7 @@ export default function ContactPage() {
             default:
                 console.log(UNRECOGNIZE_FIELD_MESSAGE)
         }
-    }, [state]);
+    }, [state, NAME, EMAIL, PHONE]);
 
     const handleTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback((e) => {
         setState({ ...state, message: e.target.value})

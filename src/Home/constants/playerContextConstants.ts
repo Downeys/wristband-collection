@@ -4,4 +4,5 @@ export const SearchParams = {
     ORDER: 'order'
 } as const;
 
-export default { SearchParams };
+export const playerContextConstants = { SearchParams };
+export default playerContextConstants;

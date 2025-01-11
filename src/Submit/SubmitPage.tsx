@@ -5,7 +5,6 @@ import ConfirmationModal from '@/common/components/modals/ConfirmationModal';
 import FailureModal from '@/common/components/modals/FailureModal';
 import Heading from '@/common/components/text/Heading';
 import Label from '@/common/components/text/Label';
-import FetchService from '@/common/config/FetchService';
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from "uuid";
 import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
@@ -18,6 +17,7 @@ import { SUBMIT_URI } from './constants/apiConstants';
 import FileInput from './components/FileInput/FileInput';
 import LoadingModal from '@/common/components/modals/LoadingModal';
 import Attestation from './components/Attestation/Attestation';
+import fetchService from '@/common/config/FetchService';
 
 const initState = {
     band: '',
@@ -54,7 +54,7 @@ export default function SubmitPage() {
         if (isValid) {
             const formData = createMusicSubmissionFormData(form)
             try {
-                await FetchService.POST(SUBMIT_URI, formData);
+                await fetchService.POST(SUBMIT_URI, formData);
                 setState({ ...state, showConfirmationModal: true });
             } catch (e) {
                 setState({ ...state, showFailureModal: true });
@@ -97,7 +97,7 @@ export default function SubmitPage() {
             default:
                 console.log(UNRECOGNIZED_FIELD_MESSAGE)
         }
-    }, [state])
+    }, [state, BAND, CONTACT, EMAIL, PHONE])
 
     const handleFilesAdded = useCallback((imageFiles: File[], audioFiles: File[]) => {
         const updatedImageFiles = [...state.imageFiles, ...imageFiles];

@@ -8,4 +8,5 @@ export const Namespaces = {
 
 export const DEFAULT_LOCALE = 'en'
 
-export default { Namespaces, DEFAULT_LOCALE };
+export const i18nConstants = { Namespaces, DEFAULT_LOCALE };
+export default i18nConstants;

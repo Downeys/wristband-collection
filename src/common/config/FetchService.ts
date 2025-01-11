@@ -18,4 +18,5 @@ export const POST = async (uri: string, data: any, contentType?: 'application/js
     }
 }
 
-export default { POST }
+export const fetchService = { POST };
+export default fetchService;
