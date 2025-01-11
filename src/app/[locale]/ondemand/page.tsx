@@ -1,11 +1,8 @@
 import OnDemandPage from '@/OnDemand/OnDemandPage';
 
-export default function OnDemand({ searchParams, params }: { searchParams: { [key: string]: string | string[] | undefined }, params: { locale: string } }) {
+export default function OnDemand({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const inFocusParam = `${searchParams.inFocus}`;
   const playerStatusParam = `${searchParams.playerStatus}`;
-  const locale = `${params.locale}`;
   const orderParam = searchParams.order ? `${searchParams.order}` : '';
-  return (
-    <OnDemandPage inFocusParam={inFocusParam} playerStatusParam={playerStatusParam} orderParam={orderParam} locale={locale} />
-  );
+  return <OnDemandPage inFocusParam={inFocusParam} playerStatusParam={playerStatusParam} orderParam={orderParam} />;
 }
