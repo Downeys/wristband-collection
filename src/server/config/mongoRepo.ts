@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '@/common/config/config';
+import asyncConfig from '@/common/config/config';
 
 interface ConnectionProps {
   isConnected: boolean;
@@ -13,6 +13,7 @@ export const connectToDb = async () => {
       // console.log('Using existing db connection.')
       return;
     }
+    const config = await asyncConfig;
     const db = await mongoose.connect(config.mongoDb.uri);
     connection.isConnected = !!db.connections[0]?.readyState;
   } catch (error: any) {
