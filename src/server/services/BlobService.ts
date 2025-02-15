@@ -30,7 +30,10 @@ export const uploadAlbumPhoto = async (photo: any, id?: string) => {
     const buffer = await getPhotoBuffer(photo);
     await blockBlobClient.upload(buffer, buffer.byteLength);
   } catch (e: any) {
-    console.log(`Failed to upload album photo. id: ${blobId} error: ${e.message}`);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to upload album photo.',
+    });
   }
   return config.blob.photoSubmissionUrl + blobId;
 };
@@ -45,7 +48,10 @@ export const uploadSongFile = async (song: any, id?: string) => {
     const buffer = await getSongBuffer(song);
     await blockBlobClient.upload(buffer, buffer.byteLength);
   } catch (e: any) {
-    console.log(`Failed to upload song file. id: ${blobId} error: ${e.message}`);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to upload song file.',
+    });
   }
   return config.blob.musicSubmissionUrl + blobId;
 };
