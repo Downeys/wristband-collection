@@ -8,7 +8,10 @@ export const insertMusicSubmission = async (form: SubmitFormDto): Promise<number
     await MusicSubmission.create(form);
     return 1;
   } catch (e: any) {
-    console.log(e.message);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to insert music submission in db.',
+    });
     return 0;
   }
 };

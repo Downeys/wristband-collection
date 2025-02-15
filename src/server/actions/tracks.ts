@@ -8,7 +8,10 @@ export const getAllTracks = async (): Promise<TrackData[]> => {
     const tracks = await Track.find();
     return trackMapper(tracks);
   } catch (e: any) {
-    console.log(e.message);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to fetch track list from db',
+    });
     return [];
   }
 };

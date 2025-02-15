@@ -8,7 +8,10 @@ export const insertUserFeedback = async (form: ContactForm): Promise<number> => 
     await UserFeedback.create(form);
     return 1;
   } catch (e: any) {
-    console.log(e.message);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to insert user feedback in db',
+    });
     return 0;
   }
 };

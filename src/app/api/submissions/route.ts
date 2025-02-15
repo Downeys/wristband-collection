@@ -18,7 +18,10 @@ export const POST = async (request: Request) => {
       message: SUCCESS_MESSAGE,
     });
   } catch (e: any) {
-    console.log(e.message);
+    globalThis.logger?.error({
+      err: e,
+      message: 'Failed to upload music submission.',
+    });
     return NextResponse.json({
       message: SUBMIT_FAILURE,
       status: 500,
