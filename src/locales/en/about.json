@@ -14,14 +14,14 @@
     "comingSoon3": "Meanwhile, we'll continue adding great music and working towards releasing the mobile native versions of the app.",
     "recentUpdatesHeader": "Our progress:",
     "recentUpdates1": "So far, we've collected 25 songs. 102 minutes of excellent local music is just over 1% progress toward our goal.",
-    "recentUpdates2": "First, we received permission from a few of our favorite local artists to use thier music while we build this proof-of-concept application.",
+    "recentUpdates2": "First, we received permission from a few of our favorite local artists to use their music while we build this proof-of-concept application.",
     "recentUpdates3": "Next, we made a mobile native version of music player which will be available in app stores after we jump through some hoops.",
     "recentUpdates4": "Then, we implemented some moderately-kickass technology to resolve an issue where our songs sometimes didn't pause correctly. That's fixed now.",
     "recentUpdates5": "Also with that new technology, we were able to add a track bar to the music player that shows the duration and current timestamp of the song. Like I said, kinda kickass.",
-    "theVisionHeader": "The longterm vision:",
+    "theVisionHeader": "The long-term vision:",
     "theVision1": "Every business that uses music, in pretty much any way, must buy a license from a performing rights organization like Ascap or BMI. Even small, locally-owned businesses pay for these licenses if they play music in their lobby for example.",
     "theVision2": "The money they pay for those licenses then flows out of their community and mostly gets funneled to the major publishing companies and their artists. It's only fair. If we play their music, they earned the royalties.",
-    "theVision3": "The thing is, the major publishing companies don't have the market cornered on good music. They may have the market cornered on marketting and distributing music, but there's a huge amount of great music being recorded in our own neighborhoods.",
+    "theVision3": "The thing is, the major publishing companies don't have the market cornered on good music. They may have the market cornered on marketing and distributing music, but there's a huge amount of great music being recorded in our own neighborhoods.",
     "theVision4": "What if there was a streaming radio option that played music based on where that music was created? That would give our local businesses an option to funnel their royalty money to artists in their own communities.",
     "theVision5": "That's what we're building. In doing so, we hope to create a great new platform for music discovery, audience engagement, and music industry data. Maybe it can even grow into a new A&R channel for the major labels and publishers."
 }

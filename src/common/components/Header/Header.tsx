@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
         </li>
         <li className="menu-item-container">
           <div className="header-link-container">
-            <a id="header-catelogue-button" className="header-link" type="button" href={onDemandLink}>
+            <a id="header-catalogue-button" className="header-link" type="button" href={onDemandLink}>
               <Label text={t('catalogLink')} semibold font="primary" color="white" />
             </a>
           </div>

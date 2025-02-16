@@ -38,7 +38,7 @@ const envVars: RawEnvVars = {
   audioStreamBaseUrl: process.env.NEXT_PUBLIC_AUDIO_STREAM_BASE_URL,
 };
 
-const getSanatizedConfig = (c: RawEnvVars): Config => {
+const getSanitizedConfig = (c: RawEnvVars): Config => {
   for (const [key, value] of Object.entries(c)) {
     if (value === undefined) {
       throw new Error(`Missing key ${key} in config.env`);
@@ -69,4 +69,4 @@ const getSanatizedConfig = (c: RawEnvVars): Config => {
   };
 };
 
-export default getSanatizedConfig(envVars);
+export default getSanitizedConfig(envVars);

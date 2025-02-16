@@ -2,14 +2,14 @@ import { Label } from '@/common/components/text/Label';
 import { formatTime } from '@/Home/utils/helpers/playlistHelpers';
 import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
 
-interface TrackbarProps {
+interface TrackBarProps {
   duration: number;
   currentTime: number;
   progress: number;
   onSeek: (time: number) => void;
 }
 
-export const Trackbar: React.FC<TrackbarProps> = ({ duration, currentTime, progress, onSeek }) => {
+export const TrackBar: React.FC<TrackBarProps> = ({ duration, currentTime, progress, onSeek }) => {
   const [value, setValue] = useState(0);
   const trackPosition = useMemo(() => {
     const current = formatTime(value);
@@ -53,4 +53,4 @@ export const Trackbar: React.FC<TrackbarProps> = ({ duration, currentTime, progr
   );
 };
 
-export default Trackbar;
+export default TrackBar;

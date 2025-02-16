@@ -26,7 +26,7 @@ export const getRandomizedOrder = (trackList: TrackData[], startId?: string): nu
   return sortedOrderList.map((item) => item.index);
 };
 
-export const getAlphebeticOrder = (trackList: TrackData[], startId?: string): number[] => {
+export const getAlphabeticOrder = (trackList: TrackData[], startId?: string): number[] => {
   const orderList: IndexedTrackData[] = [];
   for (let i = 0; i < trackList.length; i++) {
     orderList.push({ ...trackList[i], index: i });
