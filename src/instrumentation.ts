@@ -18,7 +18,7 @@ export async function register() {
     const pinoLoki = (await import('pino-loki')).default;
 
     const transport = pinoLoki({
-      host: 'http://localhost:3100', // Loki server address
+      host: process.env.LOKI_HOST ?? 'http://localhost:3100', // Loki server address
       batching: true, // Enable batching of logs for better performance
       interval: 5, // Send logs every 5 seconds when batching
       labels: { service: process.env.OTEL_SERVICE_NAME ?? 'next-frontend' }, // Add application label to all logs
