@@ -6,7 +6,7 @@ import { Label } from '@/common/components/text/Label';
 import { BackButton } from '@/common/components/buttons/BackButton';
 import { NextButton } from '@/common/components/buttons/NextButton';
 import { PlayButton } from '@/common/components/buttons/PlayButton';
-import Trackbar from './Trackbar';
+import TrackBar from './TrackBar';
 import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
 import RandomizeButton from '../buttons/RandomizeButton';
 import LoopButton from '../buttons/LoopButton';
@@ -31,7 +31,7 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
           <Label text={trackMessage} size="lg" bold />
         </div>
       </div>
-      <Trackbar duration={duration} progress={progress} currentTime={currentTime} onSeek={handleSeek} />
+      <TrackBar duration={duration} progress={progress} currentTime={currentTime} onSeek={handleSeek} />
       <div className="flex flex-row justify-center items-center pb-2">
         <div className="flex flex-col justify-center items-center">
           {showBack && (

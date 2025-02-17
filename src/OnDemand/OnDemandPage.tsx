@@ -1,5 +1,5 @@
 import { getAllTracks } from '@/server/actions/tracks';
-import { getAlphebeticOrder, sortPlaylistByOrderList } from '@/Home/utils/helpers/playlistHelpers';
+import { getAlphabeticOrder, sortPlaylistByOrderList } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam } from '@/Home/utils/helpers/searchParamHelpers';
 import { Track } from '@/OnDemand/components/Track/Track';
 import SmallPlayer from '@/common/components/SmallPlayer/SmallPlayer';
@@ -19,7 +19,7 @@ const preloadTracks = () => {
 export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam }: OnDemandProps) {
   preloadTracks();
   const tracks = await getAllTracks();
-  const orderList = getAlphebeticOrder(tracks);
+  const orderList = getAlphabeticOrder(tracks);
   const showTracks = orderList.length > 0;
   const sortedTracks = showTracks ? sortPlaylistByOrderList(tracks, orderList) : tracks;
   const { status, id } = decodePlayerStatusParam(playerStatusParam);

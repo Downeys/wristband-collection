@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import asyncConfig from '@/common/config/config';
 
-const NAMESPACE = 'mongo-repo';
+// const NAMESPACE = 'mongo-repo';
 
 interface ConnectionProps {
   isConnected: boolean;

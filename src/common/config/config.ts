@@ -98,7 +98,7 @@ const getSecrets = async (): Promise<RawSecrets> => {
   return secrets as unknown as RawSecrets;
 };
 
-const getSanatizedConfig = async (c: RawEnvVars): Promise<Config> => {
+const getSanitizedConfig = async (c: RawEnvVars): Promise<Config> => {
   const secrets = await getSecrets();
   guardAgainstMissingConfiguration(secrets);
 
@@ -124,4 +124,4 @@ const getSanatizedConfig = async (c: RawEnvVars): Promise<Config> => {
 };
 
 export const links = getEnvConfig(envVars);
-export default getSanatizedConfig(envVars);
+export default getSanitizedConfig(envVars);

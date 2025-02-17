@@ -3,6 +3,6 @@ import { Lacquer, Life_Savers } from 'next/font/google';
 const primary = Lacquer({ subsets: ['latin'], weight: '400' });
 const secondary = Life_Savers({ subsets: ['latin'], weight: ['400', '700', '800'] });
 
-const fonst = { primary, secondary };
+const fonts = { primary, secondary };
 
-export default fonst;
+export default fonts;
