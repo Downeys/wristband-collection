@@ -6,11 +6,11 @@ import { SUCCESS_MESSAGE, SUBMIT_FAILURE } from '@/common/constants/backend/resp
 export const POST = async (request: Request) => {
   try {
     const data = await request.formData();
-    const band = `${data.get('band')}`;
-    const contact = `${data.get('contact')}`;
-    const email = `${data.get('email')}`;
-    const phone = `${data.get('phone')}`;
-    const attestation = `${data.get('attestation')}` == 'true';
+    const band = JSON.stringify(data.get('band'));
+    const contact = JSON.stringify(data.get('contact'));
+    const email = JSON.stringify(data.get('email'));
+    const phone = JSON.stringify(data.get('phone'));
+    const attestation = data.get('attestation') == 'true';
     const [imageLinks, audioLinks] = await storeFilesInBlob(data);
     await insertMusicSubmission({ band, contact, email, phone, attestation, imageLinks, audioLinks });
 
@@ -31,9 +31,9 @@ export const POST = async (request: Request) => {
 
 const storePhotos = async (photos: any[]): Promise<string[]> => {
   let photoLinks: string[] = [];
-  for (let i = 0; i < photos.length; i++) {
-    const albumId: string = photos[i].photoId;
-    const photoLink: string = await uploadAlbumPhoto(photos[i].photo, albumId);
+  for (const photo of photos) {
+    const albumId: string = photo.photoId;
+    const photoLink: string = await uploadAlbumPhoto(photo.photo, albumId);
     photoLinks.push(photoLink);
   }
   return photoLinks;
@@ -41,9 +41,9 @@ const storePhotos = async (photos: any[]): Promise<string[]> => {
 
 const storeSongs = async (songs: any[]): Promise<string[]> => {
   let songLinks: string[] = [];
-  for (let i = 0; i < songs.length; i++) {
-    const songId: string = songs[i].songId;
-    const songLink: string = await uploadSongFile(songs[i].file, songId);
+  for (const song of songs) {
+    const songId: string = song.songId;
+    const songLink: string = await uploadSongFile(song.file, songId);
     songLinks.push(songLink);
   }
   return songLinks;

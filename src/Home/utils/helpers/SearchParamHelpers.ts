@@ -40,7 +40,7 @@ export const decodePlayerStatusParam = (playerStatusParam: string): { status: Pl
 };
 
 export const constructPlayerStatusAction = (action: PlayerStatus | null, trackId: string) => {
-  var actionCode;
+  let actionCode;
   if (action === PlayerStatus.playing) actionCode = 'P';
   else if (action === PlayerStatus.paused) actionCode = 'S';
   else actionCode = 'S';
@@ -53,7 +53,8 @@ export const encodeOrderParam = (orderList: number[]): string => {
 };
 
 export const decodeOrderParam = (param: string): number[] => {
-  if (!param || !param.length) return [];
+  if (!param) return [];
+  if (!param.length) return [];
   const decodedString = decodeParam(param);
   return JSON.parse(decodedString);
 };

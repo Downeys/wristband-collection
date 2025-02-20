@@ -4,7 +4,7 @@ import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { Song } from './Song';
 
 const TICK_INTERVAL = 100; // controls how often the song fires it's update event while playing
-const SEEK_MUTE_DELAY = 100; //controls how soon the song unmutes after seeking
+const SEEK_MUTE_DELAY = 100; //controls how soon the song un-mutes after seeking
 
 export class HowlerSongImpl implements Song {
   status: PlayerStatus = PlayerStatus.uninitiated;

@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
       </div>
       <input id="menu-toggle" type="checkbox" />
       <label className="menu-button-container" htmlFor="menu-toggle">
-        <div className="menu-button"></div>
+        <div className="menu-button" />
       </label>
 
       <ul className="menu">

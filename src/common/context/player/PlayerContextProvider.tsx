@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex, getAlphebeticOrder } from '@/Home/utils/helpers/playlistHelpers';
+import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex, getAlphabeticOrder } from '@/Home/utils/helpers/playlistHelpers';
 import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { PlayerContextState } from './PlayerContextState';
@@ -27,7 +26,7 @@ interface InternalState {
 
 export const PlayListContext = createContext<PlayerContextState>(InitialPlayerState);
 
-export default function PlayListProvider({ children, props }: { children: React.ReactNode; props: PlayListProviderProps }) {
+export default function PlayListProvider({ children, props }: Readonly<{ children: React.ReactNode; props: PlayListProviderProps }>) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { PLAYER_STATUS, IN_FOCUS, ORDER } = SearchParams;
@@ -115,7 +114,7 @@ export default function PlayListProvider({ children, props }: { children: React.
 
   const shuffle = useCallback(
     (random: boolean) => {
-      let trackOrder: number[] = random ? getRandomizedOrder(props.playList, state.trackInPlayer?.id) : getAlphebeticOrder(props.playList, state.trackInPlayer?.id);
+      let trackOrder: number[] = random ? getRandomizedOrder(props.playList, state.trackInPlayer?.id) : getAlphabeticOrder(props.playList, state.trackInPlayer?.id);
       const trackOrderParam = encodeOrderParam(trackOrder);
       const sortedTrackList = sortPlaylistByOrderList(props.playList, trackOrder);
       const initialStatus = constructPlayerStatusAction(status, sortedTrackList[0].id);

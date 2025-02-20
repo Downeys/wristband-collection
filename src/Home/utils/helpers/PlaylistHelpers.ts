@@ -22,7 +22,7 @@ export const getRandomizedOrder = (trackList: TrackData[], startId?: string): nu
     const random = Math.floor(Math.random() * 100);
     orderList.push({ sortedIndex: random, index: i });
   }
-  const sortedOrderList = orderList.sort((a, b) => a.sortedIndex - b.sortedIndex);
+  const sortedOrderList = orderList.toSorted((a, b) => a.sortedIndex - b.sortedIndex);
   return sortedOrderList.map((item) => item.index);
 };
 
@@ -31,8 +31,8 @@ export const getAlphabeticOrder = (trackList: TrackData[], startId?: string): nu
   for (let i = 0; i < trackList.length; i++) {
     orderList.push({ ...trackList[i], index: i });
   }
-  const sortedByTrackName = orderList.sort((a, b) => a.trackName.localeCompare(b.trackName));
-  let sortedByBandName = sortedByTrackName.sort((a, b) => a.bandName.localeCompare(b.bandName));
+  const sortedByTrackName = orderList.toSorted((a, b) => a.trackName.localeCompare(b.trackName));
+  let sortedByBandName = sortedByTrackName.toSorted((a, b) => a.bandName.localeCompare(b.bandName));
   if (startId) {
     const firstSong = sortedByBandName.filter((track) => track.id === startId)?.[0];
     const firstSongIndex = sortedByBandName.indexOf(firstSong);

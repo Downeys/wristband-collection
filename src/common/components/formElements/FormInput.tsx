@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { ChangeEventHandler, useCallback } from 'react';
+import React, { ChangeEventHandler, useCallback } from 'react';
 import Font from '@/common/config/fonts';
 
 interface FormInputProps {

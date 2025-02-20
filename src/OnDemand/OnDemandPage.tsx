@@ -16,7 +16,7 @@ const preloadTracks = () => {
   void getAllTracks();
 };
 
-export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam }: OnDemandProps) {
+export default async function OnDemandPage({ inFocusParam, playerStatusParam, orderParam }: Readonly<OnDemandProps>) {
   preloadTracks();
   const tracks = await getAllTracks();
   const orderList = getAlphabeticOrder(tracks);

@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { MouseEventHandler, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PlayIcon from '@/common/components/icons/PlayIcon';
-import { MouseEventHandler, useCallback, useMemo } from 'react';
 import PauseIcon from '@/common/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
