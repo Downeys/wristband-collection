@@ -41,7 +41,6 @@ export const TrackBar: React.FC<TrackBarProps> = ({ duration, currentTime, progr
         aria-valuemin={0}
         aria-valuemax={duration ?? 100}
         aria-valuenow={value}
-        role="slider"
         aria-label="volume"
         aria-valuetext={`${progress}%`}
         onChange={handleSeek}

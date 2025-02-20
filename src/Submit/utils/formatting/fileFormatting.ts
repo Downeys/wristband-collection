@@ -15,8 +15,8 @@ export const getFormattedFileSize = (bytes: number) => {
 };
 
 export const getFormattedFileName = (fileName: string, fileType: string) => {
-  const uniqueiId = uuidv4();
+  const uniqueId = uuidv4();
   const noSpaces = fileName.replace(/ /g, '-');
-  const returnVal = `${fileType}-${noSpaces}-${uniqueiId}`;
+  const returnVal = `${fileType}-${noSpaces}-${uniqueId}`;
   return returnVal;
 };
