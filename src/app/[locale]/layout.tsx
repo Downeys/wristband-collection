@@ -31,10 +31,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <Auth0Provider>
-          <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
-            <Header locale={locale} />
-            {children}
-          </TranslationsProvider>
+            <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
+              <Header locale={locale} />
+              {children}
+            </TranslationsProvider>
         </Auth0Provider>
       </body>
     </html>

@@ -4,12 +4,14 @@ import Image from 'next/image';
 import { SmallPlayer } from '@/common/components/SmallPlayer/SmallPlayer';
 import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
 import React, { useContext, useMemo } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@/state/store';
 
 export const RadioPage: React.FC = () => {
   const { trackInPlayer } = useContext(PlayListContext);
   const picSrc = useMemo(() => trackInPlayer?.picSrc ?? '', [trackInPlayer]);
   return (
-    <>
+    <Provider store={store}>
       <div className="fixed top-0 left-0 flex flex-row justify-center items-center w-full h-screen pb-56 pt-20">
         {picSrc && (
           <div className="w-80 h-80">
@@ -20,7 +22,7 @@ export const RadioPage: React.FC = () => {
       <div className="fixed bottom-0 left-0">
         <SmallPlayer play next />
       </div>
-    </>
+    </Provider>
   );
 };
 

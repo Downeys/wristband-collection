@@ -9,6 +9,9 @@ import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
 import RandomizeButton from '../buttons/RandomizeButton';
 import LoopButton from '../buttons/LoopButton';
 import TrackBar from './TrackBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/state/store';
+import { decrement, increment, incrementAsync, incrementByAmount } from '@/state/counter/counterSlice';
 
 export interface SmallPlayerProps {
   play?: boolean;
@@ -23,11 +26,19 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
   const trackMessage = useMemo(() => (trackInPlayer?.bandName ? `${trackInPlayer?.bandName} - ${trackInPlayer?.trackName}` : 'Welcome to Wristband Radio'), [trackInPlayer]);
   const handleSeek = useCallback((time: number) => seek(time), [seek]);
   const handleShuffle = useCallback((random: boolean) => shuffle(random), [shuffle]);
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div className="h-56 w-screen flex flex-col px-6 bg-slate-950 shadow-footer justify-center">
       <div className="flex flex-row justify-between items-center mb-3">
         <div className="flex flex-row">
-          <Label text={trackMessage} size="lg" bold />
+          <Label text={`${count}`} size="lg" bold />
+        </div>
+        <div className='flex justify-evenly items-center'>
+          <button className='mr-2 p-2 border' onClick={() => dispatch(incrementAsync(10))}><Label text='Increment 10 async' /></button>
+          <button className='mr-2 p-2 border' onClick={() => dispatch(incrementByAmount(10))}><Label text='Increment 10' /></button>
+          <button className='mr-2 p-2 border' onClick={() => dispatch(increment())}><Label text='Increment' /></button>
+          <button className='mr-2 p-2 border' onClick={() => dispatch(decrement())}><Label text='Decrement' /></button>
         </div>
       </div>
       <TrackBar duration={duration} progress={progress} currentTime={currentTime} onSeek={handleSeek} />
