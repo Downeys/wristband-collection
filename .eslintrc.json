@@ -11,7 +11,8 @@
     "plugin:prettier/recommended"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "jest"
   ],
   "parserOptions": {
     "ecmaFeatures": {
