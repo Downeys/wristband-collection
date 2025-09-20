@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
 import { createMusicSubmissionFormData } from '@/Submit/utils/helpers/formHelpers';
 import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
-import { FieldNames, UNRECOGNIZED_FIELD_MESSAGE } from '@/Submit/constants/submitFormConstants';
+import { FieldNames } from '@/Submit/constants/submitFormConstants';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '@/common/constants/i18nConstants';
 import { SUBMIT_URI } from './constants/apiConstants';
@@ -18,6 +18,9 @@ import FileInput from './components/FileInput/FileInput';
 import LoadingModal from '@/common/components/modals/LoadingModal';
 import Attestation from './components/Attestation/Attestation';
 import fetchService from '@/common/config/FetchService';
+import UserContextProvider from '@/common/context/user/UserContextProvider';
+import { UNRECOGNIZED_FIELD_MESSAGE } from '@/common/constants/constants';
+import UserProfile from './components/UserProfile/UserProfile';
 
 const initState = {
   band: '',
@@ -139,6 +142,9 @@ export default function SubmitPage() {
       <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
       <div className="w-full max-w-screen-sm">
         <Heading size="3xl" text={t('submitHeading')} additionalStyles="w-full text-center p-2" />
+        <UserContextProvider>
+          <UserProfile />
+        </UserContextProvider>
         <form onSubmit={handleSubmitEvent} className="my-4">
           <FormInput name={BAND} label={t('bandLabel')} onChange={handleInputChange} value={state.band} />
           <FormInput name={CONTACT} label={t('contactLabel')} onChange={handleInputChange} value={state.contact} />

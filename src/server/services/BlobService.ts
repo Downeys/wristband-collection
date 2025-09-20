@@ -1,6 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 import { v1 } from 'uuid';
-import asyncConfig from '@/common/config/config';
+import { asyncConfig } from '@/common/config/config';
 import sharp from 'sharp';
 
 const getBlobServiceClient = async () => {

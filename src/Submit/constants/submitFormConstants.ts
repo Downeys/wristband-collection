@@ -7,8 +7,6 @@ export const FieldNames = {
   PHONE: 'PHONE',
 };
 
-export const UNRECOGNIZED_FIELD_MESSAGE = 'Something went wrong';
-
 export const FileType: Record<string, ValidFileType> = {
   AUDIO: 'audio',
   IMAGE: 'image',
@@ -16,5 +14,5 @@ export const FileType: Record<string, ValidFileType> = {
   UNKNOWN: 'unknown',
 };
 
-export const submitFormConstants = { FieldNames, UNRECOGNIZED_FIELD_MESSAGE, FileType };
+export const submitFormConstants = { FieldNames, FileType };
 export default submitFormConstants;

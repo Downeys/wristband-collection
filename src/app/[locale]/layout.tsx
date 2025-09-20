@@ -7,6 +7,7 @@ import TranslationsProvider from '@/common/context/i18n/TranslationsProvider';
 import initTranslations from '@/common/utils/i18n/i18n';
 import { Namespaces } from '@/common/constants/i18nConstants';
 import { APP_TITLE, APP_DESCRIPTION } from '@/common/constants/metadataConstants';
+import { Auth0Provider } from '@auth0/nextjs-auth0';
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -24,15 +25,17 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
-  const locale = params.locale;
+  const { locale } = await params;
   const { resources } = await initTranslations(locale, Object.values(Namespaces));
   return (
     <html lang={locale}>
       <body>
-        <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
-          <Header locale={locale} />
-          {children}
-        </TranslationsProvider>
+        <Auth0Provider>
+          <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
+            <Header locale={locale} />
+            {children}
+          </TranslationsProvider>
+        </Auth0Provider>
       </body>
     </html>
   );

@@ -13,6 +13,7 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.9.0",
     "@azure/identity": "^4.6.0",
     "@azure/keyvault-secrets": "^4.9.0",
     "@azure/storage-blob": "^12.23.0",
@@ -22,7 +23,7 @@
     "i18next": "^23.15.1",
     "i18next-resources-to-backend": "^1.2.1",
     "mongoose": "^8.4.0",
-    "next": "14.2.21",
+    "next": "15.5.2",
     "next-i18n-router": "^5.5.1",
     "pg": "^8.11.5",
     "pino": "^9.6.0",

@@ -22,6 +22,10 @@ interface RawEnvVars {
   aboutLink: string | undefined;
   onDemandLink: string | undefined;
   picOfMeLink: string | undefined;
+  authScope: string | undefined;
+  authAudience: string | undefined;
+  authLogin: string | undefined;
+  usersApiUrl: string | undefined;
 }
 
 interface DbProps {
@@ -45,10 +49,25 @@ interface LinkProps {
   picOfMeLink: string;
 }
 
-interface Config {
+interface AuthProps {
+  scope: string;
+  audience: string;
+  loginUri: string;
+}
+
+interface ApiProps {
+  usersApiUrl: string;
+}
+
+interface SecretsConfig {
   mongoDb: DbProps;
   blob: BlobProps;
+}
+
+interface Config {
   links: LinkProps;
+  auth: AuthProps;
+  api: ApiProps;
 }
 
 const envVars: RawEnvVars = {
@@ -58,6 +77,10 @@ const envVars: RawEnvVars = {
   aboutLink: process.env.ABOUT_URI,
   onDemandLink: process.env.ON_DEMAND_URI,
   picOfMeLink: process.env.PIC_OF_ME_LINK,
+  authScope: process.env.AUTH0_SCOPE,
+  authAudience: process.env.AUTH0_AUDIENCE,
+  authLogin: process.env.LOGIN_URI,
+  usersApiUrl: process.env.USERS_API_URL,
 };
 
 const guardAgainstMissingConfiguration = (configObject: object) => {
@@ -68,7 +91,7 @@ const guardAgainstMissingConfiguration = (configObject: object) => {
   }
 };
 
-const getEnvConfig = (c: RawEnvVars): LinkProps => {
+const getClientEnvConfig = (c: RawEnvVars): LinkProps => {
   guardAgainstMissingConfiguration(c);
   return {
     baseUrl: c.baseUrl!,
@@ -98,7 +121,7 @@ const getSecrets = async (): Promise<RawSecrets> => {
   return secrets as unknown as RawSecrets;
 };
 
-const getSanitizedConfig = async (c: RawEnvVars): Promise<Config> => {
+const getSanitizedSecrets = async (): Promise<SecretsConfig> => {
   const secrets = await getSecrets();
   guardAgainstMissingConfiguration(secrets);
 
@@ -114,14 +137,29 @@ const getSanitizedConfig = async (c: RawEnvVars): Promise<Config> => {
     musicSubmissionUrl: secrets.MUSIC_SUBMISSION_URL!,
   };
 
-  const links = getEnvConfig(c);
+  return { mongoDb, blob };
+};
+
+const getSanitizedConfig = (c: RawEnvVars): Config => {
+  const links: LinkProps = getClientEnvConfig(c);
+
+  const auth: AuthProps = {
+    scope: c.authScope!,
+    audience: c.authAudience!,
+    loginUri: c.authLogin!,
+  };
+
+  const api: ApiProps = {
+    usersApiUrl: c.usersApiUrl!,
+  };
 
   return {
-    mongoDb,
-    blob,
     links,
+    auth,
+    api,
   };
 };
 
-export const links = getEnvConfig(envVars);
+export const links = getClientEnvConfig(envVars);
+export const asyncConfig = getSanitizedSecrets();
 export default getSanitizedConfig(envVars);
