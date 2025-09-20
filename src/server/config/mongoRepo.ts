@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import asyncConfig from '@/common/config/config';
+import { asyncConfig } from '@/common/config/config';
 
 interface ConnectionProps {
   isConnected: boolean;

@@ -22,5 +22,11 @@
     "acceptedFilesMessage": "20 archivos máximo - .mp3 .webm .png or .jpeg - 15MB máximo",
     "albumArt": "Carátula del Album",
     "audioFiles": "Archivos de Audio",
-    "filesUploadingMessage": "Espere mientras se cargan sus archivos. Gracias."
+    "filesUploadingMessage": "Espere mientras se cargan sus archivos. Gracias.",
+    "submissionProfileHeading": "Submission Profile",
+    "editButton": "Editar",
+    "cancelButton": "Cancelar",
+    "saveButton": "Guardar",
+    "firstName": "Nombre de Pila",
+    "lastName": "Apellido"
 }

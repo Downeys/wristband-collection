@@ -23,5 +23,11 @@
     "acceptedFilesMessage": "Max 20 files - .mp3 .webm .png or .jpeg - 15MB max",
     "albumArt": "Album Art",
     "audioFiles": "Audio Files",
-    "filesUploadingMessage": "Please wait while your files are uploaded. Thank you."
+    "filesUploadingMessage": "Please wait while your files are uploaded. Thank you.",
+    "submissionProfileHeading": "Submission Profile",
+    "editButton": "Edit",
+    "cancelButton": "Cancel",
+    "saveButton": "Save",
+    "firstName": "First Name",
+    "lastName": "Last Name"
 }
