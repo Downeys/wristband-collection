@@ -44,6 +44,7 @@ export const TrackBar: React.FC<TrackBarProps> = ({ duration, currentTime, progr
         aria-label="volume"
         aria-valuetext={`${progress}%`}
         onChange={handleSeek}
+        data-testid='track-bar'
       />
       <div className="flex flex-row justify-end h-5">
         <Label text={showTrackPosition ? trackPosition : ''} />
