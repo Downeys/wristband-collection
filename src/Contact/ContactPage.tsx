@@ -9,13 +9,12 @@ import Font from '@/common/config/fonts';
 import { v4 as uuidv4 } from 'uuid';
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
 import { ContactState, ContactForm } from '@/Contact/types/contactFormTypes';
-import { FieldNames } from '@/Contact/constants/contactFormConstants';
+import { FieldNames, UNRECOGNIZED_FIELD_MESSAGE } from '@/Contact/constants/contactFormConstants';
 import { ContactFormValidator } from './utils/validations/validators/contactFormValidator';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '@/common/constants/i18nConstants';
 import { CONTACT_URI } from './constants/apiConstants';
 import fetchService from '@/common/config/FetchService';
-import { UNRECOGNIZED_FIELD_MESSAGE } from '@/common/constants/constants';
 
 const initState: ContactState = {
   name: '',
