@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { Label } from '@/common/components/text/Label';
 import { BackButton } from '@/common/components/buttons/BackButton';
 import { NextButton } from '@/common/components/buttons/NextButton';
@@ -9,7 +9,6 @@ import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
 import RandomizeButton from '../buttons/RandomizeButton';
 import LoopButton from '../buttons/LoopButton';
 import TrackBar from './TrackBar';
-import PlayerSkeleton from '../loading/PlayerSkeleton';
 
 export interface SmallPlayerProps {
   play?: boolean;
@@ -24,8 +23,7 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
   const trackMessage = useMemo(() => (trackInPlayer?.bandName ? `${trackInPlayer?.bandName} - ${trackInPlayer?.trackName}` : 'Welcome to Wristband Radio'), [trackInPlayer]);
   const handleSeek = useCallback((time: number) => seek(time), [seek]);
   const handleShuffle = useCallback((random: boolean) => shuffle(random), [shuffle]);
-
-  return <Suspense fallback={<PlayerSkeleton />}>
+  return (
     <div className="h-56 w-screen flex flex-col px-6 bg-slate-950 shadow-footer justify-center">
       <div className="flex flex-row justify-between items-center mb-3">
         <div className="flex flex-row">
@@ -65,7 +63,7 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
         </div>
       </div>
     </div>
-  </Suspense>
+  );
 };
 
 export default SmallPlayer;
