@@ -1,8 +1,5 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { SecretClient } from '@azure/keyvault-secrets';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 interface RawSecrets {
   BLOB_CONNECTION_STRING: string | undefined;
@@ -25,7 +22,6 @@ interface RawEnvVars {
   authScope: string | undefined;
   authAudience: string | undefined;
   authLogin: string | undefined;
-  usersApiUrl: string | undefined;
 }
 
 interface DbProps {
@@ -55,10 +51,6 @@ interface AuthProps {
   loginUri: string;
 }
 
-interface ApiProps {
-  usersApiUrl: string;
-}
-
 interface SecretsConfig {
   mongoDb: DbProps;
   blob: BlobProps;
@@ -67,7 +59,6 @@ interface SecretsConfig {
 interface Config {
   links: LinkProps;
   auth: AuthProps;
-  api: ApiProps;
 }
 
 const envVars: RawEnvVars = {
@@ -80,7 +71,6 @@ const envVars: RawEnvVars = {
   authScope: process.env.AUTH0_SCOPE,
   authAudience: process.env.AUTH0_AUDIENCE,
   authLogin: process.env.LOGIN_URI,
-  usersApiUrl: process.env.USERS_API_URL,
 };
 
 const guardAgainstMissingConfiguration = (configObject: object) => {
@@ -89,18 +79,6 @@ const guardAgainstMissingConfiguration = (configObject: object) => {
       throw new Error(`Missing key ${key} in config.env`);
     }
   }
-};
-
-const getClientEnvConfig = (c: RawEnvVars): LinkProps => {
-  guardAgainstMissingConfiguration(c);
-  return {
-    baseUrl: c.baseUrl!,
-    contactLink: c.contactLink!,
-    submitLink: c.submitLink!,
-    aboutLink: c.aboutLink!,
-    onDemandLink: c.onDemandLink!,
-    picOfMeLink: c.picOfMeLink!,
-  };
 };
 
 const getSecrets = async (): Promise<RawSecrets> => {
@@ -141,7 +119,16 @@ const getSanitizedSecrets = async (): Promise<SecretsConfig> => {
 };
 
 const getSanitizedConfig = (c: RawEnvVars): Config => {
-  const links: LinkProps = getClientEnvConfig(c);
+  guardAgainstMissingConfiguration(c);
+
+  const links: LinkProps = {
+    baseUrl: c.baseUrl!,
+    contactLink: c.contactLink!,
+    submitLink: c.submitLink!,
+    aboutLink: c.aboutLink!,
+    onDemandLink: c.onDemandLink!,
+    picOfMeLink: c.picOfMeLink!,
+  };
 
   const auth: AuthProps = {
     scope: c.authScope!,
@@ -149,17 +136,11 @@ const getSanitizedConfig = (c: RawEnvVars): Config => {
     loginUri: c.authLogin!,
   };
 
-  const api: ApiProps = {
-    usersApiUrl: c.usersApiUrl!,
-  };
-
   return {
     links,
     auth,
-    api,
   };
 };
 
-export const links = getClientEnvConfig(envVars);
 export const asyncConfig = getSanitizedSecrets();
 export default getSanitizedConfig(envVars);

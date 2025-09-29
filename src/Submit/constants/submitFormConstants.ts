@@ -1,10 +1,10 @@
 import { ValidFileType } from '../types/submitMusicFormTypes';
 
 export const FieldNames = {
-  BAND: 'BAND',
-  CONTACT: 'CONTACT',
-  EMAIL: 'EMAIL',
-  PHONE: 'PHONE',
+  BAND: 'band',
+  CONTACT: 'contact',
+  EMAIL: 'email',
+  PHONE: 'phone',
 };
 
 export const FileType: Record<string, ValidFileType> = {

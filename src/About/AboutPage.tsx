@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import initTranslations from '@/common/utils/i18n/i18n';
-import { links } from '@/common/config/config';
+import config from '@/common/config/config';
 import SubmitSection from './components/pageSections/SubmitSection';
 import AboutMeSection from './components/pageSections/AboutMeSection';
 import ComingSoonSection from './components/pageSections/ComingSoonSection';
@@ -15,6 +15,7 @@ interface AboutPageProps {
 
 export const AboutPage = async ({ locale }: AboutPageProps) => {
   const { t } = await initTranslations(locale, [Namespaces.ABOUT]);
+  const { links } = config;
   return (
     <main className="bg-slate-950 flex min-w-screen min-h-screen relative top-20 z-0">
       <div className="flex flex-col sm:flex-row p-2">

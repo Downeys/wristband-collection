@@ -14,17 +14,11 @@ export interface Album {
 }
 
 export interface SubmitState {
-  band: string;
-  contact: string;
-  email: string;
-  phone: string;
-  imageFiles: File[];
-  audioFiles: File[];
-  ownershipAttestation: boolean;
-  validationMessages: string[];
+  formInProgress: SubmitForm | null;
   inProgress: boolean;
   showConfirmationModal: boolean;
   showFailureModal: boolean;
+  showForm: boolean;
 }
 
 export interface SubmitFormDto {
