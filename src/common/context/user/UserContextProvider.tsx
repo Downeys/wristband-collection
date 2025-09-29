@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import { UserContextState } from "./UserContextState";
 import { InitialUserContextState } from "./InitialUserContextState";
 import { useUser } from "@auth0/nextjs-auth0";

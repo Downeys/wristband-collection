@@ -1,5 +1,5 @@
 import UserProfile from '@/Submit/components/UserProfile/UserProfile';
-import config from '@/common/config/config';
+import config from '@/common/config/clientConfig';
 
 interface UserDetails {
   username: string;
@@ -19,7 +19,7 @@ interface UsersApiClient {
 }
 
 const getUserByEmail = async (email: string): Promise<UserProfile | null> => {
-  const { api } = await config;
+  const { api } = config;
   const getUserUri = `${api.usersApiUrl}/user?email=${email}`;
   const response = await fetch(getUserUri);
   if (!response) return null;
@@ -28,7 +28,7 @@ const getUserByEmail = async (email: string): Promise<UserProfile | null> => {
 };
 
 const createUser = async (userInput: UserDetails): Promise<UserProfile> => {
-  const { api } = await config;
+  const { api } = config;
   const createUserUri = `${api.usersApiUrl}/user`;
   const requestOptions = {
     method: 'POST',
@@ -42,7 +42,7 @@ const createUser = async (userInput: UserDetails): Promise<UserProfile> => {
 };
 
 const updateUserName = async (userId: string, firstName: string, lastName: string): Promise<boolean> => {
-  const { api } = await config;
+  const { api } = config;
   const updateUserUri = `${api.usersApiUrl}/user/${userId}`;
   const requestOptions = {
     method: 'PUT',
@@ -51,7 +51,7 @@ const updateUserName = async (userId: string, firstName: string, lastName: strin
     },
     body: JSON.stringify({ firstName, lastName }),
   };
-  const response = await fetch(updateUserUri, requestOptions);
+  const response = fetch(updateUserUri, requestOptions);
   return !!response;
 };
 

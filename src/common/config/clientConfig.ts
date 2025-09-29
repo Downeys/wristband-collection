@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import { DEFAULT_MAX_FILES_ACCEPTED, DEFAULT_MAX_FILE_SIZE } from '../constants/configConstants';
-
-dotenv.config();
 
 interface RawEnvVars {
   acceptedImageFiles: string | undefined;
@@ -10,6 +7,7 @@ interface RawEnvVars {
   maxAcceptedFiles: string | undefined;
   maxFileSize: string | undefined;
   audioStreamBaseUrl: string | undefined;
+  usersApiUrl: string | undefined;
 }
 
 interface MusicSubmissionProps {
@@ -24,9 +22,14 @@ interface AudioStreamProps {
   audioStreamBaseUrl: string;
 }
 
+interface ApiProps {
+  usersApiUrl: string;
+}
+
 interface Config {
   musicSubmission: MusicSubmissionProps;
   audioStream: AudioStreamProps;
+  api: ApiProps;
 }
 
 const envVars: RawEnvVars = {
@@ -36,6 +39,7 @@ const envVars: RawEnvVars = {
   maxAcceptedFiles: process.env.NEXT_PUBLIC_MAX_ACCEPTED_FILES,
   maxFileSize: process.env.NEXT_PUBLIC_MAX_FILE_SIZE,
   audioStreamBaseUrl: process.env.NEXT_PUBLIC_AUDIO_STREAM_BASE_URL,
+  usersApiUrl: process.env.NEXT_PUBLIC_USERS_API_URL,
 };
 
 const getSanitizedConfig = (c: RawEnvVars): Config => {
@@ -63,9 +67,14 @@ const getSanitizedConfig = (c: RawEnvVars): Config => {
     audioStreamBaseUrl: c.audioStreamBaseUrl ?? '',
   };
 
+  const api: ApiProps = {
+    usersApiUrl: c.usersApiUrl!,
+  };
+
   return {
     musicSubmission,
     audioStream,
+    api,
   };
 };
 
