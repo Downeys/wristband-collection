@@ -1,0 +1,14 @@
+.fileItemContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    border-bottom: solid 1px rgb(255, 255, 255, .2);
+    margin: .5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.iconSpan {
+    margin-top: 1rem;
+}

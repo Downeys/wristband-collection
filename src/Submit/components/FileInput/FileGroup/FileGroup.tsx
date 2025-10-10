@@ -1,6 +1,7 @@
 import React from 'react';
-import { Heading } from '@/common/components/text/Heading';
-import { FileItem } from './FileItem';
+import { Heading } from '../../../../common/components/text/Heading';
+import { FileItem } from '../FileItem/FileItem';
+import styles from './FileGroup.module.scss';
 
 interface FileGroupProps {
   groupName: string;
@@ -11,7 +12,7 @@ interface FileGroupProps {
 export const FileGroup = ({ groupName, files, onFileRemoved }: FileGroupProps) => {
   return (
     files.length && (
-      <div className="p-2">
+      <div className={styles.fileGroupContainer}>
         <Heading text={`${groupName}:`} />
         {files.map((file) => (
           <FileItem key={file.name} name={file.name} size={file.size} onRemoveClick={onFileRemoved} />

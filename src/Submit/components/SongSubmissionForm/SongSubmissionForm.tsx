@@ -1,17 +1,18 @@
 'use client'
 
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react'
-import { FormInput } from '@/common/components/formElements/FormInput';
+import { FormInput } from '../../../common/components/formElements/FormInput';
 import { FileInput } from '../FileInput/FileInput';
 import { Attestation } from '../Attestation/Attestation';
-import { Label } from '@/common/components/text/Label';
+import { Label } from '../../../common/components/text/Label';
 import { useTranslation } from 'react-i18next';
-import { Namespaces } from '@/common/constants/i18nConstants';
-import { FieldNames } from '@/Submit/constants/submitFormConstants';
+import { Namespaces } from '../../../common/constants/i18nConstants';
+import { FieldNames } from '../../constants/submitFormConstants';
 import { SubmitForm } from '../../types/submitMusicFormTypes';
 import { v4 as uuidv4 } from 'uuid';
-import SubmitMusicValidator from '@/Submit/utils/validations/validators/musicFormValidator';
-import FormDropdown from '@/common/components/formElements/FormDropdown';
+import SubmitMusicValidator from '../../utils/validations/validators/musicFormValidator';
+import FormDropdown from '../../../common/components/formElements/FormDropdown';
+import styles from './SongSubmissionForm.module.scss';
 
 interface SongSubmissionModalProps {
     onSubmit: (form: SubmitForm) => void;
@@ -102,20 +103,20 @@ export const SongSubmissionForm: React.FC<SongSubmissionModalProps> = ({ onSubmi
         [state]
     );
     return(
-        <form onSubmit={handleSubmitEvent} className="my-4">
+        <form onSubmit={handleSubmitEvent} className={styles.SongSubmissionForm}>
             <FormInput name={BAND} label={t('bandLabel')} onChange={handleInputChange} value={state.band} />
             <FormInput name={CONTACT} label={t('contactLabel')} onChange={handleInputChange} value={state.contact} />
             <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
             <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
             <FileInput imageFiles={state.imageFiles} audioFiles={state.audioFiles} onFilesAdded={handleFilesAdded} onFileRemoved={handleFileRemoved} />
             <Attestation onChange={handleAttestationChange} checked={state.ownershipAttestation} />
-            <div className="mb-6 flex flex-col">
+            <div className={styles.validationMessageContainer}>
                 {state.validationMessages.map((message) => (
                     <Label key={uuidv4()} text={t(message)} color="red" />
                 ))}
             </div>
-            <div className="flex w-full justify-center items-center">
-                <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">
+            <div className={styles.submitButtonContainer}>
+                <button type="submit" onClick={handleSubmitClick} className={styles.submitButton}>
                     <Label text={t('submitButton')} bold size="2xl" />
                 </button>
             </div>

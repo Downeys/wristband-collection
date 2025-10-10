@@ -1,19 +1,20 @@
 'use client';
 
-import ConfirmationModal from '@/common/components/modals/ConfirmationModal';
-import FailureModal from '@/common/components/modals/FailureModal';
-import Heading from '@/common/components/text/Heading';
+import ConfirmationModal from '../common/components/modals/ConfirmationModal';
+import FailureModal from '../common/components/modals/FailureModal';
+import Heading from '../common/components/text/Heading';
 import React, { useCallback, useState } from 'react';
-import { SubmitState, SubmitForm } from '@/Submit/types/submitMusicFormTypes';
-import { createMusicSubmissionFormData } from '@/Submit/utils/helpers/formHelpers';
+import { SubmitState, SubmitForm } from './types/submitMusicFormTypes';
+import { createMusicSubmissionFormData } from './utils/helpers/formHelpers';
 import { useTranslation } from 'react-i18next';
-import { Namespaces } from '@/common/constants/i18nConstants';
+import { Namespaces } from '../common/constants/i18nConstants';
 import { SUBMIT_URI } from './constants/apiConstants';
-import LoadingModal from '@/common/components/modals/LoadingModal';
-import fetchService from '@/common/config/FetchService';
-import UserContextProvider from '@/common/context/user/UserContextProvider';
+import LoadingModal from '../common/components/modals/LoadingModal';
+import fetchService from '../common/config/FetchService';
+import UserContextProvider from '../common/context/user/UserContextProvider';
 import UserProfile from './components/UserProfile/UserProfile';
 import SongSubmissionForm from './components/SongSubmissionForm/SongSubmissionForm';
+import styles from './SubmitPage.module.scss';
 
 const initState = {
   formInProgress: null,
@@ -45,12 +46,12 @@ export default function SubmitPage() {
   }, [state, handleSubmit]);
 
   return (
-    <main className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
+    <main className={styles.mainContainer}>
       <LoadingModal showModal={state.inProgress} />
       <ConfirmationModal message={t('confirmationMessage')} onConfirm={resetState} showModal={state.showConfirmationModal} />
       <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
-      <div className="w-full max-w-screen-sm">
-        <Heading size="3xl" text={t('submitHeading')} additionalStyles="w-full text-center p-2" />
+      <div className={styles.innerPanelContainer}>
+        <Heading size="3xl" text={t('submitHeading')} additionalStyles={styles.pageHeading} />
         <UserContextProvider>
           <UserProfile />
         </UserContextProvider>
