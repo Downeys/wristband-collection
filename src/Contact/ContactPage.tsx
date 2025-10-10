@@ -1,20 +1,21 @@
 'use client';
 
-import FormInput from '@/common/components/formElements/FormInput';
-import ConfirmationModal from '@/common/components/modals/ConfirmationModal';
-import FailureModal from '@/common/components/modals/FailureModal';
-import Heading from '@/common/components/text/Heading';
-import Label from '@/common/components/text/Label';
-import Font from '@/common/config/fonts';
-import { v4 as uuidv4 } from 'uuid';
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
-import { ContactState, ContactForm } from '@/Contact/types/contactFormTypes';
-import { FieldNames } from '@/Contact/constants/contactFormConstants';
+import { FormInput } from '../common/components/formElements/FormInput';
+import { ConfirmationModal } from '../common/components/modals/ConfirmationModal';
+import { FailureModal } from '../common/components/modals/FailureModal';
+import { Heading } from '../common/components/text/Heading';
+import { Label } from '../common/components/text/Label';
+import Font from '../common/config/fonts';
+import { v4 as uuidv4 } from 'uuid';
+import { ContactState, ContactForm } from './types/contactFormTypes';
+import { FieldNames } from './constants/contactFormConstants';
 import { ContactFormValidator } from './utils/validations/validators/contactFormValidator';
 import { useTranslation } from 'react-i18next';
-import { Namespaces } from '@/common/constants/i18nConstants';
+import { Namespaces } from '../common/constants/i18nConstants';
 import { CONTACT_URI } from './constants/apiConstants';
-import fetchService from '@/common/config/FetchService';
+import fetchService from '../common/config/FetchService';
+import styles from './ContactPage.module.scss';
 
 const initState: ContactState = {
   name: '',
@@ -102,12 +103,12 @@ export default function ContactPage() {
   }, [state, handleSubmit]);
 
   return (
-    <main className="flex min-w-screen min-h-screen flex-col items-center px-8 pt-4 bg-slate-950 relative top-20 z-0">
+    <main className={styles.mainContainer}>
       <ConfirmationModal message={t('successMessage')} onConfirm={resetState} showModal={state.showConfirmationModal} />
       <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
-      <div className="w-full max-w-screen-sm">
-        <Heading size="3xl" text={t('pageHeading')} additionalStyles="w-full text-center p-2" />
-        <form onSubmit={handleSubmitEvent} className="my-4">
+      <div className={styles.innerPanelContainer}>
+        <Heading size="3xl" text={t('pageHeading')} additionalStyles={styles.pageHeading} />
+        <form onSubmit={handleSubmitEvent} className={styles.contactForm}>
           <FormInput name={NAME} label={t('nameLabel')} onChange={handleInputChange} value={state.name} />
           <FormInput name={EMAIL} type="email" label={t('emailLabel')} onChange={handleInputChange} value={state.email} />
           <FormInput name={PHONE} type="tel" label={t('phoneLabel')} onChange={handleInputChange} value={state.phone} />
@@ -116,15 +117,15 @@ export default function ContactPage() {
             placeholder={t('messageLabel')}
             onChange={handleTextAreaChange}
             value={state.message}
-            className={`${Font.secondary.className} text-lg font-semibold placeholder-black outline-none focus:outline-none h-60 w-full p-1 border-none rounded-lg`}
+            className={`${Font.secondary.className} ${styles.messageInput}`}
           />
-          <div className="mb-6 flex flex-col">
+          <div className={styles.validationMessageContainer}>
             {state.validationMessages.map((message) => (
               <Label key={uuidv4()} text={t(message)} color="red" />
             ))}
           </div>
-          <div className="flex w-full justify-center items-center">
-            <button type="submit" onClick={handleSubmitClick} className="border-2 border-wbPink rounded-2xl py-3 w-1/2 shadow-pink">
+          <div className={styles.submitButtonContainer}>
+            <button type="submit" onClick={handleSubmitClick} className={styles.submitButton}>
               <Label text={t('submitButton')} bold size="2xl" />
             </button>
           </div>
