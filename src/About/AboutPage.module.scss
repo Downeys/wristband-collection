@@ -1,0 +1,59 @@
+.mainContainer {
+    display: flex;
+    position: relative;
+    top: 5rem;
+    z-index: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #020617;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    padding: .05rem;
+}
+
+.panelContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: .75rem;
+}
+
+.leftImageContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.rightImageContainer {
+    display: none;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .leftContainer {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .contentContainer {
+        flex-direction: row;
+    }
+
+    .leftContainer {
+        width: 50%;
+    }
+
+    .leftImageContainer {
+        display: none;
+    }
+
+    .rightImageContainer {
+        display: flex;
+    }
+}

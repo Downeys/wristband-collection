@@ -1,0 +1,35 @@
+.submitButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.5rem;
+    width: 75%;
+    background-color: rgb(251, 3, 188);
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    border: none;
+    border-radius: 1.5rem;
+    font-size: 24px;
+}
+
+@media (min-width: 1024px) {
+    .submitButton {
+        height: 7rem;
+        margin-left: 3rem;
+        margin-right: 3rem;
+        font-size: 36px;
+    }
+}
+
+@media (min-width: 764px) {
+    .submitButton {
+        height: 5rem;
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 640px) {
+    .submitButton {
+        margin-bottom: .75rem;
+    }
+}
