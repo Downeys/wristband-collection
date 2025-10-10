@@ -1,5 +1,5 @@
 import { Label } from '@/common/components/text/Label';
-import { formatTime } from '@/Home/utils/helpers/playlistHelpers';
+import { formatTime } from '../../utils/helpers/playlistHelpers';
 import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
 
 interface TrackBarProps {

@@ -1,10 +1,11 @@
-import { getAllTracks } from '@/server/actions/tracks';
-import { getAlphabeticOrder, sortPlaylistByOrderList } from '@/Home/utils/helpers/playlistHelpers';
-import { decodePlayerStatusParam } from '@/Home/utils/helpers/searchParamHelpers';
-import { Track } from '@/OnDemand/components/Track/Track';
-import SmallPlayer from '@/common/components/SmallPlayer/SmallPlayer';
-import PlayListProvider from '@/common/context/player/PlayerContextProvider';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
+import { getAllTracks } from '../server/actions/tracks';
+import { getAlphabeticOrder, sortPlaylistByOrderList } from '../common/utils/helpers/playlistHelpers';
+import { decodePlayerStatusParam } from '../common/utils/helpers/searchParamHelpers';
+import { Track } from './components/Track/Track';
+import { SmallPlayer } from '../common/components/SmallPlayer/SmallPlayer';
+import PlayListProvider from '../common/context/player/PlayerContextProvider';
+import styles from './OnDemandPage.module.scss';
 
 interface OnDemandProps {
   inFocusParam: string;
@@ -24,12 +25,12 @@ export default async function OnDemandPage({ inFocusParam, playerStatusParam, or
   const sortedTracks = showTracks ? sortPlaylistByOrderList(tracks, orderList) : tracks;
   const { status, id } = decodePlayerStatusParam(playerStatusParam);
   return (
-    <main className="flex min-w-screen min-h-screen flex-col px-6 sm:px-12 pt-4 bg-slate-950 relative top-20 z-0">
-      <div>
+    <main className={styles.mainContainer}>
+      <div className={styles.innerPanelContainer}>
         {showTracks && sortedTracks.map((track) => <Track {...track} key={`${track.id}`} trackInFocus={inFocusParam} trackInPlayer={id} playerStatus={status} orderParam={orderParam} />)}
-        <div className="h-60" />
+        <div className={styles.emptySpace} />
       </div>
-      <div className="fixed bottom-0 left-0">
+      <div className={styles.playerContainer}>
         <Suspense>
           <PlayListProvider props={{ playList: tracks, mode: 'alphabetic' }}>
             <SmallPlayer play back next shuffle />

@@ -3,14 +3,14 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { TrackData } from '@/models/types';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex, getAlphabeticOrder } from '@/Home/utils/helpers/playlistHelpers';
-import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '@/Home/utils/helpers/searchParamHelpers';
+import { sortPlaylistByOrderList, getRandomizedOrder, getNextIndex, getAlphabeticOrder } from '../../utils/helpers/playlistHelpers';
+import { decodePlayerStatusParam, decodeOrderParam, constructPlayerStatusAction, encodeOrderParam } from '../../utils/helpers/searchParamHelpers';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
 import { PlayerContextState } from './PlayerContextState';
 import { InitialPlayerState } from './InitialPlayerState';
 import { Song } from '@/common/utils/audioWrappers/Song';
 import HowlerSongImpl from '@/common/utils/audioWrappers/HowlerSongImpl';
-import { SearchParams } from '@/Home/constants/playerContextConstants';
+import { SearchParams } from '@/common/constants/playerContextConstants';
 
 interface PlayListProviderProps {
   playList: TrackData[];

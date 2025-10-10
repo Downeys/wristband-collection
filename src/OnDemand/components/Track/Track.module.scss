@@ -1,0 +1,31 @@
+.trackContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    height: 8rem;
+    width: 100%;
+}
+
+.trackContentContainer {
+    display: flex;
+}
+
+.trackImageContainer {
+    min-width: 6rem;
+    min-height: 6rem;
+    justify-content: center;
+    align-content: center;
+}
+
+.trackDetailsContainer {
+    flex-direction: column;
+    margin-left: .5rem;
+}
+
+.playButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
