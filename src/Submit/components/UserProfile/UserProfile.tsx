@@ -1,14 +1,15 @@
 'use client'
 
-import FormInput from '@/common/components/formElements/FormInput';
-import Heading from '@/common/components/text/Heading';
-import Label from '@/common/components/text/Label';
-import { UNRECOGNIZED_FIELD_MESSAGE } from '@/common/constants/constants';
-import { UserContext } from '@/common/context/user/UserContextProvider';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import UsersApi from '@/apis/UsersApi';
-import { Namespaces } from '@/common/constants/i18nConstants';
+import FormInput from '../../../common/components/formElements/FormInput';
+import Heading from '../../../common/components/text/Heading';
+import Label from '../../../common/components/text/Label';
+import { UNRECOGNIZED_FIELD_MESSAGE } from '../../../common/constants/constants';
+import { UserContext } from '../../../common/context/user/UserContextProvider';
+import UsersApi from '../../../apis/UsersApi';
+import { Namespaces } from '../../../common/constants/i18nConstants';
 import { useTranslation } from 'react-i18next';
+import styles from './UserProfile.module.scss';
 
 interface UserProfileState {
     disabled: boolean;
@@ -72,15 +73,15 @@ export const UserProfile: React.FC = () => {
     }, [state, user])
 
     return (
-        <div className='w-full'>
+        <div className={styles.userProfileCenter}>
             <Heading size='xl' text={t('submissionProfileHeading')} additionalStyles='mb-2'/>
             <form>
                 <FormInput name='firstName' label={t('firstName')} value={state.firstName} onChange={handleInputChange} disabled={state.disabled}/>
                 <FormInput name='lastName' label={t('lastName')} value={state.lastName} onChange={handleInputChange} disabled={state.disabled}/>
             </form>
-            <div className='w-full flex justify-end'>
-              <button onClick={toggleDisabledState} className='w-16 h-10 border-2 border-wbBlue rounded-2xl shadow-blue m-1'><Label bold text={state.editButtonText} /> </button>
-              <button onClick={saveChanges} disabled={state.saving} hidden={isSaveHidden} className='w-16 h-10 border-2 border-wbPink rounded-2xl shadow-pink m-1'><Label bold text={t('saveButton')} /></button>
+            <div className={styles.buttonContainer}>
+              <button onClick={toggleDisabledState} className={styles.editButton}><Label bold text={state.editButtonText} /> </button>
+              <button onClick={saveChanges} disabled={state.saving} hidden={isSaveHidden} className={styles.saveButton}><Label bold text={t('saveButton')} /></button>
             </div>
         </div>
     )

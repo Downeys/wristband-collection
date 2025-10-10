@@ -1,0 +1,26 @@
+.songSubmissionForm {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.validationMessageContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.submitButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.submitButton {
+    width: 50%;
+    border: solid 2px rgb(251, 3, 188);
+    border-radius: 1rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    box-shadow: 0px 0px 6px 3px rgba(255, 0, 255, 0.25);
+} 

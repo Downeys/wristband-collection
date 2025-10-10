@@ -1,16 +1,17 @@
 'use-client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { Label } from '@/common/components/text/Label';
-import { getFileType } from '@/Submit/utils/helpers/formHelpers';
+import { Label } from '../../../common/components/text/Label';
+import { getFileType } from '../../utils/helpers/formHelpers';
 import { FileRejection, useDropzone } from 'react-dropzone';
-import { FileGroup } from './FileGroup';
+import { FileGroup } from './FileGroup/FileGroup';
 import { MusicIcon } from '../icons/MusicIcon';
-import { ConfirmationModal } from '@/common/components/modals/ConfirmationModal';
+import { ConfirmationModal } from '../../../common/components/modals/ConfirmationModal';
 import { useTranslation } from 'react-i18next';
-import { Namespaces } from '@/common/constants/i18nConstants';
-import { FileType } from '@/Submit/constants/submitFormConstants';
-import config from '@/common/config/clientConfig';
+import { Namespaces } from '../../../common/constants/i18nConstants';
+import { FileType } from '../../constants/submitFormConstants';
+import config from '../../../common/config/clientConfig';
+import styles from './FileInput.module.scss';
 
 interface FileInputProps {
   imageFiles: File[];
@@ -70,10 +71,10 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
   });
 
   return (
-    <div>
+    <>
       <ConfirmationModal message={'File capacity exceeded. Please only upload 20 items or less at a time. Thank you!'} onConfirm={() => setShowModal(false)} showModal={showModal} />
-      <div className="w-full h-56 border-2 border-white border-dashed rounded-lg flex justify-center items-center">
-        <div className="h-full w-full flex justify-center items-center" {...getRootProps()}>
+      <div className={styles.fileInputContainer}>
+        <div className={styles.innerInputContainer} {...getRootProps()}>
           <input {...getInputProps()} />
           {isDragActive ? (
             <MusicIcon />
@@ -88,7 +89,7 @@ export const FileInput = ({ imageFiles, audioFiles, onFilesAdded, onFileRemoved 
       </div>
       {showImageFiles && <FileGroup groupName={t('albumArt')} files={imageFiles} onFileRemoved={onFileRemoved} />}
       {showAudioFiles && <FileGroup groupName={t('audioFiles')} files={audioFiles} onFileRemoved={onFileRemoved} />}
-    </div>
+    </>
   );
 };
 
