@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import React from 'react';
-import initTranslations from '@/common/utils/i18n/i18n';
-import config from '@/common/config/config';
-import SubmitSection from './components/pageSections/SubmitSection';
-import AboutMeSection from './components/pageSections/AboutMeSection';
-import ComingSoonSection from './components/pageSections/ComingSoonSection';
-import { Namespaces } from '@/common/constants/i18nConstants';
-import RecentUpdatesSection from './components/pageSections/RecentUpdatesSection';
-import LongTermDirectionSection from './components/pageSections/LongTermDirectionSection';
+import initTranslations from '../common/utils/i18n/i18n';
+import config from '../common/config/config';
+import SubmitSection from './components/pageSections/SubmitSection/SubmitSection';
+import AboutMeSection from './components/pageSections/AboutMeSection/AboutMeSection';
+import ComingSoonSection from './components/pageSections/ComingSoonSection/ComingSoonSection';
+import { Namespaces } from '../common/constants/i18nConstants';
+import RecentUpdatesSection from './components/pageSections/RecentUpdatesSection/RecentUpdatesSection';
+import LongTermDirectionSection from './components/pageSections/LongTermDirectionSection/LongTermDirectionSection';
+import styles from './AboutPage.module.scss'
 
 interface AboutPageProps {
   locale: string;
@@ -17,18 +18,18 @@ export const AboutPage = async ({ locale }: AboutPageProps) => {
   const { t } = await initTranslations(locale, [Namespaces.ABOUT]);
   const { links } = config;
   return (
-    <main className="bg-slate-950 flex min-w-screen min-h-screen relative top-20 z-0">
-      <div className="flex flex-col sm:flex-row p-2">
-        <div className="w-full sm:w-1/2 p-3 lg:p-6 flex flex-col items-center">
+    <main className={styles.mainContainer}>
+      <div className={styles.contentContainer}>
+        <div className={styles.panelContainer}>
           <SubmitSection locale={locale} />
-          <div className="w-full flex justify-center sm:hidden">
+          <div className={styles.leftImageContainer}>
             <Image src={links.picOfMeLink} alt={t('picOfMeAltText')} width={605} height={805} />
           </div>
           <AboutMeSection locale={locale} />
           <LongTermDirectionSection locale={locale} />
         </div>
-        <div className="w-full sm:w-1/2 p-3 lg:p-6 flex flex-col items-center">
-          <div className="hidden sm:flex justify-center w-full">
+        <div className={styles.panelContainer}>
+          <div className={styles.rightImageContainer}>
             <Image src={links.picOfMeLink} alt={t('picOfMeAltText')} width={605} height={805} />
           </div>
           <RecentUpdatesSection locale={locale} />

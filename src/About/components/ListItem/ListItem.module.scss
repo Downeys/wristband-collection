@@ -1,0 +1,11 @@
+.listItem {
+    font-size: 24px;
+    margin-bottom: 2.25rem;
+    color: white;
+}
+
+@media (min-width: 1024px) {
+    .listItem {
+        font-size: 30px;
+    }
+}

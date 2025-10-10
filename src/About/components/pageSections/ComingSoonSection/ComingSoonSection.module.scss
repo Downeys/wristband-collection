@@ -1,0 +1,10 @@
+.sectionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 1.5rem;
+}
+
+.bullettedList {
+    list-style-type: disc;
+}
