@@ -6,8 +6,8 @@ import PlayIcon from '@/common/components/icons/PlayIcon';
 import PauseIcon from '@/common/components/icons/PauseIcon';
 import Spinner from '@/common/components/Spinner/Spinner';
 import { PlayerStatus } from '@/common/types/playerStatusEnum';
-import { constructPlayerStatusAction } from '@/Home/utils/helpers/searchParamHelpers';
-import { SearchParams } from '@/Home/constants/playerContextConstants';
+import { constructPlayerStatusAction } from '../../utils/helpers/searchParamHelpers';
+import { SearchParams } from '@/common/constants/playerContextConstants';
 
 export interface PlayButtonProps {
   variant?: 'primary' | 'track';
