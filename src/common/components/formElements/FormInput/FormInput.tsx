@@ -1,7 +1,8 @@
 'use client';
 
 import React, { ChangeEventHandler, useCallback } from 'react';
-import Font from '@/common/config/fonts';
+import Font from '../../../config/fonts';
+import styles from './FormInput.module.scss';
 
 interface FormInputProps {
   name: string;
@@ -21,8 +22,8 @@ export const FormInput: React.FC<FormInputProps> = ({ label, type, name, value, 
     [name, onChange]
   );
   return (
-    <div className="flex flex-row mb-4">
-      <input className={`${Font.secondary.className} text-lg font-semibold placeholder-black outline-none focus:outline-none w-full p-1 border-none rounded-lg`} type={inputType} onChange={handleOnChange} placeholder={label} value={value} disabled={disabled} />
+    <div className={styles.formInputContainer}>
+      <input className={`${Font.secondary.className} ${styles.formInput}`} type={inputType} onChange={handleOnChange} placeholder={label} value={value} disabled={disabled} />
     </div>
   );
 };

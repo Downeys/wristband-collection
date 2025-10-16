@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useMemo, useCallback, useState } from 'react';
-import LoopIcon from '../icons/LoopIcon';
+import LoopIcon from '../../icons/LoopIcon';
+import styles from './LoopButton.module.scss';
 
 interface LoopButtonProps {
   onClick: (selected: boolean) => void;
@@ -14,9 +15,9 @@ export const LoopButton: React.FC<LoopButtonProps> = ({ onClick }) => {
     setSelected(newSelectedState);
     onClick(newSelectedState);
   }, [selected, onClick]);
-  const shadowStyle = useMemo(() => (selected ? 'shadow-green' : 'shadow-pink'), [selected]);
+  const shadowStyle = useMemo(() => (selected ? styles.greenShadow : styles.pinkShadow), [selected]);
   return (
-    <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full ${shadowStyle}`} onClick={handleClick}>
+    <button className={`${styles.loopButton} ${shadowStyle}`} onClick={handleClick}>
       <LoopIcon />
     </button>
   );

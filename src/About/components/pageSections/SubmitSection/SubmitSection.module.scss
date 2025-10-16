@@ -1,3 +1,16 @@
+.submitHeading {
+    font-weight: 600;
+    align-self: center;
+}
+
+.submitLabel {
+    padding-top: 1rem;
+}
+
+.ownershipGuarantee {
+    text-align: center;
+}
+
 .sectionContainer {
     display: flex;
     flex-direction: column;
@@ -7,4 +20,29 @@
 .ownershipGuaranteeContainer {
     padding: .25rem;
     margin-bottom: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .submitLabel {
+        font-size: 30px;
+        line-height: 2.25rem;
+    }
+
+    .ownershipGuarantee {
+        font-size: 24px;
+        line-height: 2rem;
+        margin-bottom: .5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .submitHeading {
+        font-size: 36px;
+        line-height: 2.5rem;
+    }
+
+    .submitLabel {
+        font-size: 24px;
+        line-height: 2rem;
+    }
 }

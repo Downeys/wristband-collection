@@ -1,0 +1,163 @@
+.headerContainer {
+    position: fixed;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100vw;
+    background-color: #020617;
+    color: white;
+    z-index: 10;
+    box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.companyName {
+    font-size: 24px;
+}
+
+.headerLinkContainer {
+    margin-left: 12px;
+    margin-right: 12px;
+    display: flex;
+    background: rgba(255, 255, 255, 0);
+    color: #FFF;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerLink {
+    background: rgba(255, 255, 255, 0);
+    color: #FFF;
+    font-size: 24px;
+    font-family: "Lacquer";
+    text-decoration: none;
+    z-index: 2;
+}
+
+.languageSelectorContainer {
+    margin-left: 12px;
+    margin-right: 12px;
+    display: flex;
+    background: rgba(255, 255, 255, 0);
+    color: #FFF;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin-right: 16px;
+    padding: 0;
+}
+
+.menu > li {
+    overflow: hidden;
+}
+
+.menuButtonContainer {
+    display: none;
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 36px;
+}
+
+.menuToggle {
+    display: none;
+}
+
+.menuButton,
+.menuButton::before,
+.menuButton::after {
+    display: block;
+    background-color: #FFF;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+}
+
+.menuButton::before {
+    content: '';
+    margin-top: -8px;
+}
+
+.menuButton::after {
+    content: '';
+    margin-top: 8px;
+}
+
+.menuToggle:checked + .menuButtonContainer .menuButton::before {
+    margin-top: 0px;
+    transform: rotate(405deg);
+}
+
+.menuToggle:checked + .menuButtonContainer .menuButton {
+    background: #fff
+}
+
+.menuToggle:checked + .menuButtonContainer .menuButton::after {
+    margin-top: 0px;
+    transform: rotate(-405deg);
+}
+
+@media screen and (max-width: 1024px) {
+    .menuButtonContainer {
+        display: flex;
+    }
+    .menu {
+        position: absolute;
+        top: 0;
+        margin-top: 80px;
+        left: 0;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .menuToggle ~ .menu li {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .menuToggle:checked ~ .menu li {
+        border-bottom: 1px solid #fff;
+        border-top: 1px solid #fff;
+        height: 4em;
+        padding: 0.5em;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .menu > li {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0.5em 0;
+        width: 100%;
+        background-color: rgb(2 6 23);
+    }
+    .menu > li:not(:last-child) {
+        border-bottom: 1px solid #fff;
+    }
+}

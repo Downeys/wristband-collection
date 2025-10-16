@@ -1,0 +1,34 @@
+.longTermDirectionHeader {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.longTermDirectionLabel {
+    margin-top: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .longTermDirectionLabel {
+        font-size: 30px;
+        line-height: 2.25rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .longTermDirectionHeader {
+        font-size: 36px;
+        line-height: 2.5rem;
+    }
+
+    .longTermDirectionLabel {
+        font-size: 24px;
+        line-height: 2rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .longTermDirectionHeader {
+        font-size: 24px;
+        line-height: 2rem;
+    }
+}

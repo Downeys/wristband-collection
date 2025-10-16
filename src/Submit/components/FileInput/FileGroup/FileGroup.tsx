@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '../../../../common/components/text/Heading';
+import { Heading } from '../../../../common/components/text/Heading/Heading';
 import { FileItem } from '../FileItem/FileItem';
 import styles from './FileGroup.module.scss';
 

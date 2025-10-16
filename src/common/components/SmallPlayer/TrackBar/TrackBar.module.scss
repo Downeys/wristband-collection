@@ -1,0 +1,16 @@
+.trackBarContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.trackBar {
+    width: 100%;
+    accent-color: #74efdb;
+}
+
+.positionMessageContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    height: 1.25rem;
+}

@@ -2,12 +2,13 @@
 
 import React, { MouseEventHandler, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import PlayIcon from '@/common/components/icons/PlayIcon';
-import PauseIcon from '@/common/components/icons/PauseIcon';
-import Spinner from '@/common/components/Spinner/Spinner';
-import { PlayerStatus } from '@/common/types/playerStatusEnum';
-import { constructPlayerStatusAction } from '../../utils/helpers/searchParamHelpers';
-import { SearchParams } from '@/common/constants/playerContextConstants';
+import PlayIcon from '../../icons/PlayIcon';
+import PauseIcon from '../../icons/PauseIcon';
+import Spinner from '../../Spinner/Spinner';
+import { PlayerStatus } from '../../../types/playerStatusEnum';
+import { constructPlayerStatusAction } from '../../../utils/helpers/searchParamHelpers';
+import { SearchParams } from '../../../constants/playerContextConstants';
+import styles from './PlayButton.module.scss';
 
 export interface PlayButtonProps {
   variant?: 'primary' | 'track';
@@ -36,12 +37,12 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
   );
 
   const variantStyle = {
-    primary: 'h-20 w-20 mx-6 rounded-full shadow-blue pl-3 pt-3',
-    track: 'h-14 w-14 border border-1 rounded-full pl-1 pt-1',
+    primary: styles.primaryButton,
+    track: styles.trackButton,
   };
   const iconStyling = {
-    primary: 'h-14 w-14',
-    track: 'h-7 w-7',
+    primary: styles.primaryIcon,
+    track: styles.trackIcon,
   };
   const styleVariant = variant ?? 'primary';
   const Icon = useMemo(() => (isPlaying ? PauseIcon : PlayIcon), [isPlaying]);
@@ -50,7 +51,7 @@ export const PlayButton: React.FC<PlayButtonProps> = ({ variant, trackId, status
   if (loading) return <Spinner />;
 
   return (
-    <button className={`flex flex-col items-center justify-center ${variantStyle[styleVariant]}`} onClick={handleClick}>
+    <button className={`${styles.playButton} ${variantStyle[styleVariant]}`} onClick={handleClick}>
       <Icon styling={iconStyling[styleVariant]} selected={isPink} />
     </button>
   );

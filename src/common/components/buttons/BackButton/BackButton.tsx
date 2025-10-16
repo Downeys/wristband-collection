@@ -1,14 +1,15 @@
 'use client';
 
 import React from 'react';
-import BackIcon from '@/common/components/icons/BackIcon';
+import BackIcon from '../../icons/BackIcon';
+import styles from './BackButton.module.scss';
 
 interface BackButtonProps {
   onClick: () => void;
 }
 
 export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => (
-  <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink mt-4`} onClick={onClick}>
+  <button className={styles.backButton} onClick={onClick}>
     <BackIcon />
   </button>
 );

@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import Label from '../text/Label';
+import Label from '../../text/Label/Label';
+import styles from '../Header.module.scss';
 
 interface HeaderMenuItemProps {
     label: string;
@@ -10,9 +11,9 @@ interface HeaderMenuItemProps {
 
 export const HeaderMenuItem: React.FC<HeaderMenuItemProps> = ({ label, link }) => {
     return (
-        <li className="menu-item-container">
-            <div className="header-link-container">
-                <a id="header-radio-button" className="header-link" type="button" href={link}>
+        <li>
+            <div className={styles.headerLinkContainer}>
+                <a className={styles.headerLink} type="button" href={link}>
                     <Label text={label} semibold font="primary" color="white" />
                 </a>
             </div>

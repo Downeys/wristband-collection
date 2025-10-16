@@ -1,11 +1,11 @@
 'use client';
 
 import React, { ChangeEventHandler, FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
-import { FormInput } from '../common/components/formElements/FormInput';
-import { ConfirmationModal } from '../common/components/modals/ConfirmationModal';
-import { FailureModal } from '../common/components/modals/FailureModal';
-import { Heading } from '../common/components/text/Heading';
-import { Label } from '../common/components/text/Label';
+import { FormInput } from '../common/components/formElements/FormInput/FormInput';
+import { ConfirmationModal } from '../common/components/modals/ConfirmationModal/ConfirmationModal';
+import { FailureModal } from '../common/components/modals/FailureModal/FailureModal';
+import { Heading } from '../common/components/text/Heading/Heading';
+import { Label } from '../common/components/text/Label/Label';
 import Font from '../common/config/fonts';
 import { v4 as uuidv4 } from 'uuid';
 import { ContactState, ContactForm } from './types/contactFormTypes';
