@@ -1,6 +1,7 @@
-import { Label } from '@/common/components/text/Label';
-import { formatTime } from '../../utils/helpers/playlistHelpers';
+import { Label } from '../../text/Label/Label';
+import { formatTime } from '../../../utils/helpers/playlistHelpers';
 import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import styles from './TrackBar.module.scss';
 
 interface TrackBarProps {
   duration: number;
@@ -30,9 +31,9 @@ export const TrackBar: React.FC<TrackBarProps> = ({ duration, currentTime, progr
     setValue(currentTime);
   }, [currentTime]);
   return (
-    <div className="flex flex-col">
+    <div className={styles.trackBarContainer}>
       <input
-        className="w-full accent-wbBlue"
+        className={styles.trackBar}
         type="range"
         min={0}
         max={duration ?? 100}
@@ -45,7 +46,7 @@ export const TrackBar: React.FC<TrackBarProps> = ({ duration, currentTime, progr
         aria-valuetext={`${progress}%`}
         onChange={handleSeek}
       />
-      <div className="flex flex-row justify-end h-5">
+      <div className={styles.positionMessageContainer}>
         <Label text={showTrackPosition ? trackPosition : ''} />
       </div>
     </div>

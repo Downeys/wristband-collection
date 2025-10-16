@@ -1,9 +1,10 @@
 import React from 'react';
-import ShareIcon from '@/common/components/icons/ShareIcon';
+import ShareIcon from '../../icons/ShareIcon';
+import styles from './ShareButton.module.scss';
 
 export const ShareButton: React.FC = () => {
   return (
-    <div className={`flex flex-col items-center justify-center h-10 w-10`}>
+    <div className={styles.shareButton}>
       <ShareIcon />
     </div>
   );

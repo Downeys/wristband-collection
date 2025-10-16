@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label } from '../../../common/components/text/Label';
+import { Label } from '../../../common/components/text/Label/Label';
 import { Namespaces } from '../../../common/constants/i18nConstants';
 import { useTranslation } from 'react-i18next';
 import styles from './Attestation.module.scss';

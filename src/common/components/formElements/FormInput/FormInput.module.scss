@@ -1,0 +1,23 @@
+.formInputContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.formInput {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    outline: none;
+    padding: .25rem;
+    border: none;
+    border-radius: .5rem;
+}
+
+.formInput::placeholder {
+    color: black;
+}
+
+.formInput:focus {
+    outline: none;
+}

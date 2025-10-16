@@ -5,3 +5,38 @@
     padding: 2.25rem;
     margin-top: 3.5rem;
 }
+
+.aboutMeLabel {
+    margin-top: 1rem;
+}
+
+.missionStatement {
+    padding: .25rem;
+    text-align: center;
+}
+
+@media (min-width: 1024px) {
+    .aboutMeLabel {
+        font-size: 30px;
+        line-height: 2.25rem;	
+    }
+
+    .missionStatement {
+        font-size: 36px;
+        line-height: 2.5rem;	
+    }
+}
+
+@media (min-width: 768px) {
+    .aboutMeLabel {
+        font-size: 24px;
+        line-height: 2rem;	
+    }
+}
+
+@media (min-width: 640px) {
+    .missionStatement {
+        font-size: 24px;
+        line-height: 2rem;	
+    }
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { PlayButton } from '../../../common/components/buttons/PlayButton';
+import { PlayButton } from '../../../common/components/buttons/PlayButton/PlayButton';
 import Link from 'next/link';
 import { TrackData } from '../../../models/types';
-import { Label } from '../../../common/components/text/Label';
+import { Label } from '../../../common/components/text/Label/Label';
 import { PlayerStatus } from '../../../common/types/playerStatusEnum';
 import { constructPlayerStatusAction } from '../../../common/utils/helpers/searchParamHelpers';
 import { SearchParams } from '../../../common/constants/playerContextConstants';

@@ -1,5 +1,6 @@
 import React from 'react'
-import Font from '@/common/config/fonts';
+import Font from '../../../config/fonts';
+import styles from './FormDropdown.module.scss';
 
 interface FormDropdownProps {
     name: string;
@@ -9,8 +10,8 @@ interface FormDropdownProps {
 
 export const FormDropdown: React.FC<FormDropdownProps> = ({ name, options, onChange }) => {
     return (
-        <div className='flex flex-row mb-4'>
-            <select className={`${Font.secondary.className} h-9 text-lg font-semibold w-full border-none rounded-lg`} id={name} name={`${name}_selection`} onChange={onChange}>
+        <div className={styles.formDropdownContainer}>
+            <select className={`${Font.secondary.className} ${styles.formDropdown}`} id={name} name={`${name}_selection`} onChange={onChange}>
                 {options.map(opt => <option value={opt}>{opt}</option>)}
             </select>
         </div>

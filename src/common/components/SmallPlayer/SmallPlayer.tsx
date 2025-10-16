@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useCallback, useContext, useMemo } from 'react';
-import { Label } from '@/common/components/text/Label';
-import { BackButton } from '@/common/components/buttons/BackButton';
-import { NextButton } from '@/common/components/buttons/NextButton';
-import { PlayButton } from '@/common/components/buttons/PlayButton';
-import { PlayListContext } from '@/common/context/player/PlayerContextProvider';
-import RandomizeButton from '../buttons/RandomizeButton';
-import LoopButton from '../buttons/LoopButton';
-import TrackBar from './TrackBar';
+import { Label } from '../text/Label/Label';
+import { BackButton } from '../buttons/BackButton/BackButton';
+import { NextButton } from '../buttons/NextButton/NextButton';
+import { PlayButton } from '../buttons/PlayButton/PlayButton';
+import { PlayListContext } from '../../context/player/PlayerContextProvider';
+import { RandomizeButton } from '../buttons/RandomizeButton/RandomizeButton';
+import { LoopButton } from '../buttons/LoopButton/LoopButton';
+import { TrackBar } from './TrackBar/TrackBar';
+import styles from './SmallPlayer.module.scss';
 
 export interface SmallPlayerProps {
   play?: boolean;
@@ -24,41 +25,39 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
   const handleSeek = useCallback((time: number) => seek(time), [seek]);
   const handleShuffle = useCallback((random: boolean) => shuffle(random), [shuffle]);
   return (
-    <div className="h-56 w-screen flex flex-col px-6 bg-slate-950 shadow-footer justify-center">
-      <div className="flex flex-row justify-between items-center mb-3">
-        <div className="flex flex-row">
-          <Label text={trackMessage} size="lg" bold />
-        </div>
+    <div className={styles.smallPlayerContainer}>
+      <div className={styles.trackMEssageContainer}>
+        <Label text={trackMessage} size="lg" bold />
       </div>
       <TrackBar duration={duration} progress={progress} currentTime={currentTime} onSeek={handleSeek} />
-      <div className="flex flex-row justify-center items-center pb-2">
-        <div className="flex flex-col justify-center items-center">
+      <div className={styles.buttonContainer}>
+        <div className={styles.buttonPanel}>
           {showBack && (
-            <div className="w-20 flex flex-row justify-start">
+            <div className={styles.topButtonContainer}>
               <BackButton onClick={back} />
             </div>
           )}
           {showLoop ? (
-            <div className="w-20 flex flex-row justify-end">
+            <div className={styles.bottomButtonContainer}>
               <LoopButton onClick={(shouldLoop: boolean) => {}} />
             </div>
           ) : (
-            <div className="h-10 w-20" />
+            <div className={styles.emptySpace} />
           )}
         </div>
         {showPlay && <PlayButton status={playerStatus} trackId={trackInPlayer?.id} />}
-        <div className="flex flex-col justify-center items-center">
+        <div className={styles.buttonPanel}>
           {showNext && (
-            <div className="w-20 flex flex-row justify-end">
+            <div className={styles.topButtonContainer}>
               <NextButton onClick={next} />
             </div>
           )}
           {showRandomize ? (
-            <div className="w-20 flex flex-row justify-start">
+            <div className={styles.bottomButtonContainer}>
               <RandomizeButton onClick={handleShuffle} />
             </div>
           ) : (
-            <div className="h-10 w-20" />
+            <div className={styles.emptySpace} />
           )}
         </div>
       </div>

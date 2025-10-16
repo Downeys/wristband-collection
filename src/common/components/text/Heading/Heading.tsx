@@ -1,5 +1,6 @@
 import React from 'react';
-import Font from '@/common/config/fonts';
+import Font from '../../../../common/config/fonts';
+import styles from './Heading.module.scss';
 
 export interface HeadingProps {
   text: string;
@@ -11,14 +12,14 @@ export const Heading: React.FC<HeadingProps> = (props) => {
   const size = props.size ?? 'lg';
   const additionalStyles = props.additionalStyles ? ` ${props.additionalStyles}` : '';
   const fontSizes = {
-    lg: 'text-lg ',
-    xl: 'text-xl ',
-    '2xl': 'text-2xl ',
-    '3xl': 'text-3xl ',
-    '4xl': 'text-4xl ',
-    '5xl': 'text-5xl ',
+    lg: styles.largeText,
+    xl: styles.xlText,
+    '2xl': styles.xxlText,
+    '3xl': styles.xxxlText,
+    '4xl': styles.xxxxlText,
+    '5xl': styles.xxxxxlText,
   };
-  return <p className={`${Font.primary.className} dark:text-white font-bold leading-5 ${fontSizes[size]} ${additionalStyles}`}>{props.text}</p>;
+  return <p className={`${Font.primary.className} ${styles.heading} ${fontSizes[size]} ${additionalStyles}`}>{props.text}</p>;
 };
 
 export default Heading;

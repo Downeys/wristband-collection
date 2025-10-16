@@ -1,4 +1,4 @@
-import { Label } from '../../../../common/components/text/Label';
+import { Label } from '../../../../common/components/text/Label/Label';
 import { getFormattedFileSize } from '../../../utils/formatting/fileFormatting';
 import React from 'react';
 import TrashIcon from '../../icons/TrashIcon';

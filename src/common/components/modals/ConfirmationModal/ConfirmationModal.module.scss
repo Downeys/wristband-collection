@@ -1,0 +1,47 @@
+.screenOverlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 5rem;
+    background-color: rgb(2, 6, 23, 0.9);
+}
+
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15rem;
+    width: 18rem;
+    padding: 1.5rem;
+    border: solid 1px #3ae500;
+    border-radius: .5rem;
+    background-color: rgb(2 6 23);
+    box-shadow: 0px 0px 6px 3px rgba(58, 229, 0, 0.25);
+}
+
+.messageContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: .5rem;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: .5rem;
+    margin-top: .5rem;
+}
+
+.okButton {
+    height: 3rem;
+    width: 4rem;
+    border: solid 1px;
+    border-radius: .5rem;
+}

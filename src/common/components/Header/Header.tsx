@@ -1,11 +1,12 @@
 import React from 'react';
-import Heading from '@/common/components/text/Heading';
+import Heading from '../text/Heading/Heading';
 import Image from 'next/image';
-import { APP_TITLE } from '@/common/constants/metadataConstants';
-import HeaderMenu from './HeaderMenu';
-import { MenuItem } from '@/common/types/types';
-import { getAboutLink, getContactLink, getHomeLink, getOnDemandLink, getSubmitLink } from '@/common/utils/helpers/linkHelpers';
-import initTranslations from '@/common/utils/i18n/i18n';
+import { APP_TITLE } from '../../constants/metadataConstants';
+import HeaderMenu from './HeaderMenu/HeaderMenu';
+import { MenuItem } from '../../types/types';
+import { getAboutLink, getContactLink, getHomeLink, getOnDemandLink, getSubmitLink } from '../../utils/helpers/linkHelpers';
+import initTranslations from '../../utils/i18n/i18n';
+import styles from './Header.module.scss';
 
 interface HeaderProps {
   locale: string;
@@ -22,14 +23,14 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
         { label: t('loginLink'), link: '/auth/login', protected: false }
     ]
   return (
-    <div className="h-20 w-screen flex flex-row justify-between items-center bg-slate-950 text-white shadow-header fixed top-0 z-10">
-      <div className="flex flex-row items-center">
+    <div className={styles.headerContainer}>
+      <div className={styles.logoContainer}>
         <Image height={75} width={75} src="/logo.png" alt="logo" />
-        <Heading text={APP_TITLE} size="2xl" additionalStyles="md:text-4xl sm:text-3xl" />
+        <Heading text={APP_TITLE} size="2xl" additionalStyles={styles.companyName} />
       </div>
-      <input id="menu-toggle" type="checkbox" />
-      <label className="menu-button-container" htmlFor="menu-toggle">
-        <div className="menu-button" />
+      <input id="menuToggle" className={styles.menuToggle} type="checkbox" />
+      <label className={styles.menuButtonContainer} htmlFor="menuToggle">
+        <div className={styles.menuButton} />
       </label>
 
       <HeaderMenu menuItems={menuItems} />

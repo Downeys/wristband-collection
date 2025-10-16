@@ -1,15 +1,15 @@
 'use client';
 
-import ConfirmationModal from '../common/components/modals/ConfirmationModal';
-import FailureModal from '../common/components/modals/FailureModal';
-import Heading from '../common/components/text/Heading';
+import ConfirmationModal from '../common/components/modals/ConfirmationModal/ConfirmationModal';
+import FailureModal from '../common/components/modals/FailureModal/FailureModal';
+import Heading from '../common/components/text/Heading/Heading';
 import React, { useCallback, useState } from 'react';
 import { SubmitState, SubmitForm } from './types/submitMusicFormTypes';
 import { createMusicSubmissionFormData } from './utils/helpers/formHelpers';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '../common/constants/i18nConstants';
 import { SUBMIT_URI } from './constants/apiConstants';
-import LoadingModal from '../common/components/modals/LoadingModal';
+import LoadingModal from '../common/components/modals/LoadingModal/LoadingModal';
 import fetchService from '../common/config/FetchService';
 import UserContextProvider from '../common/context/user/UserContextProvider';
 import UserProfile from './components/UserProfile/UserProfile';
@@ -18,7 +18,7 @@ import styles from './SubmitPage.module.scss';
 
 const initState = {
   formInProgress: null,
-  inProgress: false,
+  inProgress: true,
   showConfirmationModal: false,
   showFailureModal: false,
   showForm: false

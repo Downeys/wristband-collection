@@ -1,14 +1,15 @@
 'use client';
 
 import React from 'react';
-import NextIcon from '@/common/components/icons/NextIcon';
+import NextIcon from '../../icons/NextIcon';
+import styles from './NextButton.module.scss';
 
 interface NextButtonProps {
   onClick: () => void;
 }
 
 export const NextButton: React.FC<NextButtonProps> = ({ onClick }) => (
-  <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full shadow-pink mt-4`} onClick={onClick}>
+  <button className={styles.nextButton} onClick={onClick}>
     <NextIcon />
   </button>
 );

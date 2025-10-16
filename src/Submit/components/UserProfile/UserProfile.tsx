@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import FormInput from '../../../common/components/formElements/FormInput';
-import Heading from '../../../common/components/text/Heading';
-import Label from '../../../common/components/text/Label';
+import FormInput from '../../../common/components/formElements/FormInput/FormInput';
+import Heading from '../../../common/components/text/Heading/Heading';
+import Label from '../../../common/components/text/Label/Label';
 import { UNRECOGNIZED_FIELD_MESSAGE } from '../../../common/constants/constants';
 import { UserContext } from '../../../common/context/user/UserContextProvider';
 import UsersApi from '../../../apis/UsersApi';

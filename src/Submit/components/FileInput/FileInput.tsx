@@ -1,12 +1,12 @@
 'use-client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { Label } from '../../../common/components/text/Label';
+import { Label } from '../../../common/components/text/Label/Label';
 import { getFileType } from '../../utils/helpers/formHelpers';
 import { FileRejection, useDropzone } from 'react-dropzone';
 import { FileGroup } from './FileGroup/FileGroup';
 import { MusicIcon } from '../icons/MusicIcon';
-import { ConfirmationModal } from '../../../common/components/modals/ConfirmationModal';
+import { ConfirmationModal } from '../../../common/components/modals/ConfirmationModal/ConfirmationModal';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '../../../common/constants/i18nConstants';
 import { FileType } from '../../constants/submitFormConstants';

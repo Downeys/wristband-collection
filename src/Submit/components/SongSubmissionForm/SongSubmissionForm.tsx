@@ -1,17 +1,17 @@
 'use client'
 
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react'
-import { FormInput } from '../../../common/components/formElements/FormInput';
+import { FormInput } from '../../../common/components/formElements/FormInput/FormInput';
 import { FileInput } from '../FileInput/FileInput';
 import { Attestation } from '../Attestation/Attestation';
-import { Label } from '../../../common/components/text/Label';
+import { Label } from '../../../common/components/text/Label/Label';
 import { useTranslation } from 'react-i18next';
 import { Namespaces } from '../../../common/constants/i18nConstants';
 import { FieldNames } from '../../constants/submitFormConstants';
 import { SubmitForm } from '../../types/submitMusicFormTypes';
 import { v4 as uuidv4 } from 'uuid';
 import SubmitMusicValidator from '../../utils/validations/validators/musicFormValidator';
-import FormDropdown from '../../../common/components/formElements/FormDropdown';
+import FormDropdown from '../../../common/components/formElements/FormDropdown/FormDropdown';
 import styles from './SongSubmissionForm.module.scss';
 
 interface SongSubmissionModalProps {
