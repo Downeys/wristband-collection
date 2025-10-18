@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { IconProps } from '@/common/types/types';
+import { IconProps } from '../../../common/types/types';
+import styles from './Icons.module.scss';
 
 export const PlayIcon: React.FC<IconProps> = (props) => (
   <span onClick={() => props.onClick && props.onClick()}>
-    <svg className={props.styling || 'h-11 w-10'} viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={props.styling || styles.largeIcon} viewBox="0 0 48 52" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_106_4)">
         <path d="M4 0V44L44 22L4 0Z" fill={props.selected ? '#FF00FF' : '#FFFFFF'} />
       </g>

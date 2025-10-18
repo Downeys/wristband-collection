@@ -1,6 +1,7 @@
 .mainContainer {
-    position: relative;
-    top: 80px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,9 +9,11 @@
     min-height: 100vh;
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-top: 1rem;
+    padding-top: 5rem;
     z-index: 0;
     background-color: #020617;
+    height: 100%;
+    overflow: auto;
 }
 
 .innerPanelContainer {

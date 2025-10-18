@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { IconProps } from '@/common/types/types';
+import { IconProps } from '../../../common/types/types';
+import styles from './Icons.module.scss';
 
 export const BackIcon: React.FC<IconProps> = (props) => (
   <span onClick={() => props.onClick && props.onClick()}>
-    <svg className={props.styling || 'h-5 w-6'} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={props.styling || styles.smallIcon} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_106_15)">
         <path d="M21.875 0V18.75L6.25 9.375L21.875 0ZM6.25 9.375V18.75H0V0H6.25V9.375Z" fill="#06E7EC" />
       </g>

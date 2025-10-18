@@ -3,7 +3,7 @@
     justify-content: center;
     flex-direction: column;
     height: 14rem;
-    width: 100vw;
+    width: 97vw;
     background-color: #020617;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -33,17 +33,31 @@
     align-items: center;
 }
 
-.topButtonContainer {
+.topLeftButtonContainer {
     display: flex;
     flex-direction: row;
     justify-content: start;
     width: 5rem;
 }
 
-.bottomButtonContainer {
+.bottomLeftButtonContainer {
     display: flex;
     flex-direction: row;
     justify-content: end;
+    width: 5rem;
+}
+
+.topRightButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 5rem;
+}
+
+.bottomRightButtonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
     width: 5rem;
 }
 

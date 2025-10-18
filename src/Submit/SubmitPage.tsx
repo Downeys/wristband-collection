@@ -18,7 +18,7 @@ import styles from './SubmitPage.module.scss';
 
 const initState = {
   formInProgress: null,
-  inProgress: true,
+  inProgress: false,
   showConfirmationModal: false,
   showFailureModal: false,
   showForm: false
@@ -30,7 +30,7 @@ export default function SubmitPage() {
   const resetState = () => setState(initState);
 
   const handleSubmit = useCallback(async (form: SubmitForm) => {
-    setState({ ...state, inProgress: true });
+    setState({ ...state, inProgress: false });
     const formData = createMusicSubmissionFormData(form);
     try {
       await fetchService.POST(SUBMIT_URI, formData);

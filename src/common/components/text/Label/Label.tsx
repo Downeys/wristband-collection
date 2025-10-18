@@ -38,10 +38,10 @@ export const Label: React.FC<LabelProps> = (props) => {
     else if (props.semibold) classes.push(styles.semiboldText);
     if (props.alignment) classes.push(textAlignmentConfig[props.alignment]);
     if (props.inline) classes.push(styles.inlineText);
-    if (props.additionalStyles) classes.push(props.additionalStyles);
     classes.push(props.size ? textSizeConfig[props.size] : styles.mediumText);
     classes.push(props.font === 'primary' ? Font.primary.className : Font.secondary.className);
     classes.push(props.color ? textColorConfig[props.color] : styles.whiteText);
+    if (props.additionalStyles) classes.push(props.additionalStyles);
     return classes.join(' ').trimEnd();
   }
   const styling = getStyles(props);

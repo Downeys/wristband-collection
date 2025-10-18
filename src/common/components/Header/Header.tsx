@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
         { label: t('loginLink'), link: '/auth/login', protected: false }
     ]
   return (
-    <div className={styles.headerContainer}>
+    <header className={styles.headerContainer}>
       <div className={styles.logoContainer}>
         <Image height={75} width={75} src="/logo.png" alt="logo" />
         <Heading text={APP_TITLE} size="2xl" additionalStyles={styles.companyName} />
@@ -34,6 +34,6 @@ export const Header: React.FC<HeaderProps> = async ({ locale }: HeaderProps) => 
       </label>
 
       <HeaderMenu menuItems={menuItems} />
-    </div>
+    </header>
   );
 };

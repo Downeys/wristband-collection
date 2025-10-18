@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { IconProps } from '@/common/types/types';
+import { IconProps } from '../../../common/types/types';
+import styles from './Icons.module.scss';
 
 export const ShareIcon: React.FC<IconProps> = (props) => (
   <span onClick={() => props.onClick && props.onClick()}>
-    <svg className={props.styling || 'h-7 w-8'} viewBox="0 0 33 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={props.styling || styles.mediumIcon} viewBox="0 0 33 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_107_18)">
         <path
           d="M19.625 6.75H20.125V6.25V1.16184L28.2926 8.89388L20.125 17.4971V12.5V12H19.625H16.5C13.2899 12 10.462 12.8193 8.21988 14.464C6.74187 15.5483 5.53422 16.9797 4.64255 18.7417C4.95492 15.5728 5.81102 12.9209 7.50577 10.9295C9.71801 8.33015 13.4539 6.75 19.625 6.75Z"
