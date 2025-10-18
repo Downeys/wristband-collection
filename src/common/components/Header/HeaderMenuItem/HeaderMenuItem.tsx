@@ -14,7 +14,7 @@ export const HeaderMenuItem: React.FC<HeaderMenuItemProps> = ({ label, link }) =
         <li>
             <div className={styles.headerLinkContainer}>
                 <a className={styles.headerLink} type="button" href={link}>
-                    <Label text={label} semibold font="primary" color="white" />
+                    <Label text={label} semibold font="primary" color="white" size='2xl' />
                 </a>
             </div>
         </li>

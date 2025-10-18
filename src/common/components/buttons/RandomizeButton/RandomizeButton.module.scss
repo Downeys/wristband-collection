@@ -1,4 +1,4 @@
-.loopButton {
+.randomizeButton {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,6 +7,7 @@
     width: 2.5rem;
     border: none;
     border-radius: 9999px;
+    background-color: #020617;
 }
 
 .greenShadow {

@@ -1,6 +1,7 @@
 .headerContainer {
     position: fixed;
     top: 0px;
+    left: 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -27,7 +28,7 @@
     margin-left: 12px;
     margin-right: 12px;
     display: flex;
-    background: rgba(255, 255, 255, 0);
+    background: #020617;
     color: #FFF;
     margin-top: 4px;
     margin-bottom: 4px;
@@ -37,12 +38,12 @@
 }
 
 .headerLink {
-    background: rgba(255, 255, 255, 0);
+    background: #020617;
     color: #FFF;
-    font-size: 24px;
+    font-size:  24px !important;
     font-family: "Lacquer";
     text-decoration: none;
-    z-index: 2;
+    z-index: 20;
 }
 
 .languageSelectorContainer {
@@ -157,7 +158,18 @@
         width: 100%;
         background-color: rgb(2 6 23);
     }
-    .menu > li:not(:last-child) {
-        border-bottom: 1px solid #fff;
+}
+
+@media (min-width: 640px) {
+    .companyName {
+        font-size: 30px !important;
+        line-height: 2.25rem !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .companyName {
+        font-size: 36px !important;
+        line-height: 2.5rem !important;
     }
 }

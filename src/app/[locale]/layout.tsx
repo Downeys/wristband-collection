@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import './globals.css';
+import './reset.css';
 import { Header } from '@/common/components/Header/Header';
 import i18nConfig from '../../../i18nConfig';
 import TranslationsProvider from '@/common/context/i18n/TranslationsProvider';

@@ -1,10 +1,14 @@
 .mainContainer {
     display: flex;
-    position: relative;
-    top: 5rem;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding-top: 5rem;
     z-index: 0;
     min-width: 100vw;
     min-height: 100vh;
+    height: 100%;
+    overflow: auto;
     background-color: #020617;
 }
 

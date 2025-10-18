@@ -15,9 +15,9 @@ export const RandomizeButton: React.FC<RandomizeButtonProps> = ({ onClick }) => 
     setSelected(newSelected);
     onClick(newSelected);
   }, [selected, onClick]);
-  const shadowStyle = useMemo(() => (selected ? 'greenShadow' : 'pinkShadow'), [selected]);
+  const shadowStyle = useMemo(() => (selected ? styles.greenShadow : styles.pinkShadow), [selected]);
   return (
-    <button className={`flex flex-col items-center justify-center h-10 w-10 rounded-full ${shadowStyle}`} onClick={handleClick}>
+    <button className={`${styles.randomizeButton} ${shadowStyle}`} onClick={handleClick}>
       <RandomizeIcon />
     </button>
   );

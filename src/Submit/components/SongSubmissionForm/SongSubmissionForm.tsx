@@ -120,6 +120,7 @@ export const SongSubmissionForm: React.FC<SongSubmissionModalProps> = ({ onSubmi
                     <Label text={t('submitButton')} bold size="2xl" />
                 </button>
             </div>
+            <div className={styles.emptySpace} />
         </form>
     )
 }

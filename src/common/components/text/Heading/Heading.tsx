@@ -19,7 +19,7 @@ export const Heading: React.FC<HeadingProps> = (props) => {
     '4xl': styles.xxxxlText,
     '5xl': styles.xxxxxlText,
   };
-  return <p className={`${Font.primary.className} ${styles.heading} ${fontSizes[size]} ${additionalStyles}`}>{props.text}</p>;
+  return <p className={`${additionalStyles} ${Font.primary.className} ${styles.heading} ${fontSizes[size]}`}>{props.text}</p>;
 };
 
 export default Heading;

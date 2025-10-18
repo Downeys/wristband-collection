@@ -33,12 +33,12 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
       <div className={styles.buttonContainer}>
         <div className={styles.buttonPanel}>
           {showBack && (
-            <div className={styles.topButtonContainer}>
+            <div className={styles.topLeftButtonContainer}>
               <BackButton onClick={back} />
             </div>
           )}
           {showLoop ? (
-            <div className={styles.bottomButtonContainer}>
+            <div className={styles.bottomLeftButtonContainer}>
               <LoopButton onClick={(shouldLoop: boolean) => {}} />
             </div>
           ) : (
@@ -48,12 +48,12 @@ export const SmallPlayer: React.FC<SmallPlayerProps> = ({ play: showPlay, next: 
         {showPlay && <PlayButton status={playerStatus} trackId={trackInPlayer?.id} />}
         <div className={styles.buttonPanel}>
           {showNext && (
-            <div className={styles.topButtonContainer}>
+            <div className={styles.topRightButtonContainer}>
               <NextButton onClick={next} />
             </div>
           )}
           {showRandomize ? (
-            <div className={styles.bottomButtonContainer}>
+            <div className={styles.bottomRightButtonContainer}>
               <RandomizeButton onClick={handleShuffle} />
             </div>
           ) : (
