@@ -14,23 +14,24 @@ import styles from './UserProfile.module.scss';
 interface UserProfileState {
     disabled: boolean;
     saving: boolean;
-    initialFirstName: string;
-    initialLastName: string;
-    firstName: string;
-    lastName: string;
+    firstName: string | null | undefined;
+    lastName: string | null | undefined;
     editButtonText: string;
 }
 
 export const UserProfile: React.FC = () => {
     const { t } = useTranslation(Namespaces.SUBMIT);
     const user = useContext(UserContext);
+    const [initialFirstName, initialLastName] = useMemo(() => ([user?.firstName ?? '', user?.lastName ?? '']), [user])
+    useEffect(() => {
+
+      console.log(initialFirstName + ' ' + initialLastName)
+    }, [initialFirstName, initialLastName])
     const [state, setState] = useState<UserProfileState>({
         disabled: true,
         saving: false,
-        initialFirstName: user.firstName ?? '',
-        initialLastName: user.lastName ?? '',
-        firstName: user.firstName ?? '',
-        lastName: user.lastName ?? '',
+        firstName: user.firstName,
+        lastName: user.lastName,
         editButtonText: 'Edit'
     })
     const handleInputChange = useCallback(
@@ -49,26 +50,26 @@ export const UserProfile: React.FC = () => {
         [state]
       );
 
-    const isSaveHidden = useMemo(() => `${state.initialFirstName}${state.initialLastName}` === `${state.firstName}${state.lastName}`, [state])
+    const isSaveHidden = useMemo(() => `${initialFirstName}${initialLastName}` === `${state.firstName}${state.lastName}`, [state])
     
     const toggleDisabledState = useCallback(() => {
       if (state.disabled) setState({ ...state, disabled: false, editButtonText: t('cancelButton') });
-      if (!state.disabled) setState({ ...state, firstName: state.initialFirstName, lastName: state.initialLastName, disabled: true, editButtonText: t('editButton') })
+      if (!state.disabled) setState({ ...state, firstName: initialFirstName, lastName: initialLastName, disabled: true, editButtonText: t('editButton') })
     }, [state])
 
     useEffect(() => {
       if (user.userId && (!state.firstName || !state.lastName)) {
-        var firstName = !state.firstName && user.firstName ? user.firstName : state.firstName;
-        var lastName = !state.lastName && user.lastName ? user.lastName : state.lastName;
-        setState({ ...state, initialFirstName: firstName, initialLastName: lastName, firstName, lastName })
+        const firstName = !state.firstName && user.firstName ? user.firstName : state.firstName;
+        const lastName = !state.lastName && user.lastName ? user.lastName : state.lastName;
+        setState({ ...state, firstName, lastName })
       }
     }, [user])
 
     const saveChanges = useCallback(async () => {
-      if (user.userId) {
+      if (user.userId && state.firstName && state.lastName) {
         setState({ ...state, saving: true });
         await UsersApi.updateUserName(user.userId, state.firstName, state.lastName);
-        setState({ ...state, initialFirstName: state.firstName, initialLastName: state.lastName, saving: false, disabled: true, editButtonText: 'Edit' });
+        setState({ ...state, saving: false, disabled: true, editButtonText: 'Edit' });
       }
     }, [state, user])
 
@@ -76,8 +77,8 @@ export const UserProfile: React.FC = () => {
         <div className={styles.userProfileCenter}>
             <Heading size='xl' text={t('submissionProfileHeading')} additionalStyles='mb-2'/>
             <form>
-                <FormInput name='firstName' label={t('firstName')} value={state.firstName} onChange={handleInputChange} disabled={state.disabled}/>
-                <FormInput name='lastName' label={t('lastName')} value={state.lastName} onChange={handleInputChange} disabled={state.disabled}/>
+                <FormInput name='firstName' label={t('firstName')} value={state.firstName ?? initialFirstName} onChange={handleInputChange} disabled={state.disabled}/>
+                <FormInput name='lastName' label={t('lastName')} value={state.lastName ?? initialLastName} onChange={handleInputChange} disabled={state.disabled}/>
             </form>
             <div className={styles.buttonContainer}>
               <button onClick={toggleDisabledState} className={styles.editButton}><Label bold text={state.editButtonText} /> </button>

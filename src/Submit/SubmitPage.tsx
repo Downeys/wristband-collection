@@ -15,6 +15,8 @@ import UserContextProvider from '../common/context/user/UserContextProvider';
 import UserProfile from './components/UserProfile/UserProfile';
 import SongSubmissionForm from './components/SongSubmissionForm/SongSubmissionForm';
 import styles from './SubmitPage.module.scss';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/lib/tanStack';
 
 const initState = {
   formInProgress: null,
@@ -52,9 +54,11 @@ export default function SubmitPage() {
       <FailureModal message={t('failureMessage')} showModal={state.showFailureModal} onCancel={resetState} onRetry={handleRetry} />
       <div className={styles.innerPanelContainer}>
         <Heading size="3xl" text={t('submitHeading')} additionalStyles={styles.pageHeading} />
-        <UserContextProvider>
-          <UserProfile />
-        </UserContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <UserContextProvider>
+            <UserProfile />
+          </UserContextProvider>
+        </QueryClientProvider>
         <SongSubmissionForm onSubmit={handleSubmit} />
       </div>
     </main>

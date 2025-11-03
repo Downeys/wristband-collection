@@ -30,12 +30,12 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <Auth0Provider>
-          <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
-            <Header locale={locale} />
-            {children}
-          </TranslationsProvider>
-        </Auth0Provider>
+           <Auth0Provider>
+              <TranslationsProvider namespaces={Object.values(Namespaces)} locale={locale} resources={resources}>
+                <Header locale={locale} />
+                {children}
+              </TranslationsProvider>
+          </Auth0Provider>
       </body>
     </html>
   );
